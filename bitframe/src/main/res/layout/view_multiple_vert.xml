@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="shadeFour"
+            type="proj.me.bitframe.shading_four.BindingShadeFour" />
+
+        <variable
+            name="clickHandler"
+            type="proj.me.bitframe.ImageClickHandler" />
+    </data>
+
+    <!-- has varying height according to the image-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{shadeFour.dividerColor}">
+
+        <RelativeLayout
+            android:id="@+id/left_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/p_1_5"
+            android:background="@{shadeFour.firstImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_multiple_image1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img1"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeFour.firstImageScaleType, default = center}" />
+
+            <TextView
+                android:id="@+id/view_multiple_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_multiple_image1"
+                android:layout_alignLeft="@id/view_multiple_image1"
+			android:layout_alignStart="@id/view_multiple_image1"
+                android:layout_alignRight="@id/view_multiple_image1"
+			android:layout_alignEnd="@id/view_multiple_image1"
+                android:background="@{shadeFour.firstCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeFour.firstComment}"
+                android:visibility="@{shadeFour.firstCommentVisibility ? View.VISIBLE : View.GONE}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/background_light" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/right_top_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/left_rl_view"
+			android:layout_alignStart="@id/left_rl_view"
+            android:layout_below="@id/left_rl_view"
+            android:layout_marginRight="@dimen/p_1_5"
+			android:layout_marginEnd="@dimen/p_1_5"
+            android:layout_marginTop="@dimen/p_1_5"
+            android:background="@{shadeFour.secondImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_multiple_image2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img2"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeFour.secondImageScaleType, default = center}"/>
+
+            <TextView
+                android:id="@+id/view_multiple_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_multiple_image2"
+                android:layout_alignLeft="@id/view_multiple_image2"
+			android:layout_alignStart="@id/view_multiple_image2"
+                android:layout_alignRight="@id/view_multiple_image2"
+			android:layout_alignEnd="@id/view_multiple_image2"
+                android:background="@{shadeFour.secondCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeFour.secondComment}"
+                android:visibility="@{shadeFour.secondCommentVisibility ? View.VISIBLE : View.GONE}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/background_light" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/right_middle_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/left_rl_view"
+            android:layout_marginLeft="@dimen/p_1_5"
+			android:layout_marginStart="@dimen/p_1_5"
+            android:layout_marginRight="@dimen/p_1_5"
+			android:layout_marginEnd="@dimen/p_1_5"
+            android:layout_marginTop="@dimen/p_1_5"
+            android:layout_toRightOf="@id/right_top_rl_view"
+			android:layout_toEndOf="@id/right_top_rl_view"
+            android:background="@{shadeFour.thirdCommentBgColor}">
+
+            <ImageView
+                android:id="@+id/view_multiple_image3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img3"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeFour.thirdImageScaleType, default = center}" />
+
+            <TextView
+                android:id="@+id/view_multiple_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_multiple_image3"
+                android:layout_alignLeft="@id/view_multiple_image3"
+			android:layout_alignStart="@id/view_multiple_image3"
+                android:layout_alignRight="@id/view_multiple_image3"
+			android:layout_alignEnd="@id/view_multiple_image3"
+                android:background="@{shadeFour.thirdCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeFour.thirdComment}"
+                android:visibility="@{shadeFour.thirdCommentVisibility ? View.VISIBLE : View.GONE}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/background_light" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/right_bottom_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/left_rl_view"
+			android:layout_alignEnd="@id/left_rl_view"
+            android:layout_below="@id/left_rl_view"
+            android:layout_marginLeft="@dimen/p_1_5"
+			android:layout_marginStart="@dimen/p_1_5"
+            android:layout_marginTop="@dimen/p_1_5"
+            android:layout_toRightOf="@id/right_middle_rl_view"
+			android:layout_toEndOf="@id/right_middle_rl_view"
+            android:background="@{shadeFour.fourthImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_multiple_image4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img4"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeFour.fourthImageScaleType, default = center}"/>
+
+            <TextView
+                android:id="@+id/view_multiple_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_multiple_image4"
+                android:layout_alignLeft="@id/view_multiple_image4"
+			android:layout_alignStart="@id/view_multiple_image4"
+                android:layout_alignRight="@id/view_multiple_image4"
+			android:layout_alignEnd="@id/view_multiple_image4"
+                android:background="@{shadeFour.fourthCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeFour.fourthComment}"
+                android:visibility="@{shadeFour.fourthCommentVisibility ? View.VISIBLE : View.GONE}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/background_light" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/right_bottom_rl_view"
+            android:layout_alignLeft="@id/right_bottom_rl_view"
+			android:layout_alignStart="@id/right_bottom_rl_view"
+            android:layout_alignRight="@id/right_bottom_rl_view"
+			android:layout_alignEnd="@id/right_bottom_rl_view"
+            android:layout_alignTop="@id/right_bottom_rl_view"
+            android:background="@color/counter_bg"
+            android:visibility="@{shadeFour.counterVisibility ? View.VISIBLE : View.GONE}"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/image_four_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s_30"
+            android:text="@{shadeFour.counterText}"/>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

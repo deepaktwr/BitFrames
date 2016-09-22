@@ -1,0 +1,35 @@
+<resources>
+    <!-- base from XHDPI for HDPI 240 dpi with decreasing ratio of 1.33-->
+    <dimen name="d_0">0dp</dimen>
+    <dimen name="d_192">144dp</dimen>
+    <dimen name="d_32">24dp</dimen>
+    <dimen name="d_48">36dp</dimen>
+    <dimen name="d_64">48dp</dimen>
+    <dimen name="d_7">5.25dp</dimen>
+    <dimen name="d_10">7.5dp</dimen>
+    <dimen name="d_5">3.75dp</dimen>
+    <dimen name="d_3">2.25dp</dimen>
+    <dimen name="d_6">4.5dp</dimen>
+    <dimen name="d_30">22.55dp</dimen>
+    <dimen name="d_35">26.32dp</dimen>
+    <dimen name="d_14">10.5dp</dimen>
+    <dimen name="d_20">15dp</dimen>
+    <dimen name="d_50">37.5dp</dimen>
+    <dimen name="d_40">30dp</dimen>
+    <dimen name="d_180">135dp</dimen>
+    <dimen name="d_55">41.25dp</dimen>
+
+
+    <dimen name="p_1_5">1.13dp</dimen>
+
+
+
+    <dimen name="n_50">-37.5dp</dimen>
+
+
+    <dimen name="s_27">20.25sp</dimen>
+    <dimen name="s_30">22.5sp</dimen>
+    <dimen name="s_25">18.75sp</dimen>
+    <dimen name="s_20">15sp</dimen>
+    <dimen name="s_48">36sp</dimen>
+</resources>

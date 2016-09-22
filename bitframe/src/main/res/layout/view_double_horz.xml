@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="clickHandler"
+            type="proj.me.bitframe.ImageClickHandler"/>
+        <variable
+            name="shadeTwo"
+            type="proj.me.bitframe.shading_two.BindingShadeTwo"/>
+    </data>
+    <!-- has varying height according to the image-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@{shadeTwo.dividerColor}">
+
+        <RelativeLayout
+            android:id="@+id/left_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/p_1_5"
+			android:layout_marginEnd="@dimen/p_1_5"
+            android:background="@{shadeTwo.firstImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_double_image1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img1"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeTwo.firstImageScaleType, default = center}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_double_image1"
+                android:layout_alignLeft="@id/view_double_image1"
+			android:layout_alignStart="@id/view_double_image1"
+                android:layout_alignRight="@id/view_double_image1"
+			android:layout_alignEnd="@id/view_double_image1"
+                android:background="@{shadeTwo.firstCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeTwo.firstComment}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/white"
+                android:visibility="@{shadeTwo.firstCommentVisibility ? View.VISIBLE : View.GONE}"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/right_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/left_rl_view"
+            android:layout_marginLeft="@dimen/p_1_5"
+			android:layout_marginStart="@dimen/p_1_5"
+            android:layout_toRightOf="@id/left_rl_view"
+			android:layout_toEndOf="@id/left_rl_view"
+            android:background="@{shadeTwo.secondImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_double_image2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:tag="img2"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeTwo.secondImageScaleType, default = center}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_double_image2"
+                android:layout_alignLeft="@id/view_double_image2"
+			android:layout_alignStart="@id/view_double_image2"
+                android:layout_alignRight="@id/view_double_image2"
+			android:layout_alignEnd="@id/view_double_image2"
+                android:background="@{shadeTwo.secondCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeTwo.secondComment}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/white"
+                android:visibility="@{shadeTwo.secondCommentVisibility ? View.VISIBLE : View.GONE}"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/left_rl_view"
+            android:layout_alignRight="@id/right_rl_view"
+			android:layout_alignEnd="@id/right_rl_view"
+            android:layout_below="@id/right_rl_view"
+            android:layout_marginLeft="@dimen/p_1_5"
+			android:layout_marginStart="@dimen/p_1_5"
+            android:layout_marginTop="@dimen/d_3"
+            android:layout_toRightOf="@id/left_rl_view"
+			android:layout_toEndOf="@id/left_rl_view"
+            android:background="@{shadeTwo.addBgColor, default = @color/add_counter_bg}"
+            android:visibility="@{shadeTwo.addVisibility ? View.VISIBLE : View.GONE}"
+            android:gravity="center"
+            android:tag="add"
+            android:clickable="@{shadeTwo.addAsCounter ? false : true}"
+            android:onClick="@{clickHandler.onImageShadeClick}"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{shadeTwo.addText}"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@{shadeTwo.addTextColor, default = @color/white}"
+            android:textSize="@{shadeTwo.addAsCounter ? @dimen/d_30 : @dimen/d_50}"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/right_rl_view"
+            android:layout_alignLeft="@id/right_rl_view"
+			android:layout_alignStart="@id/right_rl_view"
+            android:layout_alignRight="@id/right_rl_view"
+			android:layout_alignEnd="@id/right_rl_view"
+            android:layout_alignTop="@id/right_rl_view"
+            android:background="@color/counter_bg"
+            android:layout_height="wrap_content"
+            android:visibility="@{shadeTwo.counterVisibility ? View.VISIBLE : View.GONE}"
+            android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s_30"
+            android:text="@{shadeTwo.counterText}"
+             />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="add_more">#33000000</color>
+    <color name="blue">#ff6b20ae</color>
+    <color name="white_blur">#66ffffff</color>
+    <color name="black_text">#42000000</color>
+    <color name="white">#ffffff</color>
+    <color name="title_of_selected_forms">#e5e5e5</color>
+    <color name="forgot">#4d4d4d</color>
+    <color name="counter_bg">#66000000</color>
+    <color name="add_counter_bg">#66000000</color>
+</resources>

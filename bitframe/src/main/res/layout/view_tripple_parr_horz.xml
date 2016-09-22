@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- has varying height according to the image-->
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="shadeThree"
+            type="proj.me.bitframe.shading_three.BindingShadeThree"/>
+        <variable
+            name="clickHandler"
+            type="proj.me.bitframe.ImageClickHandler"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{shadeThree.dividerColor}">
+
+        <RelativeLayout
+            android:id="@+id/left_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/p_1_5"
+			android:layout_marginEnd="@dimen/p_1_5"
+            android:background="@{shadeThree.firstImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_triple_image1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img1"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeThree.firstImageScaleType, default = center}" />
+
+            <TextView
+                android:id="@+id/view_triple_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_triple_image1"
+                android:layout_alignLeft="@id/view_triple_image1"
+			android:layout_alignStart="@id/view_triple_image1"
+                android:layout_alignRight="@id/view_triple_image1"
+			android:layout_alignEnd="@id/view_triple_image1"
+                android:background="@{shadeThree.firstCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeThree.firstComment}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/background_light"
+                android:visibility="@{shadeThree.firstCommentVisibility ? View.VISIBLE : View.GONE}"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/middle_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/left_rl_view"
+			android:layout_toEndOf="@id/left_rl_view"
+            android:layout_marginRight="@dimen/p_1_5"
+			android:layout_marginEnd="@dimen/p_1_5"
+            android:layout_marginLeft="@dimen/p_1_5"
+			android:layout_marginStart="@dimen/p_1_5"
+            android:background="@{shadeThree.secondImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_triple_image2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img2"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeThree.secondImageScaleType, default = center}" />
+
+            <TextView
+                android:id="@+id/view_triple_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_triple_image2"
+                android:layout_alignLeft="@id/view_triple_image2"
+			android:layout_alignStart="@id/view_triple_image2"
+                android:layout_alignRight="@id/view_triple_image2"
+			android:layout_alignEnd="@id/view_triple_image2"
+                android:background="@{shadeThree.secondCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeThree.secondComment}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/background_light"
+                android:visibility="@{shadeThree.thirdCommentVisibility ? View.VISIBLE : View.GONE}"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/right_rl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/middle_rl_view"
+			android:layout_toEndOf="@id/middle_rl_view"
+            android:layout_marginLeft="@dimen/p_1_5"
+			android:layout_marginStart="@dimen/p_1_5"
+            android:background="@{shadeThree.thirdImageBgColor}">
+
+            <ImageView
+                android:id="@+id/view_triple_image3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:tag="img3"
+                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:scaleType="@{shadeThree.thirdImageScaleType, default = center}" />
+
+            <TextView
+                android:id="@+id/view_triple_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/view_triple_image3"
+                android:layout_alignLeft="@id/view_triple_image3"
+			android:layout_alignStart="@id/view_triple_image3"
+                android:layout_alignRight="@id/view_triple_image3"
+			android:layout_alignEnd="@id/view_triple_image3"
+                android:background="@{shadeThree.thirdCommentBgColor}"
+                android:paddingBottom="@dimen/d_10"
+                android:paddingLeft="@dimen/d_10"
+                android:paddingRight="@dimen/d_10"
+                android:paddingTop="@dimen/d_10"
+                android:singleLine="true"
+                android:text="@{shadeThree.thirdComment}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/background_light"
+                android:visibility="@{shadeThree.thirdCommentVisibility ? View.VISIBLE : View.GONE}"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/right_rl_view"
+            android:layout_alignLeft="@id/right_rl_view"
+			android:layout_alignStart="@id/right_rl_view"
+            android:layout_alignRight="@id/right_rl_view"
+			android:layout_alignEnd="@id/right_rl_view"
+            android:layout_alignTop="@id/right_rl_view"
+            android:background="@color/counter_bg"
+            android:layout_height="wrap_content"
+            android:visibility="@{shadeThree.counterVisibility ? View.VISIBLE : View.GONE}"
+            android:gravity="center">
+
+        <TextView
+            android:id="@+id/image_triple_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/s_30"
+            android:text="@{shadeThree.counterText}"
+             />
+    </LinearLayout>
+    </RelativeLayout>
+</layout>

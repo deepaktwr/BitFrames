@@ -1,0 +1,40 @@
+<resources>
+    <!-- base for XHDPI  320 dpi-->
+    <dimen name="d_0">0dp</dimen>
+    <dimen name="d_192">192dp</dimen>
+
+    <dimen name="d_32">32dp</dimen>
+    <dimen name="d_48">48dp</dimen>
+    <dimen name="d_64">64dp</dimen>
+
+
+
+    <dimen name="d_7">7dp</dimen>
+    <dimen name="d_10">10dp</dimen>
+    <dimen name="d_5">5dp</dimen>
+    <dimen name="d_3">3dp</dimen>
+    <dimen name="d_6">6dp</dimen>
+    <dimen name="d_30">30dp</dimen>
+    <dimen name="d_35">35dp</dimen>
+    <dimen name="d_14">14dp</dimen>
+    <dimen name="d_20">20dp</dimen>
+    <dimen name="d_50">50dp</dimen>
+    <dimen name="d_40">40dp</dimen>
+    <dimen name="d_180">180dp</dimen>
+    <dimen name="d_55">55dp</dimen>
+
+
+    <dimen name="p_1_5">1.5dp</dimen>
+
+
+    <dimen name="n_50">-50dp</dimen>
+
+
+    <dimen name="s_27">27sp</dimen>
+    <dimen name="s_30">30sp</dimen>
+    <dimen name="s_25">25sp</dimen>
+    <dimen name="s_20">20sp</dimen>
+    <dimen name="s_48">48sp</dimen>
+
+
+</resources>

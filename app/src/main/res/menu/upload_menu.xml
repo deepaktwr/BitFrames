@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@android:drawable/ic_menu_upload"
+        android:id="@+id/upload"
+        android:title="Upload"
+        android:orderInCategory="1111"
+        app:showAsAction="always"/>
+    <item
+        android:icon="@android:drawable/ic_menu_upload"
+        android:id="@+id/download"
+        android:title="Save Frame"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
+</menu>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="proj.me.bitframedemo" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name=".FrameActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:parentActivityName=".FrameRecyclerActivity">
+            <intent-filter>
+                <action android:name="ACTIVITY.NETWORK_ENABLED"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FrameRecyclerActivity"/>
+        </activity>
+        <activity android:name=".FrameRecyclerActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="ACTIVITY.UPLOAD_DONE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            </activity>
+        <service android:name=".services.UploadService"/>
+        <receiver android:name=".broadcasts.ConnectivityReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
