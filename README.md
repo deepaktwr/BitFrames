@@ -1,8 +1,4 @@
 # BitFrames
 Frame of Bitmaps
 
-![alt frame3](http://oi65.tinypic.com/293gh1x.jpg)
-
-![alt framen](http://oi63.tinypic.com/f383sg.jpg)
-
-![alt frame4](http://oi67.tinypic.com/j9alj7.jpg)
+![alt frame3](http://oi68.tinypic.com/30a9mpu.jpg)    ![alt framen](http://oi66.tinypic.com/n4caya.jpg)
