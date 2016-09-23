@@ -12,8 +12,6 @@ public class BeanImage implements Comparable<BeanImage>, Parcelable {
     String imageLink;
     String imageComment;
     int primaryCount, secondaryCount;
-    boolean hasExtention;
-    boolean isLocalImage;
 
     public BeanImage(){}
 
@@ -22,8 +20,6 @@ public class BeanImage implements Comparable<BeanImage>, Parcelable {
         imageComment = in.readString();
         primaryCount = in.readInt();
         secondaryCount = in.readInt();
-        hasExtention = in.readByte() != 0;
-        isLocalImage = in.readByte() != 0;
     }
 
     public static final Creator<BeanImage> CREATOR = new Creator<BeanImage>() {
@@ -38,13 +34,6 @@ public class BeanImage implements Comparable<BeanImage>, Parcelable {
         }
     };
 
-    public boolean isHasExtention() {
-        return hasExtention;
-    }
-
-    public void setHasExtention(boolean hasExtention) {
-        this.hasExtention = hasExtention;
-    }
 
     public String getImageLink() {
         return imageLink;
@@ -85,13 +74,6 @@ public class BeanImage implements Comparable<BeanImage>, Parcelable {
         return -1;
     }
 
-    public boolean isLocalImage() {
-        return isLocalImage;
-    }
-
-    public void setLocalImage(boolean localImage) {
-        isLocalImage = localImage;
-    }
 
     @Override
     public int describeContents() {
@@ -104,7 +86,5 @@ public class BeanImage implements Comparable<BeanImage>, Parcelable {
         dest.writeString(imageComment);
         dest.writeInt(primaryCount);
         dest.writeInt(secondaryCount);
-        dest.writeByte((byte) (hasExtention ? 1 : 0));
-        dest.writeByte((byte) (isLocalImage ? 1 : 0));
     }
 }

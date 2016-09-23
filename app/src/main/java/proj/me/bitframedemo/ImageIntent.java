@@ -51,7 +51,7 @@ public class ImageIntent {
         try {
             fileUri = createImageFile();
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-            ((FrameCallback)activity).picIntentInitiated(fileUri.toString());
+            ((IntentAction)activity).picIntentInitiated(fileUri.toString());
             activity.startActivityForResult(takePictureIntent, TAKE_PHOTO);
         } catch (IOException ex) {
             // Error occurred while creating the File
@@ -60,7 +60,7 @@ public class ImageIntent {
     }
 
     void fetchFromGallery() {
-        ((FrameCallback)activity).picIntentInitiated(null);
+        ((IntentAction)activity).picIntentInitiated(null);
         Intent intent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         activity.startActivityForResult(intent, FROM_GALLERY);

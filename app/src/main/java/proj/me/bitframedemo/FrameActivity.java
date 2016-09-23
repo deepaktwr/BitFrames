@@ -6,31 +6,25 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Environment;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,12 +34,11 @@ import java.util.List;
 import proj.me.bitframe.BeanBitFrame;
 import proj.me.bitframe.BeanImage;
 import proj.me.bitframe.FrameCallback;
-import proj.me.bitframe.ImageClickHandler;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.ViewFrame;
-import proj.me.bitframe.dimentions.BeanResult;
 import proj.me.bitframe.helper.FrameType;
 import proj.me.bitframe.helper.Utils;
+
 import proj.me.bitframedemo.beans.BaseResponse;
 import proj.me.bitframedemo.beans.NextBundle;
 import proj.me.bitframedemo.databinding.ActivityFrameBinding;
@@ -53,11 +46,8 @@ import proj.me.bitframedemo.helper.Constants;
 import proj.me.bitframedemo.network.RetrofitClient;
 import proj.me.bitframedemo.network.RetrofitImpl;
 import proj.me.bitframedemo.services.UploadService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class FrameActivity extends BaseActivity implements FrameCallback, ImageClickHandler {
+public class FrameActivity extends BaseActivity implements FrameCallback, IntentAction {
 
     private static final int CLASS_ID = 1;
     private static final int REQUEST_PERMISSION = 10;
@@ -107,9 +97,9 @@ public class FrameActivity extends BaseActivity implements FrameCallback, ImageC
 
         viewFrame = (ViewFrame) findViewById(R.id.view_frame);
 
-        setAddTextBgColor(findViewById(R.id.extra_text), getResources().getColor(R.color.colorPrimary));
+        setAddTextBgColor(findViewById(R.id.extra_text), Utils.getVersionColor(this, R.color.colorPrimary));
         bindingAddText.setAddText("+");
-        bindingAddText.setTextColor(getResources().getColor(R.color.white));
+        bindingAddText.setTextColor(Utils.getVersionColor(this, R.color.white));
         bindingAddText.setTextVisibility(true);
 
         if (isFromInstance = savedInstanceState != null) {
@@ -154,6 +144,8 @@ public class FrameActivity extends BaseActivity implements FrameCallback, ImageC
             }
 
         }
+
+        bindingAddText.setErrorVisibility(beanImageList.size() == 0);
 
         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) return;
 
@@ -223,6 +215,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, ImageC
         Utils.logMessage("on act result" + beanImageList.size());
         isFrameLoaded = true;
         if (resultCode == Activity.RESULT_OK) {
+            bindingAddText.setErrorVisibility(false);
             String imagePath = imageIntent.getImageResultPath(data, filePath);
             // show a view to handle the camera or gallery data with cropping and commenting, and save it to the sd card with a path
             processImage(imagePath, "my commented image", requestCode == 1);
@@ -230,6 +223,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, ImageC
             showMessage("could not process image");
             Utils.logMessage("image currupted");
             if (beanImageList.size() > 0) {
+                bindingAddText.setErrorVisibility(false);
                 List<BeanImage> beanImages = new ArrayList<>();
                 beanImages.addAll(beanImageList);
                 viewFrame.showBitFrame(beanImages, this, FrameType.UNFRAMED);
@@ -269,8 +263,6 @@ public class FrameActivity extends BaseActivity implements FrameCallback, ImageC
         BeanImage beanImage1 = new BeanImage();
         beanImage1.setImageComment("my comm");
         beanImage1.setImageLink(imagePath);
-        beanImage1.setHasExtention(hasExtention);
-        beanImage1.setLocalImage(true);
         beanImageList.add(beanImage1);
 
         /*BeanImage beanImage2 = new BeanImage();
@@ -288,7 +280,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, ImageC
     }
 
     @Override
-    public void onImageShadeClick(View view) {
+    public void addMoreImages(View view) {
         imageIntent.callIntentForImage();
     }
 
@@ -524,9 +516,9 @@ public class FrameActivity extends BaseActivity implements FrameCallback, ImageC
         super.resetViewFields();
         viewFrame.clearContainerChilds();
         viewFrame.invalidate();
-        setAddTextBgColor(findViewById(R.id.extra_text), getResources().getColor(R.color.colorPrimary));
+        setAddTextBgColor(findViewById(R.id.extra_text), Utils.getVersionColor(this, R.color.colorPrimary));
         bindingAddText.setAddText("+");
-        bindingAddText.setTextColor(getResources().getColor(R.color.white));
+        bindingAddText.setTextColor(Utils.getVersionColor(this, R.color.white));
         bindingAddText.setTextVisibility(true);
         beanImageList.clear();
         filePath = null;

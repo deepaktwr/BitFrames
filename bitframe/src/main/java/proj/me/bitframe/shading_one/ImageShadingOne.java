@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v7.graphics.Palette;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,23 +20,20 @@ import java.util.List;
 import proj.me.bitframe.BeanBitFrame;
 import proj.me.bitframe.BeanImage;
 import proj.me.bitframe.FrameModel;
-import proj.me.bitframe.ImageCallback;
-import proj.me.bitframe.ImageClickHandler;
+import proj.me.bitframe.ImageShades;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.R;
 import proj.me.bitframe.databinding.ViewSingleBinding;
 import proj.me.bitframe.dimentions.BeanShade1;
-import proj.me.bitframe.dimentions.ShadeOne;
 import proj.me.bitframe.helper.Utils;
 
 
 /**
  * Created by Deepak.Tiwari on 28-09-2015.
  */
-public final class ImageShadingOne implements ImageClickHandler, Palette.PaletteAsyncListener {
+public final class ImageShadingOne extends ImageShades implements Palette.PaletteAsyncListener {
     Context context;
     LayoutInflater inflater;
-    ImageCallback layoutCallback;
     int totalImages;
 
     BeanBitFrame beanBitFrame1;
@@ -48,10 +44,9 @@ public final class ImageShadingOne implements ImageClickHandler, Palette.Palette
     BindingShadeOne shadingOneBinding;
     FrameModel frameModel;
 
-    public ImageShadingOne(Context context, ImageCallback layoutCallback, int totalImages, FrameModel frameModel){
+    public ImageShadingOne(Context context, int totalImages, FrameModel frameModel){
         this.context = context;
         inflater = LayoutInflater.from(context);
-        this.layoutCallback = layoutCallback;
         this.totalImages = totalImages;
 
         beanBitFrame1 = new BeanBitFrame();
@@ -65,14 +60,15 @@ public final class ImageShadingOne implements ImageClickHandler, Palette.Palette
      * or the loaded image via piccaso
      * */
 
-    public void updateFailedOrSingleUi(boolean result, Bitmap bitmap, List<BeanImage> beanImages, boolean hasImageProperties){
+    @Override
+    protected void updateFrameUi(List<Bitmap> bitmaps, List<BeanImage> beanImages, boolean hasImageProperties){
         BeanBitFrame beanBitFrame = null;
         if(hasImageProperties) beanBitFrame = (BeanBitFrame) beanImages.get(0);
-        this.result = result;
+        result = getResult();
         imageLink1 = beanImages.get(0).getImageLink();
 
-        beanBitFrame1.setHasExtention(beanImages.get(0).isHasExtention());
-        beanBitFrame1.setLocalImage(beanImages.get(0).isLocalImage());
+        Bitmap bitmap = bitmaps == null || bitmaps.size() == 0 ? null : bitmaps.get(0);
+
         beanBitFrame1.setPrimaryCount(beanImages.get(0).getPrimaryCount());
         beanBitFrame1.setSecondaryCount(beanImages.get(0).getSecondaryCount());
 
@@ -123,7 +119,7 @@ public final class ImageShadingOne implements ImageClickHandler, Palette.Palette
         if(!hasImageProperties) BindingShadeOne.setBitmap(singleImage, bitmap);
         shadingOneBinding.setImageScaleType(frameModel.getScaleType());
 
-        layoutCallback.addImageView(viewSingleBinding.getRoot(), width, height, false);
+        addImageView(viewSingleBinding.getRoot(), width, height, false);
 
 
         beanBitFrame1.setHeight(/*beanShade1.getHeight1()*/hasImageProperties ? beanBitFrame.getHeight() : bitmap.getHeight());
@@ -160,9 +156,9 @@ public final class ImageShadingOne implements ImageClickHandler, Palette.Palette
 
             shadingOneBinding.setImageBackgroundColor(resultColor);
             shadingOneBinding.setCommentTextBackgroundColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
-            layoutCallback.setColorsToAddMoreView(resultColor, Utils.getMixedArgbColor(resultColor),
+            setColorsToAddMoreView(resultColor, Utils.getMixedArgbColor(resultColor),
                     Utils.getInverseColor(resultColor));
-            layoutCallback.frameResult(beanBitFrame1);
+            frameResult(beanBitFrame1);
 
             //need to notify ImageShading too, to load image via picasso
             Utils.logError("IMAGE_LOADING : "+" going to load one image");
@@ -228,7 +224,7 @@ public final class ImageShadingOne implements ImageClickHandler, Palette.Palette
 
     @Override
     public void onImageShadeClick(View view) {
-        layoutCallback.imageClicked(result? ImageType.VIEW_SINGLE : null, 1, imageLink1);
+        imageClicked(result? ImageType.VIEW_SINGLE : null, 1, imageLink1);
     }
 
     @Override
@@ -290,8 +286,8 @@ public final class ImageShadingOne implements ImageClickHandler, Palette.Palette
                 }*/
         shadingOneBinding.setImageBackgroundColor(resultColor);
         shadingOneBinding.setCommentTextBackgroundColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
-        layoutCallback.setColorsToAddMoreView(resultColor, Utils.getMixedArgbColor(resultColor),
+        setColorsToAddMoreView(resultColor, Utils.getMixedArgbColor(resultColor),
                 Utils.getInverseColor(resultColor));
-        layoutCallback.frameResult(beanBitFrame1);
+        frameResult(beanBitFrame1);
     }
 }

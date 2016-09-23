@@ -26,6 +26,4 @@ public interface FrameCallback {
     void containerAdded(int containerWidth, int containerHeight, boolean isAddInLayout);
 
     void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor);
-
-    void picIntentInitiated(String filePath);
 }

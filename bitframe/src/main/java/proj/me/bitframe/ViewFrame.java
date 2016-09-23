@@ -60,7 +60,7 @@ public class ViewFrame extends LinearLayout{
             viewFrame.imageContainer.addView(view);
             viewFrame.imageContainer.requestLayout();
 
-            viewFrame.frameCallback.containerAdded(viewWidth, viewHeight, isAddInLayout);
+            if(viewFrame.frameCallback != null) viewFrame.frameCallback.containerAdded(viewWidth, viewHeight, isAddInLayout);
         }
 
         @Override
@@ -77,7 +77,7 @@ public class ViewFrame extends LinearLayout{
 
             Utils.showToast(viewFrame.getContext().getApplicationContext(), "image clicked");
 
-            viewFrame.frameCallback.imageClick(imageType, imagePosition, imageLink);
+            if(viewFrame.frameCallback != null) viewFrame.frameCallback.imageClick(imageType, imagePosition, imageLink);
         }
 
         @Override
@@ -87,7 +87,7 @@ public class ViewFrame extends LinearLayout{
             Utils.logError("colors came");
             viewFrame.binadingBitFrame.setProgressBarColor(mixedColor);
 
-            viewFrame.frameCallback.loadedFrameColors(resultColor, mixedColor, invertedColor);
+            if(viewFrame.frameCallback != null) viewFrame.frameCallback.loadedFrameColors(resultColor, mixedColor, invertedColor);
         }
 
         @Override
@@ -97,7 +97,8 @@ public class ViewFrame extends LinearLayout{
             Utils.logError("frame result came");
             //might be called multiple times
             viewFrame.beanBitFramesResult.addAll(Arrays.asList(beanBitFrames));
-            if(viewFrame.linkCount == viewFrame.beanBitFramesResult.size()) viewFrame.frameCallback.frameResult(viewFrame.beanBitFramesResult);
+            if(viewFrame.linkCount == viewFrame.beanBitFramesResult.size() && viewFrame.frameCallback != null)
+                viewFrame.frameCallback.frameResult(viewFrame.beanBitFramesResult);
         }
 
         @Override
@@ -105,7 +106,7 @@ public class ViewFrame extends LinearLayout{
             ViewFrame viewFrame = viewFrameWeakReference.get();
             if(viewFrame == null) return;
             //when add in layout enabled, then it's click will come in this method
-            viewFrame.frameCallback.addMoreClick();
+            if(viewFrame.frameCallback != null) viewFrame.frameCallback.addMoreClick();
         }
     }
 

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:scaleType="@{shadeOne.imageScaleType, default = center}"
-            android:onClick="@{clickHandler.onImageShadeClick}"
+            android:onClick="@{clickHandler::onImageShadeClick}"
             android:background="@{shadeOne.imageBackgroundColor}"
             />
 

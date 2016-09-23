@@ -1,9 +1,12 @@
-package proj.me.bitframe.dimentions;
+package proj.me.bitframe.shading_two;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import proj.me.bitframe.FrameModel;
+import proj.me.bitframe.dimentions.BeanShade2;
+import proj.me.bitframe.dimentions.ImageOrder;
+import proj.me.bitframe.dimentions.LayoutType;
 import proj.me.bitframe.helper.Utils;
 
 
@@ -11,10 +14,10 @@ import proj.me.bitframe.helper.Utils;
  * Created by root on 21/3/16.
  * counting 1 to last in horizontal manner
  */
-public class ShadeTwo {
+ class ShadeTwo {
 
     private static float WIDTH_1 = 0, WIDTH_2 = 0, HEIGHT_1 = 0, HEIGHT_2 = 0;
-    public static BeanShade2 calculateDimentions(FrameModel frameModel, int width1, int height1, int width2, int height2){
+     static BeanShade2 calculateDimentions(FrameModel frameModel, int width1, int height1, int width2, int height2){
         WIDTH_1 = 0; WIDTH_2 = 0; HEIGHT_1 = 0; HEIGHT_2 = 0;
         BeanShade2 beanShade2 = new BeanShade2();
         //width1 amount to required width

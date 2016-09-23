@@ -173,14 +173,12 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
                         beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
                         beanBitFrame.setPrimaryCount(bundle.getPrimaryCount());
                         beanBitFrame.setSecondaryCount(bundle.getSecondaryCount());
-                        beanBitFrame.setLocalImage(false);
                         beanBitFrame.setImageLink(bundle.getImgName());
                         beanBitFrame.setImageComment(bundle.getComment());
                         beanBitFrame.setWidth(bundle.getWidth());
                         beanBitFrame.setHeight(bundle.getHeight());
                         beanBitFrame.setMutedColor(bundle.getMutedColor());
                         beanBitFrame.setVibrantColor(bundle.getVibrantColor());
-                        beanBitFrame.setHasExtention(false);
                         beanBitFrame.setLoaded(true);
                         beanImages.add(beanBitFrame);
                     }

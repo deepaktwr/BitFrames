@@ -10,6 +10,7 @@ import proj.me.bitframedemo.BR;
 public class BindingAddText extends BaseObservable{
     private String addText;
     private boolean textVisibility;
+    private boolean errorVisibility;
     private int textColor;
 
 
@@ -38,5 +39,14 @@ public class BindingAddText extends BaseObservable{
     public void setTextColor(int textColor) {
         this.textColor = textColor;
         notifyPropertyChanged(BR.textColor);
+    }
+
+    @Bindable public boolean isErrorVisibility() {
+        return errorVisibility;
+    }
+
+    public void setErrorVisibility(boolean errorVisibility) {
+        this.errorVisibility = errorVisibility;
+        notifyPropertyChanged(BR.errorVisibility);
     }
 }

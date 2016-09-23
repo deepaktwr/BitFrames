@@ -11,7 +11,7 @@ import proj.me.bitframe.helper.Utils;
  * Created by root on 15/9/16.
  */
 
-public class ScaleTransformation implements Transformation {
+class ScaleTransformation implements Transformation {
     float containerWidth;
     float containerHeight;
     int totalImage;

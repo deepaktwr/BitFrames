@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:onClick="@{onClickHandler.onClick}"
+                android:onClick="@{onClickHandler::onClick}"
                 android:text="@{frameBinder.errorText}"
                 android:tag="reload"
                 android:textColor="@color/forgot"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/d_20"
-            android:onClick="@{onClickHandler.onClick}"
+            android:onClick="@{onClickHandler::onClick}"
             android:tag="add"
             android:src="@android:drawable/ic_input_add"
             android:tint="@android:color/background_light"/>

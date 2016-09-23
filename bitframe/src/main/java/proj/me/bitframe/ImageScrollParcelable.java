@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by Deepak.Tiwari on 02-12-2015.
  */
-public class ImageScrollParcelable implements Parcelable{
+class ImageScrollParcelable implements Parcelable{
 
     ImageType imageType;
     int imagePosition;

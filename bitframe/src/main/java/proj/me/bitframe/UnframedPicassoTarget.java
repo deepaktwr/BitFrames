@@ -16,7 +16,7 @@ import proj.me.bitframe.helper.Utils;
  * Created by root on 13/9/16.
  */
 
-public class UnframedPicassoTarget implements Target {
+class UnframedPicassoTarget implements Target {
     BeanImage beanImage;
     boolean doneLoading;
     ImageResult imageResult;
@@ -73,8 +73,6 @@ public class UnframedPicassoTarget implements Target {
                     beanBitFrame.setMutedColor(mutedColor);
                     beanBitFrame.setVibrantColor(vibrantColor);
 
-                    beanBitFrame.setHasExtention(beanImage.isHasExtention());
-                    beanBitFrame.setLocalImage(beanImage.isLocalImage());
                     beanBitFrame.setImageComment(beanImage.getImageComment());
                     beanBitFrame.setImageLink(beanImage.getImageLink());
                     beanBitFrame.setPrimaryCount(beanImage.getPrimaryCount());

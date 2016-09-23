@@ -2,16 +2,12 @@ package proj.me.bitframe;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
-import android.view.View;
-import android.view.ViewGroup;
-
 import proj.me.bitframe.BR;
 
 /**
  * Created by root on 13/3/16.
  */
-public class BinadingBitFrame extends BaseObservable{
+ public class BinadingBitFrame extends BaseObservable{
     int progressBarColor;
     boolean progressBarVisibility;
 

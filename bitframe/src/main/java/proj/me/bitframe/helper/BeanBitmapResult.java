@@ -1,4 +1,4 @@
-package proj.me.bitframe.dimentions;
+package proj.me.bitframe.helper;
 
 import android.graphics.Bitmap;
 
@@ -8,7 +8,7 @@ import proj.me.bitframe.BeanImage;
  * Created by root on 14/9/16.
  */
 
-public class BeanBitmapResult {
+class BeanBitmapResult {
     private Bitmap bitmap;
     private int width;
     private int height;

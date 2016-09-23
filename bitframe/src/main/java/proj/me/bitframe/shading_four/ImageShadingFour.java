@@ -20,8 +20,7 @@ import java.util.List;
 import proj.me.bitframe.BeanBitFrame;
 import proj.me.bitframe.BeanImage;
 import proj.me.bitframe.FrameModel;
-import proj.me.bitframe.ImageCallback;
-import proj.me.bitframe.ImageClickHandler;
+import proj.me.bitframe.ImageShades;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.R;
 import proj.me.bitframe.databinding.ViewMultipleHorzBinding;
@@ -33,16 +32,14 @@ import proj.me.bitframe.databinding.ViewMultipleVertBinding;
 import proj.me.bitframe.databinding.ViewMultipleVertDoubleBinding;
 import proj.me.bitframe.databinding.ViewMultipleVertHorzBinding;
 import proj.me.bitframe.dimentions.BeanShade4;
-import proj.me.bitframe.dimentions.ShadeFour;
 import proj.me.bitframe.helper.Utils;
 
 /**
  * Created by Deepak.Tiwari on 29-09-2015.
  */
-public class ImageShadingFour implements ImageClickHandler {
+public final class ImageShadingFour extends ImageShades {
     LayoutInflater inflater;
     Context context;
-    ImageCallback layoutCallback;
     int totalImages;
 
 
@@ -52,10 +49,9 @@ public class ImageShadingFour implements ImageClickHandler {
     BindingShadeFour bindingShadeFour;
     FrameModel frameModel;
 
-    public ImageShadingFour(Context context, ImageCallback layoutCallback, int totalImages, FrameModel frameModel) {
+    public ImageShadingFour(Context context, int totalImages, FrameModel frameModel) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.layoutCallback = layoutCallback;
         this.totalImages = totalImages;
 
         beanBitFrame1 = new BeanBitFrame();
@@ -71,7 +67,8 @@ public class ImageShadingFour implements ImageClickHandler {
     }
 
 
-    public void updateOctalUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties) {
+    @Override
+    protected void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties) {
         BeanBitFrame beanBitFrameFirst = null, beanBitFrameSecond = null, beanBitFrameThird = null, beanBitFrameFourth = null;
         if(hasImageProperties){
             beanBitFrameFirst = (BeanBitFrame) beanImages.get(0);
@@ -126,16 +123,6 @@ public class ImageShadingFour implements ImageClickHandler {
         imageLink2  = beanImages.get(1).getImageLink();
         imageLink3  = beanImages.get(2).getImageLink();
         imageLink4  = beanImages.get(3).getImageLink();
-
-        boolean isFirstLocalImage = beanImages.get(0).isLocalImage();
-        boolean isSecondLocalImage = beanImages.get(1).isLocalImage();
-        boolean isThirdLocalImage = beanImages.get(2).isLocalImage();
-        boolean isFourthLocalImage = beanImages.get(3).isLocalImage();
-
-        boolean isFirstHasExtension = beanImages.get(0).isHasExtention();
-        boolean isSecondHasExtension = beanImages.get(1).isHasExtention();
-        boolean isThirdHasExtension = beanImages.get(2).isHasExtention();
-        boolean isFourthHasExtension = beanImages.get(3).isHasExtention();
 
         int firstPrimaryCount = beanImages.get(0).getPrimaryCount();
         int firstSecondaryCount = beanImages.get(0).getSecondaryCount();
@@ -215,8 +202,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap1 = hasImageProperties ? null : images.get(0);
                 bindingShadeFour.setFirstComment(beanImages.get(0).getImageComment());
                 imageLink1 = beanImages.get(0).getImageLink();
-                isFirstLocalImage = beanImages.get(0).isLocalImage();
-                isFirstHasExtension = beanImages.get(0).isHasExtention();
                 firstPrimaryCount = beanImages.get(0).getPrimaryCount();
                 firstSecondaryCount = beanImages.get(0).getSecondaryCount();
 
@@ -255,8 +240,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap1 = hasImageProperties ? null : images.get(1);
                 bindingShadeFour.setFirstComment(beanImages.get(1).getImageComment());
                 imageLink1 = beanImages.get(1).getImageLink();
-                isFirstLocalImage = beanImages.get(1).isLocalImage();
-                isFirstHasExtension = beanImages.get(1).isHasExtention();
                 firstPrimaryCount = beanImages.get(1).getPrimaryCount();
                 firstSecondaryCount = beanImages.get(1).getSecondaryCount();
 
@@ -295,8 +278,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap1 = hasImageProperties ? null : images.get(2);
                 bindingShadeFour.setFirstComment(beanImages.get(2).getImageComment());
                 imageLink1 = beanImages.get(2).getImageLink();
-                isFirstLocalImage = beanImages.get(2).isLocalImage();
-                isFirstHasExtension = beanImages.get(2).isHasExtention();
                 firstPrimaryCount = beanImages.get(2).getPrimaryCount();
                 firstSecondaryCount = beanImages.get(2).getSecondaryCount();
 
@@ -335,8 +316,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap1 = hasImageProperties ? null : images.get(3);
                 bindingShadeFour.setFirstComment(beanImages.get(3).getImageComment());
                 imageLink1 = beanImages.get(3).getImageLink();
-                isFirstLocalImage = beanImages.get(3).isLocalImage();
-                isFirstHasExtension = beanImages.get(3).isHasExtention();
                 firstPrimaryCount = beanImages.get(3).getPrimaryCount();
                 firstSecondaryCount = beanImages.get(3).getSecondaryCount();
 
@@ -376,8 +355,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap2 = hasImageProperties ? null : images.get(0);
                 bindingShadeFour.setSecondComment(beanImages.get(0).getImageComment());
                 imageLink2 = beanImages.get(0).getImageLink();
-                isSecondLocalImage = beanImages.get(0).isLocalImage();
-                isSecondHasExtension = beanImages.get(0).isHasExtention();
                 secondPrimaryCount = beanImages.get(0).getPrimaryCount();
                 secondSecondaryCount = beanImages.get(0).getSecondaryCount();
 
@@ -416,8 +393,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap2 = hasImageProperties ? null : images.get(1);
                 bindingShadeFour.setSecondComment(beanImages.get(1).getImageComment());
                 imageLink2 = beanImages.get(1).getImageLink();
-                isSecondLocalImage = beanImages.get(1).isLocalImage();
-                isSecondHasExtension = beanImages.get(1).isHasExtention();
                 secondPrimaryCount = beanImages.get(1).getPrimaryCount();
                 secondSecondaryCount = beanImages.get(1).getSecondaryCount();
 
@@ -456,8 +431,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap2 = hasImageProperties ? null : images.get(2);
                 bindingShadeFour.setSecondComment(beanImages.get(2).getImageComment());
                 imageLink2 = beanImages.get(2).getImageLink();
-                isSecondLocalImage = beanImages.get(2).isLocalImage();
-                isSecondHasExtension = beanImages.get(2).isHasExtention();
                 secondPrimaryCount = beanImages.get(2).getPrimaryCount();
                 secondSecondaryCount = beanImages.get(2).getSecondaryCount();
 
@@ -496,8 +469,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap2 = hasImageProperties ? null : images.get(3);
                 bindingShadeFour.setSecondComment(beanImages.get(3).getImageComment());
                 imageLink2 = beanImages.get(3).getImageLink();
-                isSecondLocalImage = beanImages.get(3).isLocalImage();
-                isSecondHasExtension = beanImages.get(3).isHasExtention();
                 secondPrimaryCount = beanImages.get(3).getPrimaryCount();
                 secondSecondaryCount = beanImages.get(3).getSecondaryCount();
 
@@ -537,8 +508,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap3 = hasImageProperties ? null : images.get(0);
                 bindingShadeFour.setThirdComment(beanImages.get(0).getImageComment());
                 imageLink3 = beanImages.get(0).getImageLink();
-                isThirdLocalImage = beanImages.get(0).isLocalImage();
-                isThirdHasExtension = beanImages.get(0).isHasExtention();
                 thirdPrimaryCount = beanImages.get(0).getPrimaryCount();
                 thirdSecondaryCount = beanImages.get(0).getSecondaryCount();
 
@@ -577,8 +546,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap3 = hasImageProperties ? null : images.get(1);
                 bindingShadeFour.setThirdComment(beanImages.get(1).getImageComment());
                 imageLink3 = beanImages.get(1).getImageLink();
-                isThirdLocalImage = beanImages.get(1).isLocalImage();
-                isThirdHasExtension = beanImages.get(1).isHasExtention();
                 thirdPrimaryCount = beanImages.get(1).getPrimaryCount();
                 thirdSecondaryCount = beanImages.get(1).getSecondaryCount();
 
@@ -617,8 +584,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap3 = hasImageProperties ? null : images.get(2);
                 bindingShadeFour.setThirdComment(beanImages.get(2).getImageComment());
                 imageLink3 = beanImages.get(2).getImageLink();
-                isThirdLocalImage = beanImages.get(2).isLocalImage();
-                isThirdHasExtension = beanImages.get(2).isHasExtention();
                 thirdPrimaryCount = beanImages.get(2).getPrimaryCount();
                 thirdSecondaryCount = beanImages.get(2).getSecondaryCount();
 
@@ -657,8 +622,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap3 = hasImageProperties ? null : images.get(3);
                 bindingShadeFour.setThirdComment(beanImages.get(3).getImageComment());
                 imageLink3 = beanImages.get(3).getImageLink();
-                isThirdLocalImage = beanImages.get(3).isLocalImage();
-                isThirdHasExtension = beanImages.get(3).isHasExtention();
                 thirdPrimaryCount = beanImages.get(3).getPrimaryCount();
                 thirdSecondaryCount = beanImages.get(3).getSecondaryCount();
 
@@ -698,8 +661,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap4 = hasImageProperties ? null : images.get(0);
                 bindingShadeFour.setFourthComment(beanImages.get(0).getImageComment());
                 imageLink4 = beanImages.get(0).getImageLink();
-                isFourthLocalImage = beanImages.get(0).isLocalImage();
-                isFourthHasExtension = beanImages.get(0).isHasExtention();
                 fourthPrimaryCount = beanImages.get(0).getPrimaryCount();
                 fourthSecondaryCount = beanImages.get(0).getSecondaryCount();
 
@@ -738,8 +699,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap4 = hasImageProperties ? null : images.get(1);
                 bindingShadeFour.setFourthComment(beanImages.get(1).getImageComment());
                 imageLink4 = beanImages.get(1).getImageLink();
-                isFourthLocalImage = beanImages.get(1).isLocalImage();
-                isFourthHasExtension = beanImages.get(1).isHasExtention();
                 fourthPrimaryCount = beanImages.get(1).getPrimaryCount();
                 fourthSecondaryCount = beanImages.get(1).getSecondaryCount();
 
@@ -778,8 +737,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap4 = hasImageProperties ? null : images.get(2);
                 bindingShadeFour.setFourthComment(beanImages.get(2).getImageComment());
                 imageLink4 = beanImages.get(2).getImageLink();
-                isFourthLocalImage = beanImages.get(2).isLocalImage();
-                isFourthHasExtension = beanImages.get(2).isHasExtention();
                 fourthPrimaryCount = beanImages.get(2).getPrimaryCount();
                 fourthSecondaryCount = beanImages.get(2).getSecondaryCount();
 
@@ -818,8 +775,6 @@ public class ImageShadingFour implements ImageClickHandler {
                 bitmap4 = hasImageProperties ? null : images.get(3);
                 bindingShadeFour.setFourthComment(beanImages.get(3).getImageComment());
                 imageLink4 = beanImages.get(3).getImageLink();
-                isFourthLocalImage = beanImages.get(3).isLocalImage();
-                isFourthHasExtension = beanImages.get(3).isHasExtention();
                 fourthPrimaryCount = beanImages.get(3).getPrimaryCount();
                 fourthSecondaryCount = beanImages.get(3).getSecondaryCount();
 
@@ -904,28 +859,28 @@ public class ImageShadingFour implements ImageClickHandler {
         //a/c to layout type
         switch (beanShade4.getLayoutType()){
             case VERT:
-                layoutCallback.addImageView(root, beanShade4.getWidth1(), beanShade4.getHeight1() + beanShade4.getHeight2(), false);
+                addImageView(root, beanShade4.getWidth1(), beanShade4.getHeight1() + beanShade4.getHeight2(), false);
                 break;
             case HORZ:
-                layoutCallback.addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2(), beanShade4.getHeight1(), false);
+                addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2(), beanShade4.getHeight1(), false);
                 break;
             case VERT_DOUBLE:
-                layoutCallback.addImageView(root, beanShade4.getWidth1(), beanShade4.getHeight1() + beanShade4.getHeight2() + beanShade4.getHeight3(), false);
+                addImageView(root, beanShade4.getWidth1(), beanShade4.getHeight1() + beanShade4.getHeight2() + beanShade4.getHeight3(), false);
                 break;
             case HORZ_DOUBLE:
-                layoutCallback.addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2() + beanShade4.getWidth3(), beanShade4.getHeight1(), false);
+                addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2() + beanShade4.getWidth3(), beanShade4.getHeight1(), false);
                 break;
             case VERT_HORZ:
-                layoutCallback.addImageView(root, beanShade4.getWidth1(), beanShade4.getHeight1() + beanShade4.getHeight2(), false);
+                addImageView(root, beanShade4.getWidth1(), beanShade4.getHeight1() + beanShade4.getHeight2(), false);
                 break;
             case HORZ_VERT:
-                layoutCallback.addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2(), beanShade4.getHeight1(), false);
+                addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2(), beanShade4.getHeight1(), false);
                 break;
             case IDENTICAL_VARY_WIDTH:
-                layoutCallback.addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2(), beanShade4.getHeight1() + beanShade4.getHeight3(), false);
+                addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth2(), beanShade4.getHeight1() + beanShade4.getHeight3(), false);
                 break;
             case IDENTICAL_VARY_HEIGHT:
-                layoutCallback.addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth3(), beanShade4.getHeight1() + beanShade4.getHeight2(), false);
+                addImageView(root, beanShade4.getWidth1() + beanShade4.getWidth3(), beanShade4.getHeight1() + beanShade4.getHeight2(), false);
                 break;
         }
 
@@ -947,29 +902,21 @@ public class ImageShadingFour implements ImageClickHandler {
 
         beanBitFrame1.setImageLink(imageLink1);
         beanBitFrame1.setImageComment(bindingShadeFour.getFirstComment());
-        beanBitFrame1.setLocalImage(isFirstLocalImage);
-        beanBitFrame1.setHasExtention(isFirstHasExtension);
         beanBitFrame1.setPrimaryCount(firstPrimaryCount);
         beanBitFrame1.setSecondaryCount(firstSecondaryCount);
 
         beanBitFrame2.setImageLink(imageLink2);
         beanBitFrame2.setImageComment(bindingShadeFour.getSecondComment());
-        beanBitFrame2.setLocalImage(isSecondLocalImage);
-        beanBitFrame2.setHasExtention(isSecondHasExtension);
         beanBitFrame2.setPrimaryCount(secondPrimaryCount);
         beanBitFrame2.setSecondaryCount(secondSecondaryCount);
 
         beanBitFrame3.setImageLink(imageLink3);
         beanBitFrame3.setImageComment(bindingShadeFour.getThirdComment());
-        beanBitFrame3.setLocalImage(isThirdLocalImage);
-        beanBitFrame3.setHasExtention(isThirdHasExtension);
         beanBitFrame3.setPrimaryCount(thirdPrimaryCount);
         beanBitFrame3.setSecondaryCount(thirdSecondaryCount);
 
         beanBitFrame4.setImageLink(imageLink4);
         beanBitFrame4.setImageComment(bindingShadeFour.getFourthComment());
-        beanBitFrame4.setLocalImage(isFourthLocalImage);
-        beanBitFrame4.setHasExtention(isFourthHasExtension);
         beanBitFrame4.setPrimaryCount(fourthPrimaryCount);
         beanBitFrame4.setSecondaryCount(fourthSecondaryCount);
 
@@ -977,8 +924,8 @@ public class ImageShadingFour implements ImageClickHandler {
             int mixedColor = Utils.getMixedArgbColor(bindingShadeFour.getFirstImageBgColor(), bindingShadeFour.getSecondImageBgColor(), bindingShadeFour.getThirdImageBgColor(), bindingShadeFour.getFourthImageBgColor());
             int inverseColor = Utils.getInverseColor(mixedColor);
 
-            layoutCallback.setColorsToAddMoreView(bindingShadeFour.getFourthImageBgColor(), mixedColor, inverseColor);
-            layoutCallback.frameResult(beanBitFrame1, beanBitFrame2, beanBitFrame3, beanBitFrame4);
+            setColorsToAddMoreView(bindingShadeFour.getFourthImageBgColor(), mixedColor, inverseColor);
+            frameResult(beanBitFrame1, beanBitFrame2, beanBitFrame3, beanBitFrame4);
 
             //bindingShadeThree.setDividerVisible(Utils.showShowDivider());
             bindingShadeFour.setDividerColor(inverseColor);
@@ -1108,16 +1055,16 @@ public class ImageShadingFour implements ImageClickHandler {
     public void onImageShadeClick(View view) {
         switch((String)view.getTag()){
             case "img1":
-                layoutCallback.imageClicked(ImageType.VIEW_MULTIPLE_1, 1, imageLink1);
+                imageClicked(ImageType.VIEW_MULTIPLE_1, 1, imageLink1);
                 break;
             case "img2":
-                layoutCallback.imageClicked(ImageType.VIEW_MULTIPLE_1, 2, imageLink2);
+                imageClicked(ImageType.VIEW_MULTIPLE_1, 2, imageLink2);
                 break;
             case "img3":
-                layoutCallback.imageClicked(ImageType.VIEW_MULTIPLE_1, 3, imageLink3);
+                imageClicked(ImageType.VIEW_MULTIPLE_1, 3, imageLink3);
                 break;
             case "img4":
-                layoutCallback.imageClicked(ImageType.VIEW_MULTIPLE_1, 4, imageLink4);
+                imageClicked(ImageType.VIEW_MULTIPLE_1, 4, imageLink4);
                 break;
         }
     }
@@ -1193,8 +1140,8 @@ public class ImageShadingFour implements ImageClickHandler {
 
                 int mixedColor = Utils.getMixedArgbColor(ImageShadingFour.this.resultColor);
                 int inverseColor = Utils.getInverseColor(mixedColor);
-                layoutCallback.setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
-                layoutCallback.frameResult(beanBitFrame1, beanBitFrame2, beanBitFrame3, beanBitFrame4);
+                setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
+                frameResult(beanBitFrame1, beanBitFrame2, beanBitFrame3, beanBitFrame4);
 
                 //bindingShadeFour.setDividerVisible(Utils.showShowDivider());
                 bindingShadeFour.setDividerColor(inverseColor);

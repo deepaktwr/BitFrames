@@ -11,7 +11,7 @@
 
         <variable
             name="clickHandler"
-            type="proj.me.bitframe.ImageClickHandler" />
+            type="proj.me.bitframedemo.IntentAction" />
     </data>
 
     <RelativeLayout
@@ -29,6 +29,12 @@
             frame:shouldShowComment="@bool/bool_false"
             android:layout_marginTop="@dimen/d_10"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="No Attchments"
+            android:visibility="@{bindingAddText.errorVisibility ? View.VISIBLE : View.GONE}"/>
+        <TextView
             android:id="@+id/extra_text"
             android:layout_width="@dimen/d_64"
             android:layout_height="@dimen/d_64"
@@ -38,7 +44,7 @@
             android:layout_marginTop="@dimen/d_10"
             android:background="@drawable/round_bg"
             android:gravity="center"
-            android:onClick="@{clickHandler.onImageShadeClick}"
+            android:onClick="@{clickHandler::addMoreImages}"
             android:text="@{bindingAddText.addText}"
             android:textColor="@{bindingAddText.textColor}"
             android:textSize="@dimen/s_48"

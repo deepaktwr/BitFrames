@@ -14,7 +14,7 @@ import proj.me.bitframe.helper.Utils;
  * Created by root on 13/9/16.
  */
 
-public class UnframedPicassoTargetNew implements Target {
+class UnframedPicassoTargetNew implements Target {
     BeanImage beanImage;
     ImageResult imageResult;
     List<UnframedPicassoTargetNew> targets;

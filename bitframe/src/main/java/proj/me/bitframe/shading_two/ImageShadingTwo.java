@@ -19,8 +19,7 @@ import java.util.List;
 import proj.me.bitframe.BeanBitFrame;
 import proj.me.bitframe.BeanImage;
 import proj.me.bitframe.FrameModel;
-import proj.me.bitframe.ImageCallback;
-import proj.me.bitframe.ImageClickHandler;
+import proj.me.bitframe.ImageShades;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.R;
 import proj.me.bitframe.databinding.ViewDoubleHorzBinding;
@@ -28,17 +27,15 @@ import proj.me.bitframe.databinding.ViewDoubleVertBinding;
 import proj.me.bitframe.dimentions.BeanShade2;
 import proj.me.bitframe.dimentions.ImageOrder;
 import proj.me.bitframe.dimentions.LayoutType;
-import proj.me.bitframe.dimentions.ShadeTwo;
 import proj.me.bitframe.helper.Utils;
 
 /**
  * Created by Deepak.Tiwari on 29-09-2015.
  */
-public class ImageShadingTwo implements ImageClickHandler {
+ public final class ImageShadingTwo extends ImageShades {
 
     LayoutInflater inflater;
     Context context;
-    ImageCallback layoutCallback;
     int totalImages;
 
     BindingShadeTwo bindingShadeTwo;
@@ -49,10 +46,9 @@ public class ImageShadingTwo implements ImageClickHandler {
 
     FrameModel frameModel;
 
-    public ImageShadingTwo(Context context, ImageCallback layoutCallback, int totalImages, FrameModel frameModel){
+    public ImageShadingTwo(Context context, int totalImages, FrameModel frameModel){
         this.context = context;
         inflater = LayoutInflater.from(context);
-        this.layoutCallback = layoutCallback;
         this.totalImages = totalImages;
         bindingShadeTwo = new BindingShadeTwo();
 
@@ -64,7 +60,8 @@ public class ImageShadingTwo implements ImageClickHandler {
         this.frameModel = frameModel;
     }
 
-    public void updateDoubleUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties){
+    @Override
+    protected void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties){
         BeanBitFrame beanBitFrameFirst = null, beanBitFrameSecond = null;
         if(hasImageProperties){
             beanBitFrameFirst = (BeanBitFrame) beanImages.get(0);
@@ -233,30 +230,22 @@ public class ImageShadingTwo implements ImageClickHandler {
         }
 
         imageLink1 = beanImage1.getImageLink();
-        boolean isFirstLocalImage = beanImage1.isLocalImage();
-        boolean isFirstHasExtension = beanImage1.isHasExtention();
         int firstPrimaryCount = beanImage1.getPrimaryCount();
         int firstSecondaryCount = beanImage1.getSecondaryCount();
 
         imageLink2 = beanImage2.getImageLink();
-        boolean isSecondLocalImage = beanImage2.isLocalImage();
-        boolean isSecondHasExtension = beanImage2.isHasExtention();
         int secondPrimaryCount = beanImage2.getPrimaryCount();
         int secondSecondaryCount = beanImage2.getSecondaryCount();
 
-        if(isVertLayout)
-            layoutCallback.addImageView(root, isFirstImageLeftOrTop ? beanShade2.getWidth1() : beanShade2.getWidth2(),
+        if(isVertLayout) addImageView(root, isFirstImageLeftOrTop ? beanShade2.getWidth1() : beanShade2.getWidth2(),
                     beanShade2.getHeight1() + beanShade2.getHeight2(), isAddViewVisible);
-        else
-            layoutCallback.addImageView(root, isFirstImageLeftOrTop ? beanShade2.getHeight1() : beanShade2.getHeight2(),
+        else addImageView(root, isFirstImageLeftOrTop ? beanShade2.getHeight1() : beanShade2.getHeight2(),
                     beanShade2.getWidth1() + beanShade2.getWidth2(), isAddViewVisible);
 
         beanBitFrame1.setWidth(/*beanShade2.getWidth1()*/hasImageProperties ? (isFirstImageLeftOrTop ? beanBitFrameFirst.getWidth() : beanBitFrameSecond.getWidth()) : isFirstImageLeftOrTop ? bitmap1.getWidth() : bitmap2.getWidth());
         beanBitFrame1.setHeight(/*beanShade2.getHeight1()*/hasImageProperties ? (isFirstImageLeftOrTop ? beanBitFrameFirst.getHeight() : beanBitFrameSecond.getHeight()) : isFirstImageLeftOrTop ? bitmap1.getHeight() : bitmap2.getHeight());
         beanBitFrame1.setImageLink(imageLink1);
         beanBitFrame1.setImageComment(bindingShadeTwo.getFirstComment());
-        beanBitFrame1.setLocalImage(isFirstLocalImage);
-        beanBitFrame1.setHasExtention(isFirstHasExtension);
         beanBitFrame1.setPrimaryCount(firstPrimaryCount);
         beanBitFrame1.setSecondaryCount(firstSecondaryCount);
 
@@ -264,8 +253,6 @@ public class ImageShadingTwo implements ImageClickHandler {
         beanBitFrame2.setHeight(/*beanShade2.getHeight2()*/hasImageProperties ? (isFirstImageLeftOrTop ? beanBitFrameSecond.getHeight() : beanBitFrameFirst.getHeight()) : isFirstImageLeftOrTop ? bitmap2.getHeight() : bitmap1.getHeight());
         beanBitFrame2.setImageLink(imageLink2);
         beanBitFrame2.setImageComment(bindingShadeTwo.getSecondComment());
-        beanBitFrame2.setLocalImage(isSecondLocalImage);
-        beanBitFrame2.setHasExtention(isSecondHasExtension);
         beanBitFrame2.setPrimaryCount(secondPrimaryCount);
         beanBitFrame2.setSecondaryCount(secondSecondaryCount);
 
@@ -277,8 +264,8 @@ public class ImageShadingTwo implements ImageClickHandler {
             int mixedColor = Utils.getMixedArgbColor(bindingShadeTwo.getFirstImageBgColor(), bindingShadeTwo.getSecondImageBgColor());
             int inverseColor = Utils.getInverseColor(mixedColor);
 
-            layoutCallback.setColorsToAddMoreView(bindingShadeTwo.getSecondImageBgColor(), mixedColor, inverseColor);
-            layoutCallback.frameResult(beanBitFrame1, beanBitFrame2);
+            setColorsToAddMoreView(bindingShadeTwo.getSecondImageBgColor(), mixedColor, inverseColor);
+            frameResult(beanBitFrame1, beanBitFrame2);
 
             //bindingShadeTwo.setDividerVisible(Utils.showShowDivider());
             bindingShadeTwo.setDividerColor(inverseColor);
@@ -363,13 +350,13 @@ public class ImageShadingTwo implements ImageClickHandler {
     public void onImageShadeClick(View view) {
         switch((String)view.getTag()){
             case "img1":
-                layoutCallback.imageClicked(ImageType.VIEW_DOUBLE, 1, imageLink1);
+                imageClicked(ImageType.VIEW_DOUBLE, 1, imageLink1);
                 break;
             case "img2":
-                layoutCallback.imageClicked(ImageType.VIEW_DOUBLE, 2, imageLink2);
+                imageClicked(ImageType.VIEW_DOUBLE, 2, imageLink2);
                 break;
             case "add":
-                layoutCallback.addMore();
+                addMore();
                 break;
         }
     }
@@ -428,8 +415,8 @@ public class ImageShadingTwo implements ImageClickHandler {
                 else {
                     int mixedColor = Utils.getMixedArgbColor(ImageShadingTwo.this.resultColor, resultColor);
                     int inverseColor = Utils.getInverseColor(mixedColor);
-                    layoutCallback.setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
-                    layoutCallback.frameResult(beanBitFrame1, beanBitFrame2);
+                    setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
+                    frameResult(beanBitFrame1, beanBitFrame2);
 
                     //bindingShadeTwo.setDividerVisible(Utils.showShowDivider());
                     bindingShadeTwo.setDividerColor(inverseColor);

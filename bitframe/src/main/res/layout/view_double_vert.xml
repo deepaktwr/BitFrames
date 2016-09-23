@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:tag="img1"
-                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:onClick="@{clickHandler::onImageShadeClick}"
                 android:scaleType="@{shadeTwo.firstImageScaleType, default = center}" />
 
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:tag="img2"
-                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:onClick="@{clickHandler::onImageShadeClick}"
                 android:scaleType="@{shadeTwo.secondImageScaleType, default = center}" />
 
             <TextView
@@ -111,7 +111,7 @@
             android:gravity="center"
             android:tag="add"
             android:clickable="@{shadeTwo.addAsCounter ? false : true}"
-            android:onClick="@{clickHandler.onImageShadeClick}">
+            android:onClick="@{clickHandler::onImageShadeClick}">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

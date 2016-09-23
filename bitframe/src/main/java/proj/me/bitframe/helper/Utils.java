@@ -11,11 +11,13 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,8 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import proj.me.bitframe.dimentions.BeanBitmapResult;
-import proj.me.bitframe.dimentions.BeanResult;
+import proj.me.bitframe.R;
 
 /**
  * Created by deepak on 24/5/15.
@@ -296,8 +297,9 @@ public class Utils {
     }
 
 
-    public static BeanResult decodeBitmapFromPath(int reqWidth, int reqHeight, String imagePath, boolean hasExtention, Context context){
-        if(hasExtention && imagePath.contains(".")) imagePath=imagePath.substring(0,imagePath.lastIndexOf('.'));
+    public static BeanResult decodeBitmapFromPath(int reqWidth, int reqHeight, String imagePath, Context context){
+        boolean hasExtension = !TextUtils.isEmpty(MimeTypeMap.getFileExtensionFromUrl(imagePath));
+        if(hasExtension && imagePath.contains(".")) imagePath=imagePath.substring(0,imagePath.lastIndexOf('.'));
         Uri fileUri = Uri.parse(imagePath);
 
         BitmapFactory.Options options=new BitmapFactory.Options();
@@ -404,6 +406,24 @@ public class Utils {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static boolean isLocalPath(String imagePath){
+        if(TextUtils.isEmpty(imagePath)) return false;
+        Uri uri = Uri.parse(imagePath);
+        return (uri != null && uri.getScheme() != null) && (uri.getScheme().equals("content") || uri.getScheme().equals("file"));
+    }
+
+    public static int getVersionColor(Context context, int colorId){
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
+            return context.getResources().getColor(colorId, context.getTheme());
+        else return context.getResources().getColor(colorId);
+    }
+
+    public static Drawable getVersionDrawable(Context context, int drawableId){
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
+            return context.getResources().getDrawable(drawableId, context.getTheme());
+        else return context.getResources().getDrawable(drawableId);
     }
 
 }

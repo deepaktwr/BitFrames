@@ -57,7 +57,7 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
         return frameBeanList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements FrameCallback, ImageClickHandler {
+    static class ViewHolder extends RecyclerView.ViewHolder implements FrameCallback {
         CardContainerBinding cardContainerBinding;
         CardBinder cardBinder = new CardBinder();
         public ViewHolder(View itemView, int containerWidth, int containerHeight) {
@@ -96,16 +96,6 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
         public void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor) {
             cardBinder.setTitleColor(mixedLoadedColor);
             cardBinder.setDescriptionColor(mixedLoadedColor);
-        }
-
-        @Override
-        public void picIntentInitiated(String filePath) {
-
-        }
-
-        @Override
-        public void onImageShadeClick(View view) {
-
         }
     }
 }

@@ -1,19 +1,22 @@
-package proj.me.bitframe.dimentions;
+package proj.me.bitframe.shading_three;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 import proj.me.bitframe.FrameModel;
+import proj.me.bitframe.dimentions.BeanShade3;
+import proj.me.bitframe.dimentions.ImageOrder;
+import proj.me.bitframe.dimentions.LayoutType;
 import proj.me.bitframe.helper.Utils;
 
 
 /**
  * Created by root on 27/3/16.
  */
-public class ShadeThree {
+ class ShadeThree {
     private static float WIDTH_1 = 0, WIDTH_2 = 0, WIDTH_3 = 0, HEIGHT_1 = 0, HEIGHT_2 = 0, HEIGHT_3 = 0;
-    public static BeanShade3 calculateDimentions(FrameModel frameModel, int width1, int height1, int width2, int height2, int width3, int height3){
+     static BeanShade3 calculateDimentions(FrameModel frameModel, int width1, int height1, int width2, int height2, int width3, int height3){
         WIDTH_1 = 0; WIDTH_2 = 0; WIDTH_3 = 0; HEIGHT_1 = 0; HEIGHT_2 = 0; HEIGHT_3 = 0;
         BeanShade3 beanShade3 = new BeanShade3();
 

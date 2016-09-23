@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import proj.me.bitframe.BeanBitFrame;
-import proj.me.bitframe.dimentions.BeanResult;
+import proj.me.bitframe.helper.BeanResult;
 import proj.me.bitframe.helper.Utils;
 import proj.me.bitframedemo.R;
 import proj.me.bitframedemo.beans.BaseResponse;
@@ -149,7 +149,7 @@ public class UploadService extends IntentService{
         bundle.setHasGreaterVibrant(beanBitFrame.isHasGreaterVibrantPopulation());
         bundle.setHeight((int)beanBitFrame.getHeight());
         bundle.setWidth((int)beanBitFrame.getWidth());
-        bundle.setImgName(beanBitFrame.isLocalImage() ? "img"+System.currentTimeMillis()+"bundle"+requestCounter+"m.png" :
+        bundle.setImgName(Utils.isLocalPath(beanBitFrame.getImageLink()) ? "img"+System.currentTimeMillis()+"bundle"+requestCounter+"m.png" :
                 beanBitFrame.getImageLink());
         bundle.setMutedColor(beanBitFrame.getMutedColor());
         bundle.setVibrantColor(beanBitFrame.getVibrantColor());
@@ -163,14 +163,14 @@ public class UploadService extends IntentService{
         uploadRequest.setRequestId(requestCounter);
         uploadRequest.setBundle(bundle);
 
-        if(beanBitFrame.isLocalImage()) return generateUploadRequest(beanBitFrame.getImageLink(), beanBitFrame.isHasExtention(), uploadRequest);
+        if(Utils.isLocalPath(beanBitFrame.getImageLink())) return generateUploadRequest(beanBitFrame.getImageLink(), uploadRequest);
         else return generatePostRequest(uploadRequest);
     }
 
-    boolean generateUploadRequest(String imagePath, boolean hasExtension, UploadRequest uploadRequest) throws IOException {
+    boolean generateUploadRequest(String imagePath, UploadRequest uploadRequest) throws IOException {
         Utils.logError("uploading");
         File imgFile = new File(Environment.getExternalStorageDirectory().getPath().toString(), uploadRequest.getBundle().getImgName());
-        BeanResult beanResult = Utils.decodeBitmapFromPath(reqWidth, reqHeight, imagePath, hasExtension, this.getApplicationContext());
+        BeanResult beanResult = Utils.decodeBitmapFromPath(reqWidth, reqHeight, imagePath, this.getApplicationContext());
         if(beanResult == null){
             imgFile.delete();
             return false;

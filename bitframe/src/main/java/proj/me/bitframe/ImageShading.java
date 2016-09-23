@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import proj.me.bitframe.dimentions.BeanHandler;
 import proj.me.bitframe.helper.Utils;
 import proj.me.bitframe.shading_four.ImageShadingFour;
 import proj.me.bitframe.shading_one.ImageShadingOne;
@@ -28,7 +27,7 @@ import proj.me.bitframe.shading_two.ImageShadingTwo;
 /**
  * Created by Deepak.Tiwari on 28-09-2015.
  */
-public final class ImageShading implements ImageResult{
+final class ImageShading implements ImageResult{
 
     Context context;
     List<Bitmap> images;
@@ -68,8 +67,11 @@ public final class ImageShading implements ImageResult{
         }
         unframedImageCounter = 0;
         BeanImage beanImage = beanImages.get(0);
-        if(beanImage.isLocalImage) new UnframedLocalTask(this).execute(beanImage);
-        else {
+        if(Utils.isLocalPath(beanImage.getImageLink())){
+            Utils.logError("LADING AS : "+"local image " + beanImage.getImageLink());
+            new UnframedLocalTask(this).execute(beanImage);
+        } else {
+            Utils.logError("LADING AS : "+"server image " + beanImage.getImageLink());
             /*final UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
             targets.add(target);
 
@@ -115,8 +117,11 @@ public final class ImageShading implements ImageResult{
         beanImages.remove(0);
         if(beanImages.size() == 0) return;
         BeanImage beanImage = beanImages.get(0);
-        if(beanImage.isLocalImage) new UnframedLocalTask(this).execute(beanImage);
-        else {
+        if(Utils.isLocalPath(beanImage.getImageLink())){
+            Utils.logError("LADING AS : "+"local image " + beanImage.getImageLink());
+            new UnframedLocalTask(this).execute(beanImage);
+        } else {
+            Utils.logError("LADING AS : "+"server image " + beanImage.getImageLink());
             Picasso picasso = Picasso.with(context.getApplicationContext());
             if(!TextUtils.isEmpty(lastImagePath)) picasso.invalidate(lastImagePath);
             /*UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
@@ -164,45 +169,40 @@ public final class ImageShading implements ImageResult{
         if(!this.result) this.result = result;
 
         if(doneLoading && !this.result){
-            ImageShadingOne imageShadingOne = new ImageShadingOne(context, layoutCallback, totalImages, frameModel);
             loadedBeanImages.add(beanImage);
-            imageShadingOne.updateFailedOrSingleUi(false, null, loadedBeanImages, false);
+            ImageShades imageShades = new ImageShadingOne(context, totalImages, frameModel);
+            imageShades.setImageCallback(layoutCallback);
+            imageShades.setResult(false);
+            imageShades.updateFrameUi(null, loadedBeanImages, false);
             images.clear();
             loadedBeanImages.clear();
             this.result =false;
             doneLoading = false;
         }else if(doneLoading){
+            ImageShades imageShades = null;
             switch(images.size()){
                 case 1:
                     Utils.logMessage("going to load 1");
-                    ImageShadingOne imageShadingOne = new ImageShadingOne(context, layoutCallback, totalImages, frameModel);
-                    imageShadingOne.updateFailedOrSingleUi(true, images.get(0), loadedBeanImages, false);
+                    imageShades = new ImageShadingOne(context, totalImages, frameModel);
+                    imageShades.setResult(true);
                     break;
                 case 2:
                     Utils.logMessage("going to load 2");
-                    ImageShadingTwo imageShadingTwo = new ImageShadingTwo(context, layoutCallback, totalImages, frameModel);
-                    imageShadingTwo.updateDoubleUi(images, loadedBeanImages, false);
+                    imageShades = new ImageShadingTwo(context, totalImages, frameModel);
                     break;
                 case 3:
                     Utils.logMessage("going to load 3");
-                    ImageShadingThree imageShadingThree = new ImageShadingThree(context, layoutCallback, totalImages, frameModel);
-                    imageShadingThree.updateTripleUi(images, loadedBeanImages, false);
+                    imageShades = new ImageShadingThree(context, totalImages, frameModel);
                     break;
                 case 4:
                     Utils.logMessage("going to load 4");
-                    ImageShadingFour imageShadingFour = new ImageShadingFour(context, layoutCallback, totalImages, frameModel);
-                    imageShadingFour.updateOctalUi(images, loadedBeanImages, false);
+                    imageShades = new ImageShadingFour(context, totalImages, frameModel);
                     break;
             }
-            //images.clear();
-            /*new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Utils.logError("recycld");
-                    for(Bitmap bitmap1 : images) bitmap1.recycle();
-                    images.clear();
-                }
-            }, 500);*/
+            if(imageShades != null){
+                imageShades.setImageCallback(layoutCallback);
+                imageShades.updateFrameUi(images, loadedBeanImages, false);
+            }
             if(frameModel.isShouldRecycleBitmaps()) myHandler.sendEmptyMessageDelayed(2, 500);
             else images.clear();
             loadedBeanImages.clear();
@@ -262,30 +262,33 @@ public final class ImageShading implements ImageResult{
             for(int i =0;i<frameModel.getMaxFrameCount();i++){
                 loadedBeanImages.add(beanBitFrames.get(i));
             }
-            ImageShadingFour imageShadingFour = new ImageShadingFour(context, layoutCallback, totalImages, frameModel);
-            imageShadingFour.updateOctalUi(null, loadedBeanImages, true);
+            ImageShades imageShades = new ImageShadingFour(context, totalImages, frameModel);
+            imageShades.setImageCallback(layoutCallback);
+            imageShades.updateFrameUi(null, loadedBeanImages, true);
         }else{
             //go to mapping directly
             for(BeanImage beanImage : beanBitFrames){
                 loadedBeanImages.add(beanImage);
             }
+            ImageShades imageShades = null;
             switch(totalImages){
                 case 1:
-                    ImageShadingOne imageShadingOne = new ImageShadingOne(context, layoutCallback, totalImages, frameModel);
-                    imageShadingOne.updateFailedOrSingleUi(true, null, loadedBeanImages, true);
+                    imageShades = new ImageShadingOne(context, totalImages, frameModel);
+                    imageShades.setResult(true);
                     break;
                 case 2:
-                    ImageShadingTwo imageShadingTwo = new ImageShadingTwo(context, layoutCallback, totalImages, frameModel);
-                    imageShadingTwo.updateDoubleUi(null, loadedBeanImages, true);
+                    imageShades = new ImageShadingTwo(context, totalImages, frameModel);
                     break;
                 case 3:
-                    ImageShadingThree imageShadingThree = new ImageShadingThree(context, layoutCallback, totalImages, frameModel);
-                    imageShadingThree.updateTripleUi(null, loadedBeanImages, true);
+                    imageShades = new ImageShadingThree(context, totalImages, frameModel);
                     break;
                 case 4:
-                    ImageShadingFour imageShadingFour = new ImageShadingFour(context, layoutCallback, totalImages, frameModel);
-                    imageShadingFour.updateOctalUi(null, loadedBeanImages, true);
+                    imageShades = new ImageShadingFour(context, totalImages, frameModel);
                     break;
+            }
+            if(imageShades != null){
+                imageShades.setImageCallback(layoutCallback);
+                imageShades.updateFrameUi(null, loadedBeanImages, true);
             }
         }
     }
@@ -341,8 +344,6 @@ public final class ImageShading implements ImageResult{
 
                                 BeanImage beanImage = beanHandler.getBeanImage();
 
-                                beanBitFrame.setHasExtention(beanImage.isHasExtention());
-                                beanBitFrame.setLocalImage(beanImage.isLocalImage());
                                 beanBitFrame.setImageComment(beanImage.getImageComment());
                                 beanBitFrame.setImageLink(beanImage.getImageLink());
                                 beanBitFrame.setPrimaryCount(beanImage.getPrimaryCount());

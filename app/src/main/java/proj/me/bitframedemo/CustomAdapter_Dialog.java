@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import proj.me.bitframe.helper.Utils;
+
 
 public class CustomAdapter_Dialog extends BaseAdapter{
 
@@ -62,11 +64,11 @@ public class CustomAdapter_Dialog extends BaseAdapter{
 			holder=(ViewHolder_Dialog)convertView.getTag();
 
         if( position == colorPosition ){
-            convertView.findViewById(R.id.ll_top_custom).setBackgroundColor(context.getResources().getColor(
-                    R.color.title_of_selected_forms));
+            convertView.findViewById(R.id.ll_top_custom).setBackgroundColor(Utils.getVersionColor(context,
+					R.color.title_of_selected_forms));
         }else{
-            convertView.findViewById(R.id.ll_top_custom).setBackgroundColor(context.getResources().getColor(
-                    R.color.white));
+            convertView.findViewById(R.id.ll_top_custom).setBackgroundColor(Utils.getVersionColor(context,
+					R.color.white));
         }
 		holder.text.setText(data.get(position));
 		return convertView;

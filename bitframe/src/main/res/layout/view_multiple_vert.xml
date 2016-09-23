@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:tag="img1"
-                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:onClick="@{clickHandler::onImageShadeClick}"
                 android:scaleType="@{shadeFour.firstImageScaleType, default = center}" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:tag="img2"
-                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:onClick="@{clickHandler::onImageShadeClick}"
                 android:scaleType="@{shadeFour.secondImageScaleType, default = center}"/>
 
             <TextView
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:tag="img3"
-                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:onClick="@{clickHandler::onImageShadeClick}"
                 android:scaleType="@{shadeFour.thirdImageScaleType, default = center}" />
 
             <TextView
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:tag="img4"
-                android:onClick="@{clickHandler.onImageShadeClick}"
+                android:onClick="@{clickHandler::onImageShadeClick}"
                 android:scaleType="@{shadeFour.fourthImageScaleType, default = center}"/>
 
             <TextView

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Deepak.Tiwari on 30-10-2015.
  */
-public interface ImageCallback{
+ interface ImageCallback{
     void addImageView(View view, int viewWidth, int viewHeight, boolean hasAddInLayout);
     //1 2
     //3 4

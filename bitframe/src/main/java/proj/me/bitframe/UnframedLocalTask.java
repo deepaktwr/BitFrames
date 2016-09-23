@@ -1,18 +1,17 @@
 package proj.me.bitframe;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.graphics.Palette;
 
-import proj.me.bitframe.dimentions.BeanResult;
+import proj.me.bitframe.helper.BeanResult;
 import proj.me.bitframe.helper.Utils;
 
 /**
  * Created by root on 13/9/16.
  */
 
-public class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult> {
+class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult> {
     ImageResult imageResult;
 
     UnframedLocalTask(ImageResult imageResult){
@@ -26,8 +25,7 @@ public class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult>
         BeanResult beanResult = Utils.decodeBitmapFromPath(
                 (int)(imageResult.getFrameModel().getMaxContainerWidth()/(totalImage > 1 ? totalImage - 0.4f : 1)),
                 (int)(imageResult.getFrameModel().getMaxContainerHeight()/(totalImage > 1 ? totalImage - 0.4f : 1)),
-                beanImage.getImageLink(),
-                beanImage.isHasExtention(), imageResult.getContext());
+                beanImage.getImageLink(), imageResult.getContext());
         if(beanResult == null) beanResult = new BeanResult();
         beanResult.setBeanImage(beanImage);
         return beanResult;
@@ -76,8 +74,6 @@ public class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult>
 
                     BeanImage beanImage = beanResult.getBeanImage();
 
-                    beanBitFrame.setHasExtention(beanImage.isHasExtention());
-                    beanBitFrame.setLocalImage(beanImage.isLocalImage());
                     beanBitFrame.setImageComment(beanImage.getImageComment());
                     beanBitFrame.setImageLink(beanImage.getImageLink());
                     beanBitFrame.setPrimaryCount(beanImage.getPrimaryCount());

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by root on 13/9/16.
  */
 
-public interface ImageResult {
+ interface ImageResult {
     void onImageLoaded(boolean result, Bitmap bitmap, BeanImage beanImage);
     void setDoneLoading(boolean doneLoading);
 
