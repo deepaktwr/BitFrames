@@ -41,7 +41,7 @@ public class RetrofitClient<T> {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://frame-node12345js.rhcloud.com/")
+                .baseUrl("YOUR BASE URL")
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .client(okHttpClient)
                 .build();
