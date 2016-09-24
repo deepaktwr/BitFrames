@@ -22,7 +22,7 @@ You may find a working implementation in /app
 
 
 by default the width and height of the frame will be set as widthPixelsOfDevice - 50, heightPixelsOfDevice - 500.
-but you may explicitly give these as widget attributes:
+but you may explicitly alter these as widget attributes:
 
 ```xml
 frame:max_container_width="@dimen/d_192"
@@ -45,15 +45,15 @@ viewFrame.showBitFrame(beanImageList, callback, frameType);
 
 #####beanImageList :
 the list of image uris, comments, primary and secondary count.
-it can be a list of @BeanImages if you don't have image dimension and colors otherwise you can pass @BeanBitFrame with dimentions and colors to the image to show pallet colors until they load.
+it can be a list of @BeanImages if you don't have image dimensions and colors otherwise you can pass @BeanBitFrame with dimensions and colors to the image to show pallete* colors until they load.
 
 ####callback:
-gives you the all image dimentions , colors in that frame(you might ignore it and pass it null if you don't want any callback)
+gives you the all image dimensions , colors in that frame(you might ignore it and pass it null if you don't want any callback)
 it'll also provide you mixed and inverse colors to the framed images.
 
 ####frameType:
-Provide frame type of UNFRAMED if you are passing @BeanImages which don't have any image dimentions or colors
-otherwise pass FRAMED in case you are passing @BeanBitFrame with image dimention and colors
+Provide frame type of UNFRAMED if you are passing @BeanImages which don't have any image dimensions or colors
+otherwise pass FRAMED in case you are passing @BeanBitFrame with image dimensions and colors
 
 
 ###*_Attributes(optional):_*
@@ -61,7 +61,7 @@ otherwise pass FRAMED in case you are passing @BeanBitFrame with image dimention
 ```xml
 frame:minFrameWidth
 ```
-the minimum width to the image in the frame(howevere it'll calculate it as per other images and their dimentions)
+the minimum width of the image in the frame(howevere it'll calculate it as per other images and their dimensions)
 
 ```xml
 frame:minFrameHeight
@@ -86,7 +86,7 @@ the max frame count to show(it'll show +N if images exceeds that count)
 ```xml
 frame:isAddInLayout
 ```
-you may provide add in the layout i.e if sapce remains then it'll show add a new image button in the containe itself(you'll have it in callback)
+you may provide add in the layout i.e if sapce remains then it'll show add a new image button in the container itself(you'll have it in callback)
 
 ```xml
 frame:minAddRatio
@@ -111,7 +111,7 @@ shoud container has scroll as it's parent
 ```xml
 frame:hasFixedDimensions
 ```
-if true, frame may varry it's width and height as image dimentions.(but always be within maxContainerWidth and maxContainerHeight)
+if true, frame may varry it's width and height as image dimensions.(but always be within maxContainerWidth and maxContainerHeight)
 
 ```xml
 frame:shouldStoreImages
@@ -126,7 +126,7 @@ if true, it'll recycle all the bitmaps after framing done
 ```xml
 frame:shouldSortImages
 ```
-it true, it'll sort the image based on primary and secondary count provided
+if true, it'll sort the image based on primary and secondary count provided
 
 ```xml
 frame:colorCombination
@@ -181,4 +181,4 @@ dataBinding{
 
 into your gradles as library uses databinding.
 
-**_*_** the library have dependencies of picasso and pallete to load images and fetch pallets.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
+**_*_** the library have dependencies of picasso and pallete to load images and fetch pallete.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
