@@ -5,6 +5,8 @@ Frame of Bitmaps
 
 
 
+You may find a working implementation in /app
+
 
 #Usage
 
@@ -181,4 +183,5 @@ dataBinding{
 
 into your gradles as library uses databinding.
 
-*the library have dependencies of picasso and pallete to load images and fetch pallets.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
+##*
+the library have dependencies of picasso and pallete to load images and fetch pallets.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
