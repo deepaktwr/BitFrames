@@ -150,7 +150,12 @@ default is centerInside
 ##Include with android project as gradle dependency:
 
 ```code
-compile 'com.github.deepaktwr:bitframe:0.1.1'
+repositories {
+    jcenter()
+}
+dependencies{
+    compile 'com.github.deepaktwr:bitframe:0.1.1'
+}
 ```
 
 
