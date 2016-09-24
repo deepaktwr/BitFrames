@@ -147,7 +147,7 @@ default is centerInside
 
 
 
-##Include with android project as grdle dependency:
+##Include with android project as gradle dependency:
 
 ```code
 compile 'com.github.deepaktwr:bitframe:0.1.1'
@@ -179,6 +179,6 @@ dataBinding{
    }
 ```
 
-into your gradles as library uses databinding.
+into your gradle as library uses databinding.
 
 **_*_** the library have dependencies of picasso and pallete to load images and fetch pallete.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
