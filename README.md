@@ -56,9 +56,7 @@ Provide frame type of UNFRAMED if you are passing @BeanImages which don't have a
 otherwise pass FRAMED in case you are passing @BeanBitFrame with image dimention and colors
 
 
-
-
-### Attributes:
+###*_Attributes(optional):_*
 
 ```xml
 frame:minFrameWidth
