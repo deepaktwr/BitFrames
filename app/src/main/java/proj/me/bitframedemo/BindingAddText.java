@@ -13,7 +13,6 @@ public class BindingAddText extends BaseObservable{
     private boolean errorVisibility;
     private int textColor;
 
-
     @Bindable public String getAddText() {
         return addText;
     }

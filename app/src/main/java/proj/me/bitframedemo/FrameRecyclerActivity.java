@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
 
@@ -119,7 +120,9 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        switch(intent.getAction()){
+        String cause = intent.getStringExtra("cause");
+        if(TextUtils.isEmpty(cause)) return;
+        switch(cause){
             case Constants.UPLOAD_DONE:
                 SharedPreferences.Editor editor = helperPref.edit();
                 editor.putBoolean("has_new_frames", false);
@@ -248,7 +251,7 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
                 BaseResponse baseResponse = (BaseResponse) responseObject;
                 frameBinder.setErrorText("No Frames found\n\nReload?");
                 frameBinder.setHasData(false);
-                showMessage(baseResponse.getMessage());
+                //showMessage(baseResponse.getMessage());
                 break;
             case Constants.SERVICE_CALL_2:
                 break;

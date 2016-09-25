@@ -34,7 +34,7 @@
             android:layout_centerInParent="true"
             android:text="No Attchments"
             android:visibility="@{bindingAddText.errorVisibility ? View.VISIBLE : View.GONE}"/>
-        <TextView
+        <!--<TextView
             android:id="@+id/extra_text"
             android:layout_width="@dimen/d_64"
             android:layout_height="@dimen/d_64"
@@ -48,6 +48,20 @@
             android:text="@{bindingAddText.addText}"
             android:textColor="@{bindingAddText.textColor}"
             android:textSize="@dimen/s_48"
-            android:visibility="@{bindingAddText.textVisibility ? View.VISIBLE : View.GONE, default = visible}" />
+            android:visibility="@{bindingAddText.textVisibility ? View.VISIBLE : View.GONE, default = visible}" />-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/extra_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/d_7"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/d_10"
+            android:onClick="@{clickHandler::addMoreImages}"
+            android:tag="add"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@{bindingAddText.textColor, default = @android:color/background_light}"
+            android:visibility="@{bindingAddText.textVisibility ? View.VISIBLE : View.GONE, default = visible}"/>
     </RelativeLayout>
 </layout>

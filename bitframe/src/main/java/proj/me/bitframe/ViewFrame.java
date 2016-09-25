@@ -403,7 +403,7 @@ public class ViewFrame extends LinearLayout{
             Utils.logError("container max height or width should not greater than the device dimensions "+
             Utils.formatMessage("device width pixels $1%d and device height pixels $2%d", widthPixels, heightPixels));
             int maxW = widthPixels - 50;
-            int maxH = (heightPixels - 500) < widthPixels ? widthPixels : heightPixels - 500;
+            int maxH = ((heightPixels - 500) < widthPixels ? widthPixels : heightPixels - 500);
 
             frameModel.setMaxContainerWidth(maxW);
             frameModel.setMaxContainerHeight(maxH);

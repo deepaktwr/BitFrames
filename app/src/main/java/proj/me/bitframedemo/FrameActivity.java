@@ -7,12 +7,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
@@ -63,6 +65,8 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
     ProgressDialog progressDialog;
     NotificationManager notificationManager;
     boolean isFrameLoaded;
+    int screenWidth;
+    FloatingActionButton floatingActionButton;
 
     //saved instance
     ArrayList<BeanImage> beanImageList = new ArrayList<>();
@@ -76,6 +80,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
     int containerWidth;
     int containerHeight;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +88,8 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         activityFrameBinding.setClickHandler(this);
         bindingAddText = new BindingAddText();
         activityFrameBinding.setBindingAddText(bindingAddText);
+
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Add Frame");
@@ -97,7 +104,9 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
 
         viewFrame = (ViewFrame) findViewById(R.id.view_frame);
 
-        setAddTextBgColor(findViewById(R.id.extra_text), Utils.getVersionColor(this, R.color.colorPrimary));
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.extra_text);
+        floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(Utils.getVersionColor(this, R.color.colorPrimary)));
+
         bindingAddText.setAddText("+");
         bindingAddText.setTextColor(Utils.getVersionColor(this, R.color.white));
         bindingAddText.setTextVisibility(true);
@@ -169,11 +178,6 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         }
     }
 
-    private void setAddTextBgColor(View view, int color) {
-        GradientDrawable drawable = (GradientDrawable) view.getBackground();
-        drawable.setColor(color);
-    }
-
     @Override
     public void imageClick(ImageType imageType, int imagePosition, String imageLink) {
         showMessage("Clickable");
@@ -198,7 +202,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
 
     @Override
     public void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor) {
-        setAddTextBgColor(findViewById(R.id.extra_text), mixedLoadedColor);
+        floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(mixedLoadedColor));
         bindingAddText.setTextColor(inverseMixedLoadedColor);
     }
 
@@ -392,7 +396,8 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         //do the things
         switch (lastRunningService) {
             case Constants.SERVICE_CALL_1:
-                showMessage("next bundle : " + nextBundle.getBundleId());
+                //showMessage("next bundle : " + nextBundle.getBundleId());
+                showMessage("Uploading in progress\nCheck Notifications");
                 if (isServiceStarted) break;
                 //show notification
                 notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -487,16 +492,19 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
     void saveFrame() throws IOException {
         File parent = new File(Environment.getExternalStorageDirectory().getPath().toString(), "frames/");
         if(!parent.exists()) parent.mkdir();
-        File imgFile = new File(Environment.getExternalStorageDirectory().getPath().toString()+"/frames","Frame_"+System.currentTimeMillis()+"_m"+".png");
+        File imgFile = new File(Environment.getExternalStorageDirectory().getPath().toString()+"/frames","Frame_"+System.currentTimeMillis()+"_m.png");
         viewFrame.setDrawingCacheEnabled(true);
         viewFrame.buildDrawingCache();
-        Bitmap bitmap = viewFrame.getDrawingCache();
-        if(bitmap == null){
+        Bitmap bitmap1 = viewFrame.getDrawingCache();
+        if(bitmap1 == null){
             imgFile.delete();
             return;
         }
+        Bitmap bitmap = Bitmap.createBitmap(bitmap1, (int)Math.ceil((screenWidth - containerWidth) / 2.0), 0,
+                bitmap1.getWidth() - (screenWidth - containerWidth), bitmap1.getHeight());
+        if(bitmap1 != bitmap) bitmap1.recycle();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] bitmapData = byteArrayOutputStream.toByteArray();
 
 
@@ -516,10 +524,11 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         super.resetViewFields();
         viewFrame.clearContainerChilds();
         viewFrame.invalidate();
-        setAddTextBgColor(findViewById(R.id.extra_text), Utils.getVersionColor(this, R.color.colorPrimary));
+        floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(Utils.getVersionColor(this, R.color.colorPrimary)));
         bindingAddText.setAddText("+");
         bindingAddText.setTextColor(Utils.getVersionColor(this, R.color.white));
         bindingAddText.setTextVisibility(true);
+        bindingAddText.setErrorVisibility(true);
         beanImageList.clear();
         filePath = null;
         isPicIntentInitiated = false;
@@ -543,6 +552,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         retrofitImpl = null;
         if (progressDialog.isShowing()) progressDialog.dismiss();
         progressDialog = null;
+        floatingActionButton = null;
 
         //because we are saving them in instance state, so if the object is altered here then it'll effect the save instance
         //it's only for the case when activity saved it's state and calls onDestroy which is not guaranteed

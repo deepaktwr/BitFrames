@@ -119,7 +119,7 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
         if(!hasImageProperties) BindingShadeOne.setBitmap(singleImage, bitmap);
         shadingOneBinding.setImageScaleType(frameModel.getScaleType());
 
-        addImageView(viewSingleBinding.getRoot(), width, height, false);
+        addImageView(viewSingleBinding.getRoot(), beanShade1.getWidth1(), beanShade1.getHeight1(), false);
 
 
         beanBitFrame1.setHeight(/*beanShade1.getHeight1()*/hasImageProperties ? beanBitFrame.getHeight() : bitmap.getHeight());
