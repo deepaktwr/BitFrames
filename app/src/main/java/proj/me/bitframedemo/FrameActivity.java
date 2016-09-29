@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -103,6 +102,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         imageIntent = new ImageIntent(this);
 
         viewFrame = (ViewFrame) findViewById(R.id.view_frame);
+        viewFrame.setFrameDimensions(0, 0, 0, 0);
 
         floatingActionButton = (FloatingActionButton)findViewById(R.id.extra_text);
         floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(Utils.getVersionColor(this, R.color.colorPrimary)));
@@ -543,7 +543,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
     protected void onDestroy() {
         //clear everything
         super.onDestroy();
-        Utils.logError("destroyed");
+        Utils.logVerbose("destroyed");
         viewFrame.destroyFrame();
 
         viewFrame = null;

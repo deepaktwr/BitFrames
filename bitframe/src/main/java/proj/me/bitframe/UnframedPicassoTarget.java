@@ -10,6 +10,7 @@ import com.squareup.picasso.Target;
 
 import java.util.List;
 
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 
 /**
@@ -57,7 +58,7 @@ class UnframedPicassoTarget implements Target {
                     beanBitFrame.setMutedColor(palette.getMutedColor(defaultColor));
                     imageResult.getImageCallback().frameResult(beanBitFrame);
                     bitmap.recycle();
-                    Utils.logError("loading new image after recycle");
+                    Utils.logVerbose("loading new image after recycle");
                     imageResult.callNextCycle(beanImage.getImageLink());*/
 
                     int defaultColor = Color.parseColor("#ffffffff");
@@ -80,7 +81,7 @@ class UnframedPicassoTarget implements Target {
 
                     imageResult.getImageCallback().frameResult(beanBitFrame);
                     if(!bitmap.isRecycled()) bitmap.recycle();
-                    Utils.logError("loading new image after recycle");
+                    Utils.logVerbose("loading new image after recycle");
                     imageResult.callNextCycle(beanImage.getImageLink());
                 }
             });
@@ -88,9 +89,13 @@ class UnframedPicassoTarget implements Target {
             doneLoading = imageResult.getCounter() == (imageResult.getFrameModel().getMaxFrameCount()
                     >= imageResult.getTotalImages() ? imageResult.getTotalImages() : imageResult.getFrameModel().getMaxFrameCount()) - 1;
             imageResult.setDoneLoading(doneLoading);
-            imageResult.onImageLoaded(true, /*beanBitmapResult.getBitmap()*/bitmap, beanImage);
+            try {
+                imageResult.onImageLoaded(true, /*beanBitmapResult.getBitmap()*/bitmap, beanImage);
+            } catch (FrameException e) {
+                e.printStackTrace();
+            }
             imageResult.updateCounter();
-            Utils.logError("loading new image");
+            Utils.logVerbose("loading new image");
             imageResult.callNextCycle(beanImage.getImageLink());
         }
         Utils.logMessage("Came image loaded -> "+imageResult.getCounter());
@@ -100,13 +105,17 @@ class UnframedPicassoTarget implements Target {
     public void onBitmapFailed(Drawable errorDrawable) {
         targets.remove(this);
         /*if(doneLoading)*/ imageResult.updateCounter();
-        imageResult.onImageLoaded(false, null, beanImage);
+        try {
+            imageResult.onImageLoaded(false, null, beanImage);
+        } catch (FrameException e) {
+            e.printStackTrace();
+        }
 
         //pass this directly to container as it has no result
         BeanBitFrame beanBitFrame = new BeanBitFrame();
         imageResult.getImageCallback().frameResult(beanBitFrame);
 
-        Utils.logError("Came image failed -> "+imageResult.getCounter());
+        Utils.logVerbose("Came image failed -> "+imageResult.getCounter());
         imageResult.callNextCycle(null);
     }
 

@@ -11,6 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AbsListView;
 
@@ -57,8 +58,13 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
 
+
         int maxW = widthPixels - Utils.dpToPx(24, getResources());
-        int maxH = ((heightPixels - 500) < widthPixels ? widthPixels : heightPixels - 500) - 60;
+        //int maxH = (int)(heightPixels - heightPixels*0.4f) < widthPixels ? widthPixels : (int)(heightPixels - heightPixels*0.4f);
+        int maxH = (int)(maxW + maxW * 0.2f) > heightPixels ? maxW : (int)(maxW + maxW * 0.2f);
+
+        Utils.logMessage("DISPLAY : "+widthPixels+" "+heightPixels);
+        Utils.logMessage("DISPLAY : "+maxW+" "+maxH);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         frameRecyclerBinding.recyclerFrame.setLayoutManager(linearLayoutManager);

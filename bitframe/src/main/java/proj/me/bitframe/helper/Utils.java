@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import proj.me.bitframe.R;
+import proj.me.bitframe.exceptions.FrameException;
 
 /**
  * Created by deepak on 24/5/15.
@@ -47,8 +48,8 @@ public class Utils {
     public static void logMessage(String message){
         Log.i(TAG, message);
     }
-    public static void logError(String message){
-        Log.e(TAG, message);
+    public static void logVerbose(String message){
+        Log.v(TAG, message);
     }
     public static void showToast(Context context,String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
@@ -127,7 +128,9 @@ public class Utils {
         return finalColor;
     }
 
-    public static int getMixedArgbColor(int ... colors){
+    public static int getMixedArgbColor(int ... colors) throws FrameException{
+        if(colors == null) throw new IllegalArgumentException("can not mix empty colors");
+        if(colors.length > 6) throw new IllegalArgumentException("only support maximum six color mixing, found : "+colors.length);
         int mixedAlpha = 0;
         int mixedRed = 0;
         int mixedGreen = 0;
@@ -239,7 +242,8 @@ public class Utils {
         return ImageView.ScaleType.CENTER_CROP;
     }*/
 
-    public static BeanBitmapResult getScaledResult(Bitmap bitmap, int reqWidth, int reqHeight){
+    public static BeanBitmapResult getScaledResult(Bitmap bitmap, int reqWidth, int reqHeight) throws FrameException{
+        if(bitmap == null || reqWidth == 0 || reqHeight == 0) throw new IllegalArgumentException("scaling can not perform on invalid arguments");
         BeanBitmapResult beanBitmapResult = new BeanBitmapResult();
         beanBitmapResult.setHeight(bitmap.getHeight());
         beanBitmapResult.setWidth(bitmap.getWidth());
@@ -266,14 +270,15 @@ public class Utils {
                 beanBitmapResult.getHeight()/inSampleSize);*/
         beanBitmapResult.setBitmap(btmp);
 
-        Utils.logError("width : " + reqWidth+" height : "+reqHeight);
-        Utils.logError("width : " + beanBitmapResult.getWidth()+" height : "+beanBitmapResult.getHeight());
-        Utils.logError("width : " + beanBitmapResult.getWidth()/inSampleSize+" height : "+beanBitmapResult.getHeight()/inSampleSize);
+        Utils.logMessage("width : " + reqWidth+" height : "+reqHeight);
+        Utils.logMessage("width : " + beanBitmapResult.getWidth()+" height : "+beanBitmapResult.getHeight());
+        Utils.logMessage("width : " + beanBitmapResult.getWidth()/inSampleSize+" height : "+beanBitmapResult.getHeight()/inSampleSize);
 
         return beanBitmapResult;
     }
 
-    public static Bitmap getScaledBitmap(Bitmap bitmap, int reqWidth, int reqHeight){
+    public static Bitmap getScaledBitmap(Bitmap bitmap, int reqWidth, int reqHeight) throws FrameException{
+        if(bitmap == null || reqWidth == 0 || reqHeight == 0) throw new IllegalArgumentException("scaling can not perform on invalid arguments");
         int inSampleSize = 1;
 
         final int height = bitmap.getHeight();
@@ -289,15 +294,17 @@ public class Utils {
         Bitmap btmp = Bitmap.createScaledBitmap(bitmap, width/inSampleSize, height/inSampleSize, false);
         if(btmp != bitmap) bitmap.recycle();
 
-        Utils.logError("1width : " + reqWidth+" height : "+reqHeight);
-        Utils.logError("1width : " + width+" height : "+height);
-        Utils.logError("1width : " + width/inSampleSize+" height : "+height/inSampleSize);
+        Utils.logMessage("width : " + reqWidth+" height : "+reqHeight);
+        Utils.logMessage("width : " + width+" height : "+height);
+        Utils.logMessage("width : " + width/inSampleSize+" height : "+height/inSampleSize);
 
         return btmp;
     }
 
 
-    public static BeanResult decodeBitmapFromPath(int reqWidth, int reqHeight, String imagePath, Context context){
+    public static BeanResult decodeBitmapFromPath(int reqWidth, int reqHeight, String imagePath, Context context) throws FrameException{
+        if(reqWidth == 0 || reqHeight == 0 || TextUtils.isEmpty(imagePath) || context == null)
+            throw new IllegalArgumentException("Failed to decode bitmap from path, invalid arguments");
         boolean hasExtension = !TextUtils.isEmpty(MimeTypeMap.getFileExtensionFromUrl(imagePath));
         if(hasExtension && imagePath.contains(".")) imagePath=imagePath.substring(0,imagePath.lastIndexOf('.'));
         Uri fileUri = Uri.parse(imagePath);
@@ -316,9 +323,9 @@ public class Utils {
             inputStream = context.getContentResolver().openInputStream(fileUri);
             beanResult.setBitmap(BitmapFactory.decodeStream(inputStream, null, options));
             inputStream.close();
-            Utils.logError("width : " + reqWidth+" height : "+reqHeight);
-            Utils.logError("width : " + beanResult.getWidth()+" height : "+beanResult.getHeight());
-            Utils.logError("width : " + options.outWidth+" height : "+options.outHeight);
+            Utils.logMessage("width : " + reqWidth+" height : "+reqHeight);
+            Utils.logMessage("width : " + beanResult.getWidth()+" height : "+beanResult.getHeight());
+            Utils.logMessage("width : " + options.outWidth+" height : "+options.outHeight);
             return beanResult;
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -326,8 +333,10 @@ public class Utils {
             if(inputStream != null) {
                 try {
                     inputStream.close();
+                    throw new FrameException("Could not found file on path : "+imagePath, e);
                 } catch (IOException e1) {
                     e1.printStackTrace();
+                    throw new FrameException("Could not close stream", e1);
                 }
             }
             return null;
@@ -336,8 +345,11 @@ public class Utils {
             if(inputStream != null) {
                 try {
                     inputStream.close();
+                    throw new FrameException("could not decode file : "+imagePath, e);
                 } catch (IOException e1) {
                     e1.printStackTrace();
+                    throw new FrameException("could not close stream", e1);
+
                 }
             }
             return null;

@@ -1,9 +1,13 @@
 package proj.me.bitframe;
 
 import android.graphics.Bitmap;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
+
+import proj.me.bitframe.exceptions.FrameException;
 
 /**
  * Created by root on 23/9/16.
@@ -44,6 +48,25 @@ public abstract class ImageShades implements ImageClickHandler{
         imageCallback.addMore();
     }
 
-    protected abstract void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties);
+    protected abstract void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties) throws FrameException;
+    protected abstract void onPaletteGenerated(Palette palette, int viewId) throws FrameException;
 
+    public static class PaletteListener implements Palette.PaletteAsyncListener{
+        int viewId;
+        WeakReference<ImageShades> imageShadesWeakReference;
+        public PaletteListener(int viewId, ImageShades imageShades){
+            this.viewId = viewId;
+            imageShadesWeakReference = new WeakReference<>(imageShades);
+        }
+        @Override
+        public void onGenerated(Palette palette) {
+            ImageShades imageShades = imageShadesWeakReference.get();
+            if(imageShades == null) return;
+            try {
+                imageShades.onPaletteGenerated(palette, viewId);
+            } catch (FrameException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

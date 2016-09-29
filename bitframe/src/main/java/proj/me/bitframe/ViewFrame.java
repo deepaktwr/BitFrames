@@ -21,9 +21,12 @@ import java.util.List;
 
 import proj.me.bitframe.databinding.ItemImageviewBinding;
 import proj.me.bitframe.databinding.NoscrollItemImageviewBinding;
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.ColorCombination;
 import proj.me.bitframe.helper.FrameType;
 import proj.me.bitframe.helper.Utils;
+
+import static java.lang.Math.round;
 
 /**
  * Created by Deepak.Tiwari on 10-08-2015.
@@ -54,7 +57,7 @@ public class ViewFrame extends LinearLayout{
         public void addImageView(View view, int viewWidth, int viewHeight, boolean isAddInLayout) {
             ViewFrame viewFrame = viewFrameWeakReference.get();
             if(viewFrame == null) return;
-            Utils.logError("going to add view");
+            Utils.logVerbose("going to add view");
             viewFrame.binadingBitFrame.setProgressBarVisibility(false);
 
             viewFrame.imageContainer.addView(view);
@@ -84,7 +87,7 @@ public class ViewFrame extends LinearLayout{
         public void setColorsToAddMoreView(int resultColor, int mixedColor, int invertedColor) {
             ViewFrame viewFrame = viewFrameWeakReference.get();
             if(viewFrame == null) return;
-            Utils.logError("colors came");
+            Utils.logVerbose("colors came");
             viewFrame.binadingBitFrame.setProgressBarColor(mixedColor);
 
             if(viewFrame.frameCallback != null) viewFrame.frameCallback.loadedFrameColors(resultColor, mixedColor, invertedColor);
@@ -94,7 +97,7 @@ public class ViewFrame extends LinearLayout{
         public void frameResult(BeanBitFrame... beanBitFrames) {
             ViewFrame viewFrame = viewFrameWeakReference.get();
             if(viewFrame == null) return;
-            Utils.logError("frame result came");
+            Utils.logVerbose("frame result came");
             //might be called multiple times
             viewFrame.beanBitFramesResult.addAll(Arrays.asList(beanBitFrames));
             if(viewFrame.linkCount == viewFrame.beanBitFramesResult.size() && viewFrame.frameCallback != null)
@@ -113,21 +116,21 @@ public class ViewFrame extends LinearLayout{
 
     public ViewFrame(Context context) {
         super(context);
-        Utils.logError("cons");
+        Utils.logVerbose("cons");
         setOrientation(VERTICAL);
         init((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE), null, 0);
     }
 
     public ViewFrame(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Utils.logError("cons");
+        Utils.logVerbose("cons");
         setOrientation(VERTICAL);
         init((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE), attrs, 0);
     }
 
     public ViewFrame(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Utils.logError("cons");
+        Utils.logVerbose("cons");
         setOrientation(VERTICAL);
         init((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE), attrs, defStyleAttr);
     }
@@ -366,11 +369,11 @@ public class ViewFrame extends LinearLayout{
      * @param maxContainerWidth will go as max width of the frame container
      * @param maxContainerHeight will go as max height of the frame container
      * */
-    public void setFrameDimensions(float minFrameWidth, float minFrameHeight, float maxContainerWidth, float maxContainerHeight){
-        frameModel.setMinFrameWidth(minFrameWidth);
-        frameModel.setMinFrameHeight(minFrameHeight);
-        frameModel.setMaxContainerWidth(maxContainerWidth);
-        frameModel.setMaxContainerHeight(maxContainerHeight);
+    public void setFrameDimensions(int minFrameWidth, int minFrameHeight, int maxContainerWidth, int maxContainerHeight){
+        frameModel.setMinFrameWidth(minFrameWidth % 2 == 0 ? minFrameWidth : minFrameWidth + 1);
+        frameModel.setMinFrameHeight(minFrameHeight % 2 == 0 ? minFrameHeight : minFrameHeight + 1);
+        frameModel.setMaxContainerWidth(maxContainerWidth % 2 == 0 ? maxContainerWidth : maxContainerWidth);
+        frameModel.setMaxContainerHeight(maxContainerHeight % 2 == 0 ? maxContainerHeight : maxContainerHeight + 1);
     }
     /**
      * it'll set the container's width and height fixed and frame will be managed according to that
@@ -393,17 +396,20 @@ public class ViewFrame extends LinearLayout{
         //precondition minWidth or minHeight should be less than half of max width or max height respectivally
 
         if(frameCallback == null || beanImageList == null || beanImageList.size() == 0){
-            Utils.logError("list and callback both are required and must not have size 0");
+            Utils.logVerbose("list and callback both are required and must not have size 0");
             return;
         }
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
 
-        if(frameModel.getMaxContainerHeight() > heightPixels || frameModel.getMaxContainerWidth() > widthPixels){
-            Utils.logError("container max height or width should not greater than the device dimensions "+
+        if(frameModel.getMaxContainerHeight() <= 0 || frameModel.getMaxContainerWidth() <= 0 || frameModel.getMaxContainerHeight() > heightPixels || frameModel.getMaxContainerWidth() > widthPixels){
+            Utils.logVerbose("container max height or width should not greater than the device dimensions "+
             Utils.formatMessage("device width pixels $1%d and device height pixels $2%d", widthPixels, heightPixels));
-            int maxW = widthPixels - 50;
-            int maxH = ((heightPixels - 500) < widthPixels ? widthPixels : heightPixels - 500);
+            int maxW = round(widthPixels - widthPixels * 0.04f);
+            int maxH = round(maxW + maxW * 0.15f > heightPixels ? maxW : maxW + maxW * 0.15f);
+
+            maxW = maxW % 2 == 0 ? maxW : maxW + 1;
+            maxH = maxH % 2 == 0 ? maxH : maxH + 1;
 
             frameModel.setMaxContainerWidth(maxW);
             frameModel.setMaxContainerHeight(maxH);
@@ -411,15 +417,18 @@ public class ViewFrame extends LinearLayout{
             Utils.logMessage(Utils.formatMessage("setting max container width to $1%d and max container height to $2%d",
                     maxW, maxH));
         }
-        if(frameModel.getMinFrameWidth() * 2 >= frameModel.getMaxContainerWidth() ||
+        if(frameModel.getMinFrameWidth() <= 0 || frameModel.getMinFrameHeight() <= 0f || frameModel.getMinFrameWidth() * 2 >= frameModel.getMaxContainerWidth() ||
                 frameModel.getMinFrameHeight() * 2 >= frameModel.getMaxContainerHeight()){
-            Utils.logError("frame min width or height must be less than half of the container width or height respectivally, " +
+            Utils.logVerbose("frame min width or height must be less than half of the container width or height respectivally, " +
                     "you may call @setFrameDimentions to set those explicitly");
 
-            int maxW = (int) frameModel.getMaxContainerWidth();
-            int maxH = (int) frameModel.getMaxContainerHeight();
-            int minW = (maxW / 2) - 50;
-            int minH = (maxH / 2) - 50;
+            int maxW = round(frameModel.getMaxContainerWidth());
+            int maxH = round(frameModel.getMaxContainerHeight());
+            int minW = round(maxW * 0.30f);
+            int minH = round(maxH * 0.30f);
+
+            minW = minW % 2 == 0 ? minW : minW + 1;
+            minH = minH % 2 == 0 ? minH : minH + 1;
 
             frameModel.setMinFrameWidth(minW);
             frameModel.setMinFrameHeight(minH);
@@ -431,16 +440,16 @@ public class ViewFrame extends LinearLayout{
         }
         if(frameModel.getMaxFrameCount() > 4){
             frameModel.setMaxFrameCount(4);
-            Utils.logError("max supported frames are 4 for now");
+            Utils.logVerbose("max supported frames are 4 for now");
             Utils.logMessage("setting max frames to 4");
         }
         if(frameModel.getMaxFrameCount() <= 0) {
             frameModel.setMaxFrameCount(1);
-            Utils.logError("container must have at-least one frame");
+            Utils.logVerbose("container must have at-least one frame");
             Utils.logMessage("setting max frames to 1");
         }
         if(frameModel.isAddInLayout() && frameModel.getMinAddRatio() > 0.50 || frameModel.getMinAddRatio() < 0.15){
-            Utils.logError("min add ratio must be less than 50 percent i.e 0.50 so that min width or height could not get smaller" +
+            Utils.logVerbose("min add ratio must be less than 50 percent i.e 0.50 so that min width or height could not get smaller" +
                     " than that and it must be greater than 15 percent (which will go 15 percent of max width or max height) " +
                     "so that it itself doesn't look too small");
             frameModel.setMinAddRatio(0.25f);
@@ -474,20 +483,25 @@ public class ViewFrame extends LinearLayout{
                 imageShading.mapUnframedImages(beanImageList, targets);
                 break;
             case FRAMED:
-                imageShading.mapFramedImages(beanImageList);
+                try {
+                    imageShading.mapFramedImages(beanImageList);
+                } catch (FrameException e) {
+                    e.printStackTrace();
+                }
                 break;
+            default: Utils.logVerbose("invalid frame type");
         }
 
     }
 
     public void clearContainerChilds(){
-        Utils.logError("clearing views");
+        Utils.logVerbose("clearing views");
         Utils.unbindDrawables(imageContainer, false, frameModel.isShouldRecycleBitmaps());
 
     }
 
     public void destroyFrame(){
-        Utils.logError("view detached");
+        Utils.logVerbose("view detached");
         Utils.unbindDrawables(this, true, frameModel.isShouldRecycleBitmaps());
 
         layoutInflater = null;

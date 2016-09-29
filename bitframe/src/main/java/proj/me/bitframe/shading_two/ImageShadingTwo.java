@@ -27,12 +27,13 @@ import proj.me.bitframe.databinding.ViewDoubleVertBinding;
 import proj.me.bitframe.dimentions.BeanShade2;
 import proj.me.bitframe.dimentions.ImageOrder;
 import proj.me.bitframe.dimentions.LayoutType;
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 
 /**
  * Created by Deepak.Tiwari on 29-09-2015.
  */
- public final class ImageShadingTwo extends ImageShades {
+public final class ImageShadingTwo extends ImageShades {
 
     LayoutInflater inflater;
     Context context;
@@ -46,7 +47,9 @@ import proj.me.bitframe.helper.Utils;
 
     FrameModel frameModel;
 
-    public ImageShadingTwo(Context context, int totalImages, FrameModel frameModel){
+    int resultColor;
+
+    public ImageShadingTwo(Context context, int totalImages, FrameModel frameModel) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.totalImages = totalImages;
@@ -61,18 +64,18 @@ import proj.me.bitframe.helper.Utils;
     }
 
     @Override
-    protected void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties){
+    protected void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties) throws FrameException{
         BeanBitFrame beanBitFrameFirst = null, beanBitFrameSecond = null;
-        if(hasImageProperties){
+        if (hasImageProperties) {
             beanBitFrameFirst = (BeanBitFrame) beanImages.get(0);
             beanBitFrameSecond = (BeanBitFrame) beanImages.get(1);
         }
 
         int width1 = hasImageProperties ? (int) beanBitFrameFirst.getWidth() : images.get(0).getWidth();
-        int height1 = hasImageProperties ? (int) beanBitFrameFirst.getHeight() :  images.get(0).getHeight();
+        int height1 = hasImageProperties ? (int) beanBitFrameFirst.getHeight() : images.get(0).getHeight();
 
         int width2 = hasImageProperties ? (int) beanBitFrameSecond.getWidth() : images.get(1).getWidth();
-        int height2 = hasImageProperties ? (int) beanBitFrameSecond.getHeight() :  images.get(1).getHeight();
+        int height2 = hasImageProperties ? (int) beanBitFrameSecond.getHeight() : images.get(1).getHeight();
 
 
         BeanShade2 beanShade2 = ShadeTwo.calculateDimentions(frameModel, width1, height1, width2, height2);
@@ -81,28 +84,28 @@ import proj.me.bitframe.helper.Utils;
         boolean isVertLayout = beanShade2.getLayoutType() == LayoutType.VERT;
 
 
-        Utils.logMessage("getWidth1 : "+width1);
-        Utils.logMessage("getHeight1 : "+height1);
-        Utils.logMessage("getWidth2 : "+width2);
-        Utils.logMessage("getHeight2 : "+height2);
+        Utils.logMessage("getWidth1 : " + width1);
+        Utils.logMessage("getHeight1 : " + height1);
+        Utils.logMessage("getWidth2 : " + width2);
+        Utils.logMessage("getHeight2 : " + height2);
 
         Utils.logMessage("Start++++++++++++++++++++++++++++++++++++Start");
-        Utils.logMessage("getWidth1 : "+beanShade2.getWidth1());
-        Utils.logMessage("getHeight1 : "+beanShade2.getHeight1());
-        Utils.logMessage("getWidth2 : "+beanShade2.getWidth2());
-        Utils.logMessage("getHeight2 : "+beanShade2.getHeight2());
-        Utils.logMessage("isFirstImageLeftOrTop : "+isFirstImageLeftOrTop);
-        Utils.logMessage("isVertLayout : "+isVertLayout);
+        Utils.logMessage("getWidth1 : " + beanShade2.getWidth1());
+        Utils.logMessage("getHeight1 : " + beanShade2.getHeight1());
+        Utils.logMessage("getWidth2 : " + beanShade2.getWidth2());
+        Utils.logMessage("getHeight2 : " + beanShade2.getHeight2());
+        Utils.logMessage("isFirstImageLeftOrTop : " + isFirstImageLeftOrTop);
+        Utils.logMessage("isVertLayout : " + isVertLayout);
         Utils.logMessage("End++++++++++++++++++++++++++++++++++++End");
 
         View root = null;
 
-        if(isVertLayout){
+        if (isVertLayout) {
             ViewDoubleVertBinding viewDoubleVertBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_double_vert, null));
             viewDoubleVertBinding.setShadeTwo(bindingShadeTwo);
             viewDoubleVertBinding.setClickHandler(this);
             root = viewDoubleVertBinding.getRoot();
-        }else{
+        } else {
             ViewDoubleHorzBinding viewDoubleHorzBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_double_horz, null));
             viewDoubleHorzBinding.setShadeTwo(bindingShadeTwo);
             viewDoubleHorzBinding.setClickHandler(this);
@@ -119,27 +122,28 @@ import proj.me.bitframe.helper.Utils;
 
         BindingShadeTwo.setLayoutHeight(imageView1, beanShade2.getHeight1());
         BindingShadeTwo.setLayoutWidth(imageView1, beanShade2.getWidth1());
-        if(!hasImageProperties) {
-            generatePalette(isFirstImageLeftOrTop ? bitmap1 : bitmap2, 1);
+        if (!hasImageProperties) {
+            Palette.from(isFirstImageLeftOrTop ? bitmap1 : bitmap2).generate(new PaletteListener(1, this));
             BindingShadeTwo.setBitmap(imageView1, isFirstImageLeftOrTop ? bitmap1 : bitmap2);
-        }else{
+        } else {
             //set bean properties
             int resultColor = 0;
             beanBitFrame1.setHasGreaterVibrantPopulation(isFirstImageLeftOrTop ? beanBitFrameFirst.isHasGreaterVibrantPopulation() : beanBitFrameSecond.isHasGreaterVibrantPopulation());
             beanBitFrame1.setMutedColor(isFirstImageLeftOrTop ? beanBitFrameFirst.getMutedColor() : beanBitFrameSecond.getMutedColor());
             beanBitFrame1.setVibrantColor(isFirstImageLeftOrTop ? beanBitFrameFirst.getVibrantColor() : beanBitFrameSecond.getVibrantColor());
 
-            switch(frameModel.getColorCombination()){
+            switch (frameModel.getColorCombination()) {
                 case VIBRANT_TO_MUTED:
-                    if(beanBitFrame1.isHasGreaterVibrantPopulation())
+                    if (beanBitFrame1.isHasGreaterVibrantPopulation())
                         resultColor = beanBitFrame1.getVibrantColor();
                     else resultColor = beanBitFrame1.getMutedColor();
                     break;
                 case MUTED_TO_VIBRANT:
-                    if(beanBitFrame1.isHasGreaterVibrantPopulation())
+                    if (beanBitFrame1.isHasGreaterVibrantPopulation())
                         resultColor = beanBitFrame1.getMutedColor();
                     else resultColor = beanBitFrame1.getVibrantColor();
                     break;
+                default: throw new FrameException("could not found color combination");
             }
 
             bindingShadeTwo.setFirstImageBgColor(resultColor);
@@ -151,27 +155,28 @@ import proj.me.bitframe.helper.Utils;
         BindingShadeTwo.setLayoutWidth(imageView2, beanShade2.getWidth2());
         BindingShadeTwo.setLayoutHeight(imageView2, beanShade2.getHeight2());
 
-        if(!hasImageProperties) {
-            generatePalette(isFirstImageLeftOrTop ? bitmap2 : bitmap1, 2);
+        if (!hasImageProperties) {
+            Palette.from(isFirstImageLeftOrTop ? bitmap2 : bitmap1).generate(new PaletteListener(2, this));
             BindingShadeTwo.setBitmap(imageView2, isFirstImageLeftOrTop ? bitmap2 : bitmap1);
-        }else{
+        } else {
             //set bean properties
             int resultColor = 0;
             beanBitFrame2.setHasGreaterVibrantPopulation(isFirstImageLeftOrTop ? beanBitFrameSecond.isHasGreaterVibrantPopulation() : beanBitFrameFirst.isHasGreaterVibrantPopulation());
             beanBitFrame2.setMutedColor(isFirstImageLeftOrTop ? beanBitFrameSecond.getMutedColor() : beanBitFrameFirst.getMutedColor());
             beanBitFrame2.setVibrantColor(isFirstImageLeftOrTop ? beanBitFrameSecond.getVibrantColor() : beanBitFrameFirst.getVibrantColor());
 
-            switch(frameModel.getColorCombination()){
+            switch (frameModel.getColorCombination()) {
                 case VIBRANT_TO_MUTED:
-                    if(beanBitFrame2.isHasGreaterVibrantPopulation())
+                    if (beanBitFrame2.isHasGreaterVibrantPopulation())
                         resultColor = beanBitFrame2.getVibrantColor();
                     else resultColor = beanBitFrame2.getMutedColor();
                     break;
                 case MUTED_TO_VIBRANT:
-                    if(beanBitFrame2.isHasGreaterVibrantPopulation())
+                    if (beanBitFrame2.isHasGreaterVibrantPopulation())
                         resultColor = beanBitFrame2.getMutedColor();
                     else resultColor = beanBitFrame2.getVibrantColor();
                     break;
+                default: throw new FrameException("could not found color combination");
             }
 
             bindingShadeTwo.setSecondImageBgColor(resultColor);
@@ -182,7 +187,7 @@ import proj.me.bitframe.helper.Utils;
 
         bindingShadeTwo.setAddVisibility(true);
 
-        if(beanShade2.isAddInLayout()) {
+        if (beanShade2.isAddInLayout()) {
             if (totalImages > 2) {
                 bindingShadeTwo.setAddAsCounter(true);
                 bindingShadeTwo.setAddText("+" + (totalImages - 2));
@@ -195,7 +200,7 @@ import proj.me.bitframe.helper.Utils;
                 //bg
                 isAddViewVisible = true;
             }
-        }else {
+        } else {
             if (totalImages > 2) {
                 bindingShadeTwo.setCounterVisibility(true);
                 bindingShadeTwo.setCounterText("+" + (totalImages - 2));
@@ -221,10 +226,10 @@ import proj.me.bitframe.helper.Utils;
 
         BeanImage beanImage1 = null;
         BeanImage beanImage2 = null;
-        if(isFirstImageLeftOrTop){
+        if (isFirstImageLeftOrTop) {
             beanImage1 = beanImages.get(0);
             beanImage2 = beanImages.get(1);
-        }else{
+        } else {
             beanImage1 = beanImages.get(1);
             beanImage2 = beanImages.get(0);
         }
@@ -237,9 +242,11 @@ import proj.me.bitframe.helper.Utils;
         int secondPrimaryCount = beanImage2.getPrimaryCount();
         int secondSecondaryCount = beanImage2.getSecondaryCount();
 
-        if(isVertLayout) addImageView(root, isFirstImageLeftOrTop ? beanShade2.getWidth1() : beanShade2.getWidth2(),
+        if (isVertLayout)
+            addImageView(root, isFirstImageLeftOrTop ? beanShade2.getWidth1() : beanShade2.getWidth2(),
                     beanShade2.getHeight1() + beanShade2.getHeight2(), isAddViewVisible);
-        else addImageView(root, isFirstImageLeftOrTop ? beanShade2.getHeight1() : beanShade2.getHeight2(),
+        else
+            addImageView(root, isFirstImageLeftOrTop ? beanShade2.getHeight1() : beanShade2.getHeight2(),
                     beanShade2.getWidth1() + beanShade2.getWidth2(), isAddViewVisible);
 
         beanBitFrame1.setWidth(/*beanShade2.getWidth1()*/hasImageProperties ? (isFirstImageLeftOrTop ? beanBitFrameFirst.getWidth() : beanBitFrameSecond.getWidth()) : isFirstImageLeftOrTop ? bitmap1.getWidth() : bitmap2.getWidth());
@@ -256,7 +263,7 @@ import proj.me.bitframe.helper.Utils;
         beanBitFrame2.setPrimaryCount(secondPrimaryCount);
         beanBitFrame2.setSecondaryCount(secondSecondaryCount);
 
-        if(hasImageProperties){
+        if (hasImageProperties) {
             //extra properties
             int defaultColor = Color.parseColor("#ffffffff");
             int commentColor = Color.parseColor("#33000000");
@@ -271,12 +278,11 @@ import proj.me.bitframe.helper.Utils;
             bindingShadeTwo.setDividerColor(inverseColor);
 
 
-
-            if(bindingShadeTwo.isAddVisibility()){
-                if(bindingShadeTwo.isAddAsCounter()){
+            if (bindingShadeTwo.isAddVisibility()) {
+                if (bindingShadeTwo.isAddAsCounter()) {
                     bindingShadeTwo.setAddTextColor(defaultColor);
                     bindingShadeTwo.setAddBgColor(commentColor);
-                }else{
+                } else {
                     bindingShadeTwo.setAddBgColor(mixedColor);
                     bindingShadeTwo.setAddTextColor(inverseColor);
                 }
@@ -284,47 +290,47 @@ import proj.me.bitframe.helper.Utils;
 
             final Picasso picasso = Picasso.with(context.getApplicationContext());
             //need to notify ImageShading too, to load image via picasso
-            Utils.logError("IMAGE_LOADING : "+" going to load two image");
-            if(frameModel.isShouldStoreImages()){
+            Utils.logVerbose("IMAGE_LOADING : " + " going to load two image");
+            if (frameModel.isShouldStoreImages()) {
                 picasso.load(imageLink1).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
-                        picasso.load(imageLink1+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView1);
+                        Utils.logVerbose("IMAGE_LOADING error");
+                        picasso.load(imageLink1 + "?" + System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView1);
                     }
                 });
                 picasso.load(imageLink2).fit().centerInside().noPlaceholder().into(imageView2, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
-                        picasso.load(imageLink2+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView2);
+                        Utils.logVerbose("IMAGE_LOADING error");
+                        picasso.load(imageLink2 + "?" + System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView2);
                     }
                 });
-            }else {
+            } else {
                 picasso.load(imageLink1).memoryPolicy(MemoryPolicy.NO_STORE)
                         .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
-                        picasso.load(imageLink1+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                        Utils.logVerbose("IMAGE_LOADING error");
+                        picasso.load(imageLink1 + "?" + System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView1);
                     }
                 });
@@ -333,22 +339,23 @@ import proj.me.bitframe.helper.Utils;
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
-                        picasso.load(imageLink2+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                        Utils.logVerbose("IMAGE_LOADING error");
+                        picasso.load(imageLink2 + "?" + System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView2);
                     }
                 });
             }
         }
     }
+
     @Override
     public void onImageShadeClick(View view) {
-        switch((String)view.getTag()){
+        switch ((String) view.getTag()) {
             case "img1":
                 imageClicked(ImageType.VIEW_DOUBLE, 1, imageLink1);
                 break;
@@ -361,79 +368,75 @@ import proj.me.bitframe.helper.Utils;
         }
     }
 
-    private int resultColor;
-    private void generatePalette(Bitmap bitmap, final int viewId){
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                int defaultColor = Color.parseColor("#ffffffff");
-                int commentColor = Color.parseColor("#33000000");
-                int resultColor = 0;
-                Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                int vibrantPopulation = vibrantSwatch == null ? 0 : vibrantSwatch.getPopulation();
-                int mutedPopulation = mutedSwatch == null ? 0 : mutedSwatch.getPopulation();
+    @Override
+    protected void onPaletteGenerated(Palette palette, int viewId) throws FrameException {
+        int defaultColor = Color.parseColor("#ffffffff");
+        int commentColor = Color.parseColor("#33000000");
+        int resultColor = 0;
+        Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+        Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+        int vibrantPopulation = vibrantSwatch == null ? 0 : vibrantSwatch.getPopulation();
+        int mutedPopulation = mutedSwatch == null ? 0 : mutedSwatch.getPopulation();
 
-                int vibrantColor = palette.getVibrantColor(defaultColor);
-                int mutedColor = palette.getMutedColor(defaultColor);
+        int vibrantColor = palette.getVibrantColor(defaultColor);
+        int mutedColor = palette.getMutedColor(defaultColor);
 
-                boolean hasGreaterVibrantPopulation = vibrantPopulation > mutedPopulation;
+        boolean hasGreaterVibrantPopulation = vibrantPopulation > mutedPopulation;
 
-                switch(frameModel.getColorCombination()){
-                    case VIBRANT_TO_MUTED:
-                        if(hasGreaterVibrantPopulation)
-                            resultColor = vibrantColor;
-                        else resultColor = mutedColor;
-                        break;
-                    case MUTED_TO_VIBRANT:
-                        if(hasGreaterVibrantPopulation)
-                            resultColor = mutedColor;
-                        else resultColor = vibrantColor;
-                        break;
-                }
+        switch (frameModel.getColorCombination()) {
+            case VIBRANT_TO_MUTED:
+                if (hasGreaterVibrantPopulation)
+                    resultColor = vibrantColor;
+                else resultColor = mutedColor;
+                break;
+            case MUTED_TO_VIBRANT:
+                if (hasGreaterVibrantPopulation)
+                    resultColor = mutedColor;
+                else resultColor = vibrantColor;
+                break;
+            default: throw new FrameException("could not found color combination");
+        }
 
-                Utils.logMessage("vibrant pop = "+vibrantPopulation+"  muted pop"+mutedPopulation);
+        Utils.logMessage("vibrant pop = " + vibrantPopulation + "  muted pop" + mutedPopulation);
 
-                switch(viewId){
-                    case 1:
-                        bindingShadeTwo.setFirstImageBgColor(resultColor);
-                        bindingShadeTwo.setFirstCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
-                        beanBitFrame1.setMutedColor(mutedColor);
-                        beanBitFrame1.setVibrantColor(vibrantColor);
-                        beanBitFrame1.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
-                        break;
-                    case 2:
-                        bindingShadeTwo.setSecondImageBgColor(resultColor);
-                        bindingShadeTwo.setSecondCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
-                        beanBitFrame2.setMutedColor(mutedColor);
-                        beanBitFrame2.setVibrantColor(vibrantColor);
-                        beanBitFrame2.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
-                        break;
-                }
+        switch (viewId) {
+            case 1:
+                bindingShadeTwo.setFirstImageBgColor(resultColor);
+                bindingShadeTwo.setFirstCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
+                beanBitFrame1.setMutedColor(mutedColor);
+                beanBitFrame1.setVibrantColor(vibrantColor);
+                beanBitFrame1.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
+                break;
+            case 2:
+                bindingShadeTwo.setSecondImageBgColor(resultColor);
+                bindingShadeTwo.setSecondCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
+                beanBitFrame2.setMutedColor(mutedColor);
+                beanBitFrame2.setVibrantColor(vibrantColor);
+                beanBitFrame2.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
+                break;
+            default: throw new FrameException("invalid view counter");
+        }
 
-                if(ImageShadingTwo.this.resultColor == 0) ImageShadingTwo.this.resultColor = resultColor;
-                else {
-                    int mixedColor = Utils.getMixedArgbColor(ImageShadingTwo.this.resultColor, resultColor);
-                    int inverseColor = Utils.getInverseColor(mixedColor);
-                    setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
-                    frameResult(beanBitFrame1, beanBitFrame2);
+        if (ImageShadingTwo.this.resultColor == 0) ImageShadingTwo.this.resultColor = resultColor;
+        else {
+            int mixedColor = Utils.getMixedArgbColor(ImageShadingTwo.this.resultColor, resultColor);
+            int inverseColor = Utils.getInverseColor(mixedColor);
+            setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
+            frameResult(beanBitFrame1, beanBitFrame2);
 
-                    //bindingShadeTwo.setDividerVisible(Utils.showShowDivider());
-                    bindingShadeTwo.setDividerColor(inverseColor);
-
+            //bindingShadeTwo.setDividerVisible(Utils.showShowDivider());
+            bindingShadeTwo.setDividerColor(inverseColor);
 
 
-                    if(bindingShadeTwo.isAddVisibility()){
-                        if(bindingShadeTwo.isAddAsCounter()){
-                            bindingShadeTwo.setAddTextColor(defaultColor);
-                            bindingShadeTwo.setAddBgColor(commentColor);
-                        }else{
-                            bindingShadeTwo.setAddBgColor(mixedColor);
-                            bindingShadeTwo.setAddTextColor(inverseColor);
-                        }
-                    }
+            if (bindingShadeTwo.isAddVisibility()) {
+                if (bindingShadeTwo.isAddAsCounter()) {
+                    bindingShadeTwo.setAddTextColor(defaultColor);
+                    bindingShadeTwo.setAddBgColor(commentColor);
+                } else {
+                    bindingShadeTwo.setAddBgColor(mixedColor);
+                    bindingShadeTwo.setAddTextColor(inverseColor);
                 }
             }
-        });
+        }
     }
 }

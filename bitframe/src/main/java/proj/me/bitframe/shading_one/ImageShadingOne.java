@@ -25,13 +25,14 @@ import proj.me.bitframe.ImageType;
 import proj.me.bitframe.R;
 import proj.me.bitframe.databinding.ViewSingleBinding;
 import proj.me.bitframe.dimentions.BeanShade1;
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 
 
 /**
  * Created by Deepak.Tiwari on 28-09-2015.
  */
-public final class ImageShadingOne extends ImageShades implements Palette.PaletteAsyncListener {
+public final class ImageShadingOne extends ImageShades{
     Context context;
     LayoutInflater inflater;
     int totalImages;
@@ -61,7 +62,8 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
      * */
 
     @Override
-    protected void updateFrameUi(List<Bitmap> bitmaps, List<BeanImage> beanImages, boolean hasImageProperties){
+    protected void updateFrameUi(List<Bitmap> bitmaps, List<BeanImage> beanImages, boolean hasImageProperties) throws FrameException{
+        if(beanImages == null || beanImages.size() == 0) throw new IllegalArgumentException("BeanImage list should not be null or empty");
         BeanBitFrame beanBitFrame = null;
         if(hasImageProperties) beanBitFrame = (BeanBitFrame) beanImages.get(0);
         result = getResult();
@@ -127,7 +129,7 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
         beanBitFrame1.setImageLink(imageLink1);
         beanBitFrame1.setImageComment(shadingOneBinding.getComment());
 
-        if(!hasImageProperties) Palette.from(bitmap).generate(this);
+        if(!hasImageProperties) Palette.from(bitmap).generate(new PaletteListener(0, this));
         else{
             int resultColor = 0;
             int vibrantColor = beanBitFrame.getVibrantColor();
@@ -161,7 +163,7 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
             frameResult(beanBitFrame1);
 
             //need to notify ImageShading too, to load image via picasso
-            Utils.logError("IMAGE_LOADING : "+" going to load one image");
+            Utils.logVerbose("IMAGE_LOADING : "+" going to load one image");
             final Picasso picasso = Picasso.with(context.getApplicationContext());
             if(frameModel.isShouldStoreImages()){
                 picasso.load(imageLink1).fit().centerInside().noPlaceholder().
@@ -169,12 +171,12 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logMessage("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink1+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(singleImage);
                     }
                 });
@@ -182,7 +184,7 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
                 builder.listener(new Picasso.Listener() {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                        Utils.logError(uri.getPath()+" link:"+imageLink1);
+                        Utils.logVerbose(uri.getPath()+" link:"+imageLink1);
                         exception.printStackTrace();
                     }
                 });
@@ -207,12 +209,12 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logMessage("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink1+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(singleImage);
                     }
@@ -228,7 +230,7 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
     }
 
     @Override
-    public void onGenerated(Palette palette) {
+    public void onPaletteGenerated(Palette palette, int viewId) throws FrameException{
         int defaultColor = Color.parseColor("#ffffffff");
         int resultColor = 0;
         Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
@@ -252,38 +254,15 @@ public final class ImageShadingOne extends ImageShades implements Palette.Palett
                     resultColor = mutedColor;
                 else resultColor = vibrantColor;
                 break;
+            default:
+                throw new FrameException("color combination not defined");
         }
 
         beanBitFrame1.setMutedColor(mutedColor);
         beanBitFrame1.setVibrantColor(vibrantColor);
 
         Utils.logMessage("vibrant pop = "+vibrantPopulation+"  muted pop"+mutedPopulation);
-                /*switch(Utils.getColorPallet()){
-                    case VIBRANT:
-                        resultColor = palette.getVibrantColor(defaultColor);
-                        Utils.logMessage("vibrant = "+resultColor);
-                        break;
-                    case VIBRANT_DARK:
-                        resultColor = palette.getDarkVibrantColor(defaultColor);
-                        Utils.logMessage("vibrant dark = "+resultColor);
-                        break;
-                    case VIBRANT_LIGHT:
-                        resultColor = palette.getLightVibrantColor(defaultColor);
-                        Utils.logMessage("vibrant light = "+resultColor);
-                        break;
-                    case MUTED:
-                        resultColor = palette.getMutedColor(defaultColor);
-                        Utils.logMessage("muted = "+resultColor);
-                        break;
-                    case MUTED_DARK:
-                        resultColor = palette.getDarkMutedColor(defaultColor);
-                        Utils.logMessage("muted dark = "+resultColor);
-                        break;
-                    case MUTED_LIGHT:
-                        resultColor = palette.getLightMutedColor(defaultColor);
-                        Utils.logMessage("muted light = "+resultColor);
-                        break;
-                }*/
+
         shadingOneBinding.setImageBackgroundColor(resultColor);
         shadingOneBinding.setCommentTextBackgroundColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
         setColorsToAddMoreView(resultColor, Utils.getMixedArgbColor(resultColor),

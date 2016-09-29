@@ -7,7 +7,7 @@ import proj.me.bitframe.FrameModel;
 import proj.me.bitframe.dimentions.BeanShade2;
 import proj.me.bitframe.dimentions.ImageOrder;
 import proj.me.bitframe.dimentions.LayoutType;
-import proj.me.bitframe.helper.Utils;
+import static java.lang.Math.round;
 
 
 /**
@@ -17,7 +17,7 @@ import proj.me.bitframe.helper.Utils;
  class ShadeTwo {
 
     private static float WIDTH_1 = 0, WIDTH_2 = 0, HEIGHT_1 = 0, HEIGHT_2 = 0;
-     static BeanShade2 calculateDimentions(FrameModel frameModel, int width1, int height1, int width2, int height2){
+     static BeanShade2 calculateDimentions(FrameModel frameModel, float width1, float height1, float width2, float height2){
         WIDTH_1 = 0; WIDTH_2 = 0; HEIGHT_1 = 0; HEIGHT_2 = 0;
         BeanShade2 beanShade2 = new BeanShade2();
         //width1 amount to required width
@@ -102,15 +102,15 @@ import proj.me.bitframe.helper.Utils;
 
         beanShade2.setImageOrderList(imageOrderList);
 
-        beanShade2.setWidth1((int)WIDTH_1);
-        beanShade2.setWidth2((int)WIDTH_2);
-        beanShade2.setHeight1((int)HEIGHT_1);
-        beanShade2.setHeight2((int)HEIGHT_2);
+        beanShade2.setWidth1(round(WIDTH_1));
+        beanShade2.setWidth2(round(WIDTH_2));
+        beanShade2.setHeight1(round(HEIGHT_1));
+        beanShade2.setHeight2(round(HEIGHT_2));
 
         return beanShade2;
     }
 
-    private static void calculateVert(FrameModel frameModel, BeanShade2 beanShade2, int height1, int height2){
+    private static void calculateVert(FrameModel frameModel, BeanShade2 beanShade2, float height1, float height2){
         //adjust add button in layout through width
         float maxImageWidthForAdd = WIDTH_1 - WIDTH_1 * frameModel.getMinAddRatio();
         if(!frameModel.isShouldShowComment() || WIDTH_2 >= WIDTH_1 * 0.9f){
@@ -145,7 +145,7 @@ import proj.me.bitframe.helper.Utils;
             }
         }
     }
-    private static void calculateHorz(FrameModel frameModel, BeanShade2 beanShade2, int width1, int width2){
+    private static void calculateHorz(FrameModel frameModel, BeanShade2 beanShade2, float width1, float width2){
         //adjust add button in layout through height
         float maxImageHeightForAdd = HEIGHT_1 - HEIGHT_1 * frameModel.getMinAddRatio();
         if(!frameModel.isShouldShowComment() || HEIGHT_2 >= HEIGHT_1 * 0.9f){

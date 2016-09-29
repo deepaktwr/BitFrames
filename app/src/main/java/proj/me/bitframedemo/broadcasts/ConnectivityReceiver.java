@@ -3,8 +3,6 @@ package proj.me.bitframedemo.broadcasts;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
 import proj.me.bitframe.helper.Utils;
 import proj.me.bitframedemo.helper.Constants;
@@ -19,7 +17,7 @@ public class ConnectivityReceiver extends BroadcastReceiver{
         boolean isConnected = Utils.hasNetwork(context.getApplicationContext());
 
         if(isConnected){
-            Utils.logError("connected");
+            Utils.logVerbose("connected");
             Intent notifyActivity = new Intent(Constants.NETWORK_FILTER);
             notifyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             notifyActivity.putExtra("cause", Constants.NETWORK_ENABLED);

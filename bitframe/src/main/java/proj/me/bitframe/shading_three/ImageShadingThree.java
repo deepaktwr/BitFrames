@@ -29,6 +29,7 @@ import proj.me.bitframe.databinding.ViewTrippleParrHorzBinding;
 import proj.me.bitframe.databinding.ViewTrippleParrVertBinding;
 import proj.me.bitframe.databinding.ViewTrippleVertBinding;
 import proj.me.bitframe.dimentions.BeanShade3;
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 
 /**
@@ -45,7 +46,9 @@ public final class ImageShadingThree extends ImageShades {
     BindingShadeThree bindingShadeThree;
     FrameModel frameModel;
 
-    public ImageShadingThree(Context context, int totalImages, FrameModel frameModel) {
+    int[] resultColor = new int[3];
+
+    public ImageShadingThree(Context context, int totalImages, FrameModel frameModel){
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.totalImages = totalImages;
@@ -62,7 +65,7 @@ public final class ImageShadingThree extends ImageShades {
     }
 
     @Override
-    protected void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties) {
+    protected void updateFrameUi(List<Bitmap> images, List<BeanImage> beanImages, boolean hasImageProperties) throws FrameException{
         BeanBitFrame beanBitFrameFirst = null, beanBitFrameSecond = null, beanBitFrameThird = null;
         if(hasImageProperties){
             beanBitFrameFirst = (BeanBitFrame) beanImages.get(0);
@@ -148,6 +151,7 @@ public final class ImageShadingThree extends ImageShades {
                 viewTrippleHorzBinding.setShadeThree(bindingShadeThree);
                 root = viewTrippleHorzBinding.getRoot();
                 break;
+            default: throw new FrameException("invalid layout type");
         }
 
         Bitmap bitmap1 = null, bitmap2 = null, bitmap3 = null;
@@ -269,6 +273,7 @@ public final class ImageShadingThree extends ImageShades {
                 }
 
                 break;
+            default: throw new FrameException("invalid image order");
         }switch (beanShade3.getImageOrderList().get(1)){
             case FIRST:
                 bitmap2 = hasImageProperties ? null : images.get(0);
@@ -385,6 +390,7 @@ public final class ImageShadingThree extends ImageShades {
                 }
 
                 break;
+            default: throw new FrameException("invalid image order");
         }switch (beanShade3.getImageOrderList().get(2)){
             case FIRST:
                 bitmap3 = hasImageProperties ? null : images.get(0);
@@ -501,6 +507,7 @@ public final class ImageShadingThree extends ImageShades {
                 }
 
                 break;
+            default: throw new FrameException("invalid image order");
         }
 
         final ImageView imageView1 = (ImageView)root.findViewById(R.id.view_triple_image1);
@@ -526,11 +533,11 @@ public final class ImageShadingThree extends ImageShades {
 
         if(!hasImageProperties) {
             BindingShadeThree.setBitmap(imageView1, bitmap1);
-            generatePalette(bitmap1, 0);
+            Palette.from(bitmap1).generate(new PaletteListener(0, this));
             BindingShadeThree.setBitmap(imageView2, bitmap2);
-            generatePalette(bitmap2, 1);
+            Palette.from(bitmap1).generate(new PaletteListener(1, this));
             BindingShadeThree.setBitmap(imageView3, bitmap3);
-            generatePalette(bitmap3, 2);
+            Palette.from(bitmap3).generate(new PaletteListener(2, this));
         }
 
         bindingShadeThree.setFirstCommentVisibility(frameModel.isShouldShowComment());
@@ -551,6 +558,7 @@ public final class ImageShadingThree extends ImageShades {
             case HORZ:
                 addImageView(root, beanShade3.getWidth1() + beanShade3.getWidth2(), beanShade3.getHeight1(), false);
                 break;
+            default: throw new FrameException("invalid layout type");
         }
 
         if(!hasImageProperties) {
@@ -591,18 +599,18 @@ public final class ImageShadingThree extends ImageShades {
 
             final Picasso picasso = Picasso.with(context.getApplicationContext());
             //need to notify ImageShading too, to load image via picasso
-            Utils.logError("IMAGE_LOADING : "+" going to load three image");
+            Utils.logVerbose("IMAGE_LOADING : "+" going to load three image");
             if(frameModel.isShouldStoreImages()){
                 picasso.load(imageLink1).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink1+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView1);
                     }
                 });
@@ -610,12 +618,12 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink2+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView2);
                     }
                 });
@@ -623,12 +631,12 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink3+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView3);
                     }
                 });
@@ -638,12 +646,12 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink1+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView1);
                     }
@@ -653,12 +661,12 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink2+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView2);
                     }
@@ -668,18 +676,84 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onSuccess() {
                         //do nothing
-                        Utils.logError("IMAGE_LOADING success");
+                        Utils.logVerbose("IMAGE_LOADING success");
                     }
 
                     @Override
                     public void onError() {
-                        Utils.logError("IMAGE_LOADING error");
+                        Utils.logVerbose("IMAGE_LOADING error");
                         picasso.load(imageLink3+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView3);
                     }
                 });
             }
         }
+    }
+
+    @Override
+    protected void onPaletteGenerated(Palette palette, int viewId) throws FrameException {
+        int defaultColor = Color.parseColor("#ffffffff");
+        int resultColor = 0;
+        Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+        Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+        int vibrantPopulation = vibrantSwatch == null ? 0 : vibrantSwatch.getPopulation();
+        int mutedPopulation = mutedSwatch == null ? 0 : mutedSwatch.getPopulation();
+
+
+        int vibrantColor = palette.getVibrantColor(defaultColor);
+        int mutedColor = palette.getMutedColor(defaultColor);
+        boolean hasGreaterVibrantPopulation = vibrantPopulation > mutedPopulation;
+        switch(frameModel.getColorCombination()){
+            case VIBRANT_TO_MUTED:
+                if(hasGreaterVibrantPopulation)
+                    resultColor = vibrantColor;
+                else resultColor = mutedColor;
+                break;
+            case MUTED_TO_VIBRANT:
+                if(hasGreaterVibrantPopulation)
+                    resultColor = mutedColor;
+                else resultColor = vibrantColor;
+                break;
+            default: throw new FrameException("could not found color combination");
+        }
+
+        Utils.logMessage("vibrant pop = "+vibrantPopulation+"  muted pop"+mutedPopulation);
+
+        switch(viewId){
+            case 0:
+                bindingShadeThree.setFirstImageBgColor(resultColor);
+                bindingShadeThree.setFirstCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
+                beanBitFrame1.setMutedColor(mutedColor);
+                beanBitFrame1.setVibrantColor(vibrantColor);
+                beanBitFrame1.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
+                break;
+            case 1:
+                bindingShadeThree.setSecondImageBgColor(resultColor);
+                bindingShadeThree.setSecondCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
+                beanBitFrame2.setMutedColor(mutedColor);
+                beanBitFrame2.setVibrantColor(vibrantColor);
+                beanBitFrame2.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
+                break;
+            case 2:
+                bindingShadeThree.setThirdImageBgColor(resultColor);
+                bindingShadeThree.setThirdCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
+                beanBitFrame3.setMutedColor(mutedColor);
+                beanBitFrame3.setVibrantColor(vibrantColor);
+                beanBitFrame3.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
+                break;
+            default: throw new FrameException("invalid view counter");
+        }
+        ImageShadingThree.this.resultColor[viewId] = resultColor;
+
+        if(ImageShadingThree.this.resultColor[0] == 0 || ImageShadingThree.this.resultColor[1] == 0 ||ImageShadingThree.this.resultColor[2] == 0) return;
+
+        int mixedColor = Utils.getMixedArgbColor(ImageShadingThree.this.resultColor);
+        int inverseColor = Utils.getInverseColor(mixedColor);
+        setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
+        frameResult(beanBitFrame1, beanBitFrame2, beanBitFrame3);
+
+        //bindingShadeThree.setDividerVisible(Utils.showShowDivider());
+        bindingShadeThree.setDividerColor(inverseColor);
     }
 
     @Override
@@ -695,75 +769,5 @@ public final class ImageShadingThree extends ImageShades {
                 imageClicked(ImageType.VIEW_TRIPLE_1, 3, imageLink3);
                 break;
         }
-    }
-
-    private int[] resultColor = new int[3];
-
-    private void generatePalette(Bitmap bitmap, final int viewId){
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                int defaultColor = Color.parseColor("#ffffffff");
-                int resultColor = 0;
-                Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                int vibrantPopulation = vibrantSwatch == null ? 0 : vibrantSwatch.getPopulation();
-                int mutedPopulation = mutedSwatch == null ? 0 : mutedSwatch.getPopulation();
-
-
-                int vibrantColor = palette.getVibrantColor(defaultColor);
-                int mutedColor = palette.getMutedColor(defaultColor);
-                boolean hasGreaterVibrantPopulation = vibrantPopulation > mutedPopulation;
-                switch(frameModel.getColorCombination()){
-                    case VIBRANT_TO_MUTED:
-                        if(hasGreaterVibrantPopulation)
-                            resultColor = vibrantColor;
-                        else resultColor = mutedColor;
-                        break;
-                    case MUTED_TO_VIBRANT:
-                        if(hasGreaterVibrantPopulation)
-                            resultColor = mutedColor;
-                        else resultColor = vibrantColor;
-                        break;
-                }
-
-                Utils.logMessage("vibrant pop = "+vibrantPopulation+"  muted pop"+mutedPopulation);
-
-                switch(viewId){
-                    case 0:
-                        bindingShadeThree.setFirstImageBgColor(resultColor);
-                        bindingShadeThree.setFirstCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
-                        beanBitFrame1.setMutedColor(mutedColor);
-                        beanBitFrame1.setVibrantColor(vibrantColor);
-                        beanBitFrame1.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
-                        break;
-                    case 1:
-                        bindingShadeThree.setSecondImageBgColor(resultColor);
-                        bindingShadeThree.setSecondCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
-                        beanBitFrame2.setMutedColor(mutedColor);
-                        beanBitFrame2.setVibrantColor(vibrantColor);
-                        beanBitFrame2.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
-                        break;
-                    case 2:
-                        bindingShadeThree.setThirdImageBgColor(resultColor);
-                        bindingShadeThree.setThirdCommentBgColor(Utils.getColorWithTransparency(resultColor, frameModel.getCommentTransparencyPercent()));
-                        beanBitFrame3.setMutedColor(mutedColor);
-                        beanBitFrame3.setVibrantColor(vibrantColor);
-                        beanBitFrame3.setHasGreaterVibrantPopulation(hasGreaterVibrantPopulation);
-                        break;
-                }
-                ImageShadingThree.this.resultColor[viewId] = resultColor;
-
-                if(ImageShadingThree.this.resultColor[0] == 0 || ImageShadingThree.this.resultColor[1] == 0 ||ImageShadingThree.this.resultColor[2] == 0) return;
-
-                int mixedColor = Utils.getMixedArgbColor(ImageShadingThree.this.resultColor);
-                int inverseColor = Utils.getInverseColor(mixedColor);
-                setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
-                frameResult(beanBitFrame1, beanBitFrame2, beanBitFrame3);
-
-                //bindingShadeThree.setDividerVisible(Utils.showShowDivider());
-                bindingShadeThree.setDividerColor(inverseColor);
-            }
-        });
     }
 }

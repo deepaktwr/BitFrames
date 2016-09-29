@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 import proj.me.bitframe.shading_four.ImageShadingFour;
 import proj.me.bitframe.shading_one.ImageShadingOne;
@@ -68,10 +69,10 @@ final class ImageShading implements ImageResult{
         unframedImageCounter = 0;
         BeanImage beanImage = beanImages.get(0);
         if(Utils.isLocalPath(beanImage.getImageLink())){
-            Utils.logError("LADING AS : "+"local image " + beanImage.getImageLink());
+            Utils.logVerbose("LADING AS : "+"local image " + beanImage.getImageLink());
             new UnframedLocalTask(this).execute(beanImage);
         } else {
-            Utils.logError("LADING AS : "+"server image " + beanImage.getImageLink());
+            Utils.logVerbose("LADING AS : "+"server image " + beanImage.getImageLink());
             /*final UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
             targets.add(target);
 
@@ -118,10 +119,10 @@ final class ImageShading implements ImageResult{
         if(beanImages.size() == 0) return;
         BeanImage beanImage = beanImages.get(0);
         if(Utils.isLocalPath(beanImage.getImageLink())){
-            Utils.logError("LADING AS : "+"local image " + beanImage.getImageLink());
+            Utils.logVerbose("LADING AS : "+"local image " + beanImage.getImageLink());
             new UnframedLocalTask(this).execute(beanImage);
         } else {
-            Utils.logError("LADING AS : "+"server image " + beanImage.getImageLink());
+            Utils.logVerbose("LADING AS : "+"server image " + beanImage.getImageLink());
             Picasso picasso = Picasso.with(context.getApplicationContext());
             if(!TextUtils.isEmpty(lastImagePath)) picasso.invalidate(lastImagePath);
             /*UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
@@ -160,7 +161,7 @@ final class ImageShading implements ImageResult{
     }
 
     @Override
-    public void onImageLoaded(boolean result, Bitmap bitmap, BeanImage beanImage){
+    public void onImageLoaded(boolean result, Bitmap bitmap, BeanImage beanImage) throws FrameException{
         if(result) {
             images.add(bitmap);
             loadedBeanImages.add(beanImage);
@@ -251,7 +252,7 @@ final class ImageShading implements ImageResult{
      * picasso will be loaded in last when the mapping
      * of the images is done and decided that which image will go in which frame
      * */
-    void mapFramedImages(List<BeanImage> beanBitFrames){
+    void mapFramedImages(List<BeanImage> beanBitFrames) throws FrameException{
         totalImages = beanBitFrames.size();
         if(totalImages > frameModel.getMaxFrameCount()){
             if(frameModel.isShouldSortImages()){
@@ -324,7 +325,7 @@ final class ImageShading implements ImageResult{
                                 beanBitFrame.setVibrantColor(palette.getVibrantColor(defaultColor));
                                 beanBitFrame.setMutedColor(palette.getMutedColor(defaultColor));
                                 imageResult.getImageCallback().frameResult(beanBitFrame);
-                                Utils.logError("exppp pallet width "+bitmap.getWidth()+" height "+bitmap.getHeight());
+                                Utils.logVerbose("exppp pallet width "+bitmap.getWidth()+" height "+bitmap.getHeight());
                                 if(!bitmap.isRecycled()) bitmap.recycle();*/
 
 
@@ -350,7 +351,7 @@ final class ImageShading implements ImageResult{
                                 beanBitFrame.setSecondaryCount(beanImage.getSecondaryCount());
 
                                 imageResult.getImageCallback().frameResult(beanBitFrame);
-                                Utils.logError("exppp pallet width "+bitmap.getWidth()+" height "+bitmap.getHeight());
+                                Utils.logVerbose("exppp pallet width "+bitmap.getWidth()+" height "+bitmap.getHeight());
                                 if(!bitmap.isRecycled()) bitmap.recycle();
                             }
                         });
@@ -359,14 +360,18 @@ final class ImageShading implements ImageResult{
                                 >= imageResult.getTotalImages() ? imageResult.getTotalImages()
                                 : imageResult.getFrameModel().getMaxFrameCount()) - 1;
                         imageResult.setDoneLoading(doneLoading);
-                        imageResult.onImageLoaded(true, bitmap, beanHandler.getBeanImage());
+                        try {
+                            imageResult.onImageLoaded(true, bitmap, beanHandler.getBeanImage());
+                        } catch (FrameException e) {
+                            e.printStackTrace();
+                        }
                         imageResult.updateCounter();
                     }
                     break;
                 case 2:
                     List<Bitmap> bitmaps = imageResult.getImages();
                     for(Bitmap bitmap1 : bitmaps){
-                        Utils.logError("exppp normal width "+bitmap1.getWidth()+" height "+bitmap1.getHeight());
+                        Utils.logVerbose("exppp normal width "+bitmap1.getWidth()+" height "+bitmap1.getHeight());
                         if(!bitmap1.isRecycled()) bitmap1.recycle();
                         bitmap1 = null;
                     }

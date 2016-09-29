@@ -9,6 +9,8 @@ import proj.me.bitframe.dimentions.ImageOrder;
 import proj.me.bitframe.dimentions.LayoutType;
 import proj.me.bitframe.helper.Utils;
 
+import static java.lang.Math.round;
+
 
 /**
  * Created by root on 6/4/16.
@@ -19,8 +21,8 @@ import proj.me.bitframe.helper.Utils;
     private static float MIN_WIDTH;
     private static float MIN_HIGHT;
 
-    static BeanShade4 calculateDimentions(FrameModel frameModel, int width1, int height1, int width2, int height2, int width3, int height3,
-                                                 int width4, int height4){
+    static BeanShade4 calculateDimentions(FrameModel frameModel, float width1, float height1, float width2, float height2, float width3, float height3,
+                                                 float width4, float height4){
         WIDTH_1 = 0; WIDTH_2 = 0; WIDTH_3 = 0; HEIGHT_1 = 0; HEIGHT_2 = 0; HEIGHT_3 = 0; WIDTH_4 = 0; HEIGHT_4 = 0;
         MIN_WIDTH = frameModel.getMinFrameWidth();
         MIN_HIGHT = frameModel.getMinFrameHeight();
@@ -794,15 +796,15 @@ import proj.me.bitframe.helper.Utils;
             //2//make it parr vert or horz as we have already checked condition for atleast one width or height being max
             beanShade4.setImageOrderList(imageOrderList);
 
-            beanShade4.setWidth1((int)WIDTH_1);
-            beanShade4.setWidth2((int)WIDTH_2);
-            beanShade4.setWidth3((int)WIDTH_3);
-            beanShade4.setWidth4((int)WIDTH_4);
+            beanShade4.setWidth1(round(WIDTH_1));
+            beanShade4.setWidth2(round(WIDTH_2));
+            beanShade4.setWidth3(round(WIDTH_3));
+            beanShade4.setWidth4(round(WIDTH_4));
 
-            beanShade4.setHeight1((int)HEIGHT_1);
-            beanShade4.setHeight2((int)HEIGHT_2);
-            beanShade4.setHeight3((int)HEIGHT_3);
-            beanShade4.setHeight4((int)HEIGHT_4);
+            beanShade4.setHeight1(round(HEIGHT_1));
+            beanShade4.setHeight2(round(HEIGHT_2));
+            beanShade4.setHeight3(round(HEIGHT_3));
+            beanShade4.setHeight4(round(HEIGHT_4));
 
             return beanShade4;
         }
@@ -824,8 +826,8 @@ import proj.me.bitframe.helper.Utils;
 
         //identical
         else{
-            int maxWidth = Math.max(Math.max(Math.max(width1, width2), width3), width4);
-            int maxHeight = Math.max(Math.max(Math.max(height1, height2), height3), height4);
+            float maxWidth = Math.max(Math.max(Math.max(width1, width2), width3), width4);
+            float maxHeight = Math.max(Math.max(Math.max(height1, height2), height3), height4);
 
             if(varyWidth = maxWidth >= maxHeight){
                 if(maxWidth == width1){
@@ -925,21 +927,21 @@ import proj.me.bitframe.helper.Utils;
 
         beanShade4.setImageOrderList(imageOrderList);
 
-        beanShade4.setWidth1((int)WIDTH_1);
-        beanShade4.setWidth2((int)WIDTH_2);
-        beanShade4.setWidth3((int)WIDTH_3);
-        beanShade4.setWidth4((int)WIDTH_4);
+        beanShade4.setWidth1(round(WIDTH_1));
+        beanShade4.setWidth2(round(WIDTH_2));
+        beanShade4.setWidth3(round(WIDTH_3));
+        beanShade4.setWidth4(round(WIDTH_4));
 
-        beanShade4.setHeight1((int)HEIGHT_1);
-        beanShade4.setHeight2((int)HEIGHT_2);
-        beanShade4.setHeight3((int)HEIGHT_3);
-        beanShade4.setHeight4((int)HEIGHT_4);
+        beanShade4.setHeight1(round(HEIGHT_1));
+        beanShade4.setHeight2(round(HEIGHT_2));
+        beanShade4.setHeight3(round(HEIGHT_3));
+        beanShade4.setHeight4(round(HEIGHT_4));
 
         return beanShade4;
     }
 
-    private static void setDoubleWidthThenHeight(FrameModel frameModel, int width1, int width2, int width3, int width4,
-                                                        int height1, int height2, int height3, int height4){
+    private static void setDoubleWidthThenHeight(FrameModel frameModel, float width1, float width2, float width3, float width4,
+                                                        float height1, float height2, float height3, float height4){
         WIDTH_1 = frameModel.isHasFixedDimensions() || width1 > frameModel.getMaxContainerWidth() ? frameModel.getMaxContainerWidth() : width1;
         WIDTH_2 = frameModel.isHasFixedDimensions() || width2 > frameModel.getMaxContainerWidth() ? frameModel.getMaxContainerWidth() : width2;
 
@@ -968,7 +970,7 @@ import proj.me.bitframe.helper.Utils;
             WIDTH_3 = totalSum - MIN_WIDTH;
         }
 
-        WIDTH_1 = WIDTH_2 = /*totalSum = avgWidth*/ (int)WIDTH_3 + (int)WIDTH_4;
+        WIDTH_1 = WIDTH_2 = /*totalSum = avgWidth*/ round(WIDTH_3) + round(WIDTH_4);
 
         //changing actual dimentions
         if(frameModel.isHasFixedDimensions()){
@@ -1079,8 +1081,8 @@ import proj.me.bitframe.helper.Utils;
         HEIGHT_4 = HEIGHT_3;
     }
 
-    private static void setDoubleHeightThenWidth(FrameModel frameModel, int width1, int width2, int width3, int width4,
-                                                 int height1, int height2, int height3, int height4){
+    private static void setDoubleHeightThenWidth(FrameModel frameModel, float width1, float width2, float width3, float width4,
+                                                 float height1, float height2, float height3, float height4){
         HEIGHT_1 = frameModel.isHasFixedDimensions() || height1 > frameModel.getMaxContainerHeight() ? frameModel.getMaxContainerHeight() : height1;
         HEIGHT_2 = frameModel.isHasFixedDimensions() || height2 > frameModel.getMaxContainerHeight() ? frameModel.getMaxContainerHeight() : height2;
 
@@ -1109,7 +1111,7 @@ import proj.me.bitframe.helper.Utils;
             HEIGHT_3 = totalSum - MIN_HIGHT;
         }
 
-        HEIGHT_1 = HEIGHT_2 = /*totalSum = avgHeight*/(int)HEIGHT_3 + (int)HEIGHT_4;
+        HEIGHT_1 = HEIGHT_2 = /*totalSum = avgHeight*/round(HEIGHT_3) + round(HEIGHT_4);
 
 
         //changing actual dimentions
@@ -1222,8 +1224,8 @@ import proj.me.bitframe.helper.Utils;
         WIDTH_4 = WIDTH_3;
     }
 
-    private static void setVertHorzHightAndWidth(FrameModel frameModel, int width1, int width2, int width3, int width4,
-                                                 int height1, int height2, int height3, int height4){
+    private static void setVertHorzHightAndWidth(FrameModel frameModel, float width1, float width2, float width3, float width4,
+                                                 float height1, float height2, float height3, float height4){
         WIDTH_1 = frameModel.isHasFixedDimensions() || width1 > frameModel.getMaxContainerWidth() ? frameModel.getMaxContainerWidth() : width1;
 
         WIDTH_2 = width2 < MIN_WIDTH ? MIN_WIDTH : width2;
@@ -1252,7 +1254,7 @@ import proj.me.bitframe.helper.Utils;
             WIDTH_2 = totalAvgWidth - MIN_WIDTH;
         }
 
-        WIDTH_1 = /*totalAvgWidth*/ (int)WIDTH_2 + (int)WIDTH_3;
+        WIDTH_1 = /*totalAvgWidth*/ round(WIDTH_2) + round(WIDTH_3);
 
         HEIGHT_3 = height3 < MIN_HIGHT ? MIN_HIGHT : height3;
         HEIGHT_4 = height4 < MIN_HIGHT ? MIN_HIGHT : height4;
@@ -1262,8 +1264,8 @@ import proj.me.bitframe.helper.Utils;
         float height3A = height3;
 
         //changing actual dimentions
-        height3 = (int)(avgHeight * (float)height3 / (height3 + height4));
-        height4 = (int)(avgHeight * (float)height4 / (height3A + height4));
+        height3 = round((avgHeight * (float)height3 / (height3 + height4)));
+        height4 = round((avgHeight * (float)height4 / (height3A + height4)));
 
 
         //changing actual dimentions
@@ -1367,11 +1369,11 @@ import proj.me.bitframe.helper.Utils;
             }
         }
 
-        HEIGHT_2 = (int)HEIGHT_3 + (int)HEIGHT_4;
+        HEIGHT_2 = round(HEIGHT_3) + round(HEIGHT_4);
     }
 
-    private static void setHorzVertHeightAndWidth(FrameModel frameModel, int width1, int width2, int width3, int width4,
-                                                  int height1, int height2, int height3, int height4){
+    private static void setHorzVertHeightAndWidth(FrameModel frameModel, float width1, float width2, float width3, float width4,
+                                                  float height1, float height2, float height3, float height4){
         HEIGHT_1 = frameModel.isHasFixedDimensions() || height1 > frameModel.getMaxContainerHeight() ? frameModel.getMaxContainerHeight() : height1;
 
         HEIGHT_2 = height2 < MIN_HIGHT ? MIN_HIGHT : height2;
@@ -1400,7 +1402,7 @@ import proj.me.bitframe.helper.Utils;
             HEIGHT_2 = totalAvgHeight - MIN_HIGHT;
         }
 
-        HEIGHT_1 = /*totalAvgHeight*/(int)HEIGHT_2 + (int)HEIGHT_3;
+        HEIGHT_1 = /*totalAvgHeight*/round(HEIGHT_2) + round(HEIGHT_3);
 
         WIDTH_3 = width3 < MIN_WIDTH ? MIN_WIDTH : width3;
         WIDTH_4 = width4 < MIN_WIDTH ? MIN_WIDTH : width4;
@@ -1410,8 +1412,8 @@ import proj.me.bitframe.helper.Utils;
 
         float width3A = width3;
         //changing actual dimentions
-        width3 = (int)(avgWidth * (float)width3 / (width3 + width4));
-        width4 = (int)(avgWidth * (float)width4 / (width3A + width4));
+        width3 = round((avgWidth * (float)width3 / (width3 + width4)));
+        width4 = round((avgWidth * (float)width4 / (width3A + width4)));
 
         //changing actual dimentions
         if(frameModel.isHasFixedDimensions()){
@@ -1514,11 +1516,11 @@ import proj.me.bitframe.helper.Utils;
             }
         }
 
-        WIDTH_2 = (int)WIDTH_3 + (int)WIDTH_4;
+        WIDTH_2 = round(WIDTH_3) + round(WIDTH_4);
     }
 
-    private static void setVertWidthAndHeight(FrameModel frameModel, int width1, int width2, int width3, int width4,
-                                              int height1, int height2, int height3, int height4){
+    private static void setVertWidthAndHeight(FrameModel frameModel, float width1, float width2, float width3, float width4,
+                                              float height1, float height2, float height3, float height4){
         HEIGHT_1 = height1 < MIN_HIGHT ? MIN_HIGHT : height1;
         HEIGHT_2 = height2 < MIN_HIGHT ? MIN_HIGHT : height2;
         HEIGHT_3 = height3 < MIN_HIGHT ? MIN_HIGHT : height3;
@@ -1658,11 +1660,11 @@ import proj.me.bitframe.helper.Utils;
             }
         }
 
-        WIDTH_1 = (int)WIDTH_2 + (int)WIDTH_3 + (int)WIDTH_4;
+        WIDTH_1 = round(WIDTH_2) + round(WIDTH_3) + round(WIDTH_4);
     }
 
-    private static void setHorzHeightAndWidth(FrameModel frameModel, int width1, int width2, int width3, int width4,
-                                              int height1, int height2, int height3, int height4){
+    private static void setHorzHeightAndWidth(FrameModel frameModel, float width1, float width2, float width3, float width4,
+                                              float height1, float height2, float height3, float height4){
         WIDTH_1 = width1 < MIN_WIDTH ? MIN_WIDTH : width1;
         WIDTH_2 = width2 < MIN_WIDTH ? MIN_WIDTH : width2;
         WIDTH_3 = width3 < MIN_WIDTH ? MIN_WIDTH : width3;
@@ -1800,11 +1802,11 @@ import proj.me.bitframe.helper.Utils;
             }
         }
 
-        HEIGHT_1 = (int)HEIGHT_2 + (int)HEIGHT_3 + (int)HEIGHT_4;
+        HEIGHT_1 = round(HEIGHT_2) + round(HEIGHT_3) + round(HEIGHT_4);
     }
 
-    private static void setWidthAndHeight1234(List<ImageOrder> imageOrderList, int width1, int width2, int width3, int width4,
-                                              int height1, int height2, int height3, int height4){
+    private static void setWidthAndHeight1234(List<ImageOrder> imageOrderList, float width1, float width2, float width3, float width4,
+                                              float height1, float height2, float height3, float height4){
         HEIGHT_1 = height1;
         HEIGHT_2 = height2;
         HEIGHT_3 = height3;
@@ -1820,8 +1822,8 @@ import proj.me.bitframe.helper.Utils;
         imageOrderList.add(ImageOrder.THIRD);
         imageOrderList.add(ImageOrder.FOURTH);
     }
-    private static void setWidthAndHeight1324(List<ImageOrder> imageOrderList, int width1, int width2, int width3, int width4,
-                                              int height1, int height2, int height3, int height4){
+    private static void setWidthAndHeight1324(List<ImageOrder> imageOrderList, float width1, float width2, float width3, float width4,
+                                              float height1, float height2, float height3, float height4){
         HEIGHT_1 = height1;
         HEIGHT_3 = height2;
         HEIGHT_2 = height3;
@@ -1838,8 +1840,8 @@ import proj.me.bitframe.helper.Utils;
         imageOrderList.add(ImageOrder.FOURTH);
     }
 
-    private static void setWidthAndHeight1423(List<ImageOrder> imageOrderList, int width1, int width2, int width3, int width4,
-                                              int height1, int height2, int height3, int height4){
+    private static void setWidthAndHeight1423(List<ImageOrder> imageOrderList, float width1, float width2, float width3, float width4,
+                                              float height1, float height2, float height3, float height4){
         HEIGHT_1 = height1;
         HEIGHT_3 = height2;
         HEIGHT_4 = height3;

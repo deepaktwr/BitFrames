@@ -16,10 +16,10 @@ public class UploadReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        Utils.logError("came in broadcast");
+        Utils.logVerbose("came in broadcast");
         switch(action){
             case Constants.UPLOAD_DONE:
-                Utils.logError("came in broadcast upload done");
+                Utils.logVerbose("came in broadcast upload done");
                 Intent notifyActivity = new Intent(Constants.UPLOAD_FILTER);
                 notifyActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 notifyActivity.putExtra("cause", Constants.UPLOAD_DONE);

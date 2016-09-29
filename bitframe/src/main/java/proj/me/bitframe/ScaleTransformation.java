@@ -1,10 +1,10 @@
 package proj.me.bitframe;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
 import com.squareup.picasso.Transformation;
 
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 
 /**
@@ -30,10 +30,15 @@ class ScaleTransformation implements Transformation {
     @Override
     public Bitmap transform(Bitmap source) {
         totalImage = totalImage > 4 ? 4 : totalImage;
-        Utils.logError("transforming"+source.getWidth()+" h"+source.getHeight());
-        Bitmap target =  Utils.getScaledBitmap(source,
-                (int)(containerWidth/(totalImage > 1 ? totalImage - 0.4f : 1)),
-                (int)(containerHeight/(totalImage > 1 ? totalImage - 0.4f : 1)));
+        Utils.logVerbose("transforming"+source.getWidth()+" h"+source.getHeight());
+        Bitmap target = null;
+        try {
+            target = Utils.getScaledBitmap(source,
+                    (int)(containerWidth/(totalImage > 1 ? totalImage - 0.4f : 1)),
+                    (int)(containerHeight/(totalImage > 1 ? totalImage - 0.4f : 1)));
+        } catch (FrameException e) {
+            e.printStackTrace();
+        }
         boolean isNotEqual = false;
         if(isNotEqual = target != source) source.recycle();
 

@@ -8,6 +8,7 @@ import com.squareup.picasso.Target;
 
 import java.util.List;
 
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 
 /**
@@ -41,13 +42,17 @@ class UnframedPicassoTargetNew implements Target {
                 : imageResult.getFrameModel().getMaxFrameCount()) - 1;
         if(doneLoading) imageResult.updateCounter();
         imageResult.setDoneLoading(doneLoading);
-        imageResult.onImageLoaded(false, null, beanImage);
+        try {
+            imageResult.onImageLoaded(false, null, beanImage);
+        } catch (FrameException e) {
+            e.printStackTrace();
+        }
 
         //pass this directly to container as it has no result
         BeanBitFrame beanBitFrame = new BeanBitFrame();
         imageResult.getImageCallback().frameResult(beanBitFrame);
 
-        Utils.logError("Came image failed -> "+imageResult.getCounter());
+        Utils.logVerbose("Came image failed -> "+imageResult.getCounter());
         imageResult.callNextCycle(null);
     }
 

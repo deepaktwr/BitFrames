@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.graphics.Palette;
 
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.BeanResult;
 import proj.me.bitframe.helper.Utils;
 
@@ -19,13 +20,18 @@ class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult> {
     }
     @Override
     protected BeanResult doInBackground(BeanImage... params) {
-        Utils.logError("came ");
+        Utils.logVerbose("came ");
         BeanImage beanImage = params[0];
         float totalImage = imageResult.getTotalImages() > 4 ? 4 : imageResult.getTotalImages();
-        BeanResult beanResult = Utils.decodeBitmapFromPath(
-                (int)(imageResult.getFrameModel().getMaxContainerWidth()/(totalImage > 1 ? totalImage - 0.4f : 1)),
-                (int)(imageResult.getFrameModel().getMaxContainerHeight()/(totalImage > 1 ? totalImage - 0.4f : 1)),
-                beanImage.getImageLink(), imageResult.getContext());
+        BeanResult beanResult = null;
+        try {
+            beanResult = Utils.decodeBitmapFromPath(
+                    (int)(imageResult.getFrameModel().getMaxContainerWidth()/(totalImage > 1 ? totalImage - 0.4f : 1)),
+                    (int)(imageResult.getFrameModel().getMaxContainerHeight()/(totalImage > 1 ? totalImage - 0.4f : 1)),
+                    beanImage.getImageLink(), imageResult.getContext());
+        } catch (FrameException e) {
+            e.printStackTrace();
+        }
         if(beanResult == null) beanResult = new BeanResult();
         beanResult.setBeanImage(beanImage);
         return beanResult;
@@ -40,13 +46,17 @@ class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult> {
                     : imageResult.getFrameModel().getMaxFrameCount()) - 1;
             if(doneLoading) imageResult.updateCounter();
             imageResult.setDoneLoading(doneLoading);
-            imageResult.onImageLoaded(false, null, beanResult.getBeanImage());
+            try {
+                imageResult.onImageLoaded(false, null, beanResult.getBeanImage());
+            } catch (FrameException e) {
+                e.printStackTrace();
+            }
 
             //pass this directly to container as it has no result
             BeanBitFrame beanBitFrame = new BeanBitFrame();
             imageResult.getImageCallback().frameResult(beanBitFrame);
 
-            Utils.logError("Came image failed -> "+imageResult.getCounter());
+            Utils.logVerbose("Came image failed -> "+imageResult.getCounter());
             imageResult.callNextCycle(null);
             return;
         }
@@ -81,7 +91,7 @@ class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult> {
 
                     imageResult.getImageCallback().frameResult(beanBitFrame);
                     if(!beanResult.getBitmap().isRecycled()) beanResult.getBitmap().recycle();
-                    Utils.logError("loading new image after recycle");
+                    Utils.logVerbose("loading new image after recycle");
                     imageResult.callNextCycle(null);
                 }
             });
@@ -90,9 +100,13 @@ class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult> {
                     >= imageResult.getTotalImages() ? imageResult.getTotalImages()
                     : imageResult.getFrameModel().getMaxFrameCount()) - 1;
             imageResult.setDoneLoading(doneLoading);
-            imageResult.onImageLoaded(true, beanResult.getBitmap(), beanResult.getBeanImage());
+            try {
+                imageResult.onImageLoaded(true, beanResult.getBitmap(), beanResult.getBeanImage());
+            } catch (FrameException e) {
+                e.printStackTrace();
+            }
             imageResult.updateCounter();
-            Utils.logError("loading new image");
+            Utils.logVerbose("loading new image");
             imageResult.callNextCycle(null);
         }
     }

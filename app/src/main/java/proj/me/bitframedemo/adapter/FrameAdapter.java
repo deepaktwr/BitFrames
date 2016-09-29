@@ -6,12 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.List;
 import proj.me.bitframe.BeanBitFrame;
 import proj.me.bitframe.FrameCallback;
-import proj.me.bitframe.ImageClickHandler;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.helper.FrameType;
 import proj.me.bitframe.helper.Utils;
@@ -45,7 +43,7 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         FrameBean frameBean = frameBeanList.get(position);
-        Utils.logError("IMAGE_LOADING : "+" came to load view frame at "+position);
+        Utils.logVerbose("IMAGE_LOADING : "+" came to load view frame at "+position);
         holder.cardContainerBinding.viewFrame.clearContainerChilds();
         holder.cardBinder.setTitle(frameBean.getTitle());
         holder.cardBinder.setDescription(frameBean.getDescription());
@@ -64,6 +62,8 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
             super(itemView);
             cardContainerBinding = DataBindingUtil.bind(itemView);
             cardContainerBinding.setCardBinder(cardBinder);
+
+            cardContainerBinding.viewFrame.setFrameDimensions(0, 0, containerWidth, containerHeight);
 
             ViewGroup.LayoutParams layoutParams = cardContainerBinding.viewFrame.getLayoutParams();
             layoutParams.width = containerWidth;

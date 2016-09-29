@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import proj.me.bitframe.BeanBitFrame;
+import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.BeanResult;
 import proj.me.bitframe.helper.Utils;
 import proj.me.bitframedemo.R;
@@ -71,7 +72,7 @@ public class UploadService extends IntentService{
 
         retrofitClient = RetrofitClient.createClient();
 
-        Utils.logError("starting intent service");
+        Utils.logVerbose("starting intent service");
 
         notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -89,12 +90,14 @@ public class UploadService extends IntentService{
             try {
                 BeanBitFrame beanBitFrame = beanBitList.get(i);
                 if(/*!beanBitFrame.isLoaded() || */TextUtils.isEmpty(beanBitFrame.getImageLink())){
-                    Utils.logError("skipping bean at :"+i);
+                    Utils.logVerbose("skipping bean at :"+i);
                     continue;
                 }
                 isUploadSuccess = uploadImage(beanBitFrame, sharedPreferences.getInt("request_counter", 1),
                         sharedPreferences.getString("device_id", "abcd"));
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (FrameException e) {
                 e.printStackTrace();
             }
             isAnyFrameUploaded = true;
@@ -112,7 +115,7 @@ public class UploadService extends IntentService{
             notificationManager.notify(bundleId, builder.build());
 
 
-            Utils.logError("upload progress " + i + " of "+ beanBitList.size() +" result : "+isUploadSuccess);
+            Utils.logVerbose("upload progress " + i + " of "+ beanBitList.size() +" result : "+isUploadSuccess);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("request_counter", sharedPreferences.getInt("request_counter", 1) + 1);
             if(hasSucess) editor.putBoolean("has_new_frames", true);
@@ -141,8 +144,8 @@ public class UploadService extends IntentService{
     }
 
 
-    boolean uploadImage(BeanBitFrame beanBitFrame, int requestCounter, String deviceId) throws IOException {
-        Utils.logError("bundleId : "+bundleId+" deviceId :" + deviceId+" requestId : "+requestCounter);
+    boolean uploadImage(BeanBitFrame beanBitFrame, int requestCounter, String deviceId) throws IOException, FrameException {
+        Utils.logVerbose("bundleId : "+bundleId+" deviceId :" + deviceId+" requestId : "+requestCounter);
         Bundle bundle = new Bundle();
         bundle.setComment(beanBitFrame.getImageComment());
         bundle.setDescription(beanBitFrame.getImageComment()+" description");
@@ -167,8 +170,8 @@ public class UploadService extends IntentService{
         else return generatePostRequest(uploadRequest);
     }
 
-    boolean generateUploadRequest(String imagePath, UploadRequest uploadRequest) throws IOException {
-        Utils.logError("uploading");
+    boolean generateUploadRequest(String imagePath, UploadRequest uploadRequest) throws IOException, FrameException {
+        Utils.logVerbose("uploading");
         File imgFile = new File(Environment.getExternalStorageDirectory().getPath().toString(), uploadRequest.getBundle().getImgName());
         BeanResult beanResult = Utils.decodeBitmapFromPath(reqWidth, reqHeight, imagePath, this.getApplicationContext());
         if(beanResult == null){
@@ -204,7 +207,7 @@ public class UploadService extends IntentService{
         Call<BaseResponse> uploadBundle = uploadImpl.uploadImage(requestBodyFile, requestBodyJson);
         Response<BaseResponse> response = uploadBundle.execute();
         BaseResponse baseResponse = response.body();
-        if(baseResponse != null) Utils.logError(" status : "+baseResponse.getStatus()+" message : "+baseResponse.getMessage());
+        if(baseResponse != null) Utils.logVerbose(" status : "+baseResponse.getStatus()+" message : "+baseResponse.getMessage());
 
         imgFile.delete();
         bitmap.recycle();
@@ -213,14 +216,14 @@ public class UploadService extends IntentService{
 
     }
     boolean generatePostRequest(UploadRequest uploadRequest) throws IOException {
-        Utils.logError("posting");
+        Utils.logVerbose("posting");
         UploadImpl uploadImpl = retrofitClient.getRetrofitImpl(UploadImpl.class, CLASS_ID);
 
         //make sync call
         Call<BaseResponse> postBundle = uploadImpl.postBundle(uploadRequest);
         Response<BaseResponse> response = postBundle.execute();
         BaseResponse baseResponse = response.body();
-        if(baseResponse != null) Utils.logError(" status : "+baseResponse.getStatus()+" message : "+baseResponse.getMessage());
+        if(baseResponse != null) Utils.logVerbose(" status : "+baseResponse.getStatus()+" message : "+baseResponse.getMessage());
 
         return response.isSuccessful();
     }

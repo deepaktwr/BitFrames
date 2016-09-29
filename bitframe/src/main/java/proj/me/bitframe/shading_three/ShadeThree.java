@@ -10,13 +10,15 @@ import proj.me.bitframe.dimentions.ImageOrder;
 import proj.me.bitframe.dimentions.LayoutType;
 import proj.me.bitframe.helper.Utils;
 
+import static java.lang.Math.round;
+
 
 /**
  * Created by root on 27/3/16.
  */
  class ShadeThree {
     private static float WIDTH_1 = 0, WIDTH_2 = 0, WIDTH_3 = 0, HEIGHT_1 = 0, HEIGHT_2 = 0, HEIGHT_3 = 0;
-     static BeanShade3 calculateDimentions(FrameModel frameModel, int width1, int height1, int width2, int height2, int width3, int height3){
+     static BeanShade3 calculateDimentions(FrameModel frameModel, float width1, float height1, float width2, float height2, float width3, float height3){
         WIDTH_1 = 0; WIDTH_2 = 0; WIDTH_3 = 0; HEIGHT_1 = 0; HEIGHT_2 = 0; HEIGHT_3 = 0;
         BeanShade3 beanShade3 = new BeanShade3();
 
@@ -43,8 +45,8 @@ import proj.me.bitframe.helper.Utils;
         float minHeightForParallelWidth = frameModel.getMaxContainerHeight() - (frameModel.getMaxContainerHeight() / 5f);//subtracting 20% of the height
         float minWidthForParallelHeight = frameModel.getMaxContainerWidth() - (frameModel.getMaxContainerWidth() / 10f);//subtracting 10% of width
 
-        int widthSum = width1 + width2 + width3;
-        int heightSum = height1 + height2 + height3;
+        float widthSum = width1 + width2 + width3;
+        float heightSum = height1 + height2 + height3;
 
 
         //first need to make cases for parallel layouts
@@ -399,12 +401,12 @@ import proj.me.bitframe.helper.Utils;
 
         beanShade3.setImageOrderList(imageOrderList);
 
-        beanShade3.setWidth1((int)WIDTH_1);
-        beanShade3.setWidth2((int)WIDTH_2);
-        beanShade3.setWidth3((int)WIDTH_3);
-        beanShade3.setHeight1((int)HEIGHT_1);
-        beanShade3.setHeight2((int)HEIGHT_2);
-        beanShade3.setHeight3((int)HEIGHT_3);
+        beanShade3.setWidth1(round(WIDTH_1));
+        beanShade3.setWidth2(round(WIDTH_2));
+        beanShade3.setWidth3(round(WIDTH_3));
+        beanShade3.setHeight1(round(HEIGHT_1));
+        beanShade3.setHeight2(round(HEIGHT_2));
+        beanShade3.setHeight3(round(HEIGHT_3));
 
         return beanShade3;
     }
@@ -436,7 +438,7 @@ import proj.me.bitframe.helper.Utils;
                 WIDTH_2 = frameModel.getMaxContainerWidth() - WIDTH_3;
         }
 
-        WIDTH_1 = (int)WIDTH_2 + (int)WIDTH_3;
+        WIDTH_1 = round(WIDTH_2) + round(WIDTH_3);
 
         float avgTwoHeight = (HEIGHT_2 + HEIGHT_3) / 2f;
         float sumHeight = HEIGHT_1 + avgTwoHeight;
@@ -480,7 +482,7 @@ import proj.me.bitframe.helper.Utils;
             if(HEIGHT_2 + HEIGHT_3 > frameModel.getMaxContainerHeight())
                 HEIGHT_2 = frameModel.getMaxContainerHeight() - HEIGHT_3;
         }
-        HEIGHT_1 = (int)HEIGHT_2 + (int)HEIGHT_3;
+        HEIGHT_1 = round(HEIGHT_2) + round(HEIGHT_3);
 
         float avgTwoWidth = (WIDTH_2 + WIDTH_3) / 2f;
         float sumWidth = WIDTH_1 + avgTwoWidth;

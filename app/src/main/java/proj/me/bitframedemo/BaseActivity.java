@@ -181,7 +181,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Callback
         super.onNewIntent(intent);
         String cause = intent.getStringExtra("cause");
         if(TextUtils.isEmpty(cause)) return;
-        Utils.logError("caused");
+        Utils.logVerbose("caused");
         switch(cause){
             case Constants.NETWORK_ENABLED:
                 changeConnectivityReceiverState(false);
@@ -211,7 +211,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Callback
     }
 
     void changeConnectivityReceiverState(boolean isEnable){
-        Utils.logError(isEnable ? "turing state on" : "turing state off");
+        Utils.logVerbose(isEnable ? "turing state on" : "turing state off");
         isReceiverEnabled = isEnable;
         //PackageManager.COMPONENT_ENABLED_STATE_DISABLED not working
         //using PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
