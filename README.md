@@ -163,7 +163,7 @@ repositories {
     jcenter()
 }
 dependencies{
-    compile 'com.github.deepaktwr:bitframe:0.1.1'
+    compile 'com.github.deepaktwr:bitframe:0.1.2'
 }
 ```
 
