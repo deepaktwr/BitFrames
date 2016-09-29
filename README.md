@@ -54,7 +54,7 @@ viewFrame.showBitFrame(beanImageList, callback, frameType);
 
 #####beanImageList :
 the list of image uris, comments, primary and secondary count.
-it can be a list of @BeanImages if you don't have image dimensions and colors otherwise you can pass @BeanBitFrame with dimensions and colors to the image to show pallete* colors until they load.
+it can be a list of @BeanImages if you don't have image dimensions and colors otherwise you can pass @BeanBitFrame with dimensions and colors to the image to show palette* colors until they load.
 
 ####callback:
 gives you the all image dimensions , colors in that frame(you might ignore it and pass it null if you don't want any callback)
@@ -195,4 +195,4 @@ dataBinding{
 
 into your gradle as library uses databinding.
 
-**_*_** the library have dependencies of picasso and pallete to load images and fetch pallete.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
+**_*_** the library have dependencies of picasso and palette to load images and fetch palette.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
