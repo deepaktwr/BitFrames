@@ -17,6 +17,18 @@ Frame of Bitmaps
 You may find a working implementation in /app
 
 
+###Description
+ViewFrame takes set of image links (local or network based) and will frame them based on their dimensions.The container may contain 1, 2, 3 or max 4 images and they will occupy space based on their dimensions.The image count with greater than 4 will show the overflow number.
+
+You may shuffle and frames by setting different primary and secondary count values and setting 
+```xml
+frame:shouldSortImages
+```
+to true.
+
+Palette colors has been used to set background of the image.Inverse color and mixed color of all the images used to create divider color of the container
+
+
 #Usage
 
 
