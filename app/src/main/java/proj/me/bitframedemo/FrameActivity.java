@@ -269,12 +269,6 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         beanImage1.setImageLink(imagePath);
         beanImageList.add(beanImage1);
 
-        /*BeanImage beanImage2 = new BeanImage();
-        beanImage2.setImageComment("my comm");
-        beanImage2.setImageLink("http://services-node12345js.rhcloud.com/uploads/fest"+beanImageList.size()+".png");
-        beanImage2.setHasExtention(false);
-        beanImage2.setLocalImage(false);
-        beanImageList.add(beanImage2);*/
 
         List<BeanImage> beanImages = new ArrayList<>();
         beanImages.addAll(beanImageList);
