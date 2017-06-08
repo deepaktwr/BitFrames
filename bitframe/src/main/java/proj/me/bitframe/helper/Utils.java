@@ -251,23 +251,19 @@ public class Utils {
         int inSampleSize = 1;
 
         if(beanBitmapResult.getHeight() > reqHeight || beanBitmapResult.getWidth() > reqWidth){
-            /*final int halfHeight = beanBitmapResult.getHeight() / 2;
-            final int halfWidth = beanBitmapResult.getWidth() / 2;
-
-            while((halfHeight / inSampleSize > reqHeight) && (halfWidth / inSampleSize) > reqWidth){
-                inSampleSize *= 2;
-            }*/
 
             final int heightRatio = Math.round((float) beanBitmapResult.getHeight() / (float) reqHeight);
             final int widthRatio = Math.round((float) beanBitmapResult.getWidth() / (float) reqWidth);
 
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+            inSampleSize = (heightRatio <= widthRatio && beanBitmapResult.getHeight() > reqHeight) ? heightRatio :
+                    (widthRatio <= heightRatio && beanBitmapResult.getWidth() > reqWidth) ? widthRatio : 1;
         }
+
+        if(inSampleSize == 0) inSampleSize = 1;
 
         Bitmap btmp = Bitmap.createScaledBitmap(bitmap, beanBitmapResult.getWidth()/inSampleSize,
                 beanBitmapResult.getHeight()/inSampleSize, false);
-        /*Bitmap btmp = Bitmap.createBitmap(bitmap, 0, 0, beanBitmapResult.getWidth()/inSampleSize,
-                beanBitmapResult.getHeight()/inSampleSize);*/
+
         beanBitmapResult.setBitmap(btmp);
 
         Utils.logMessage("width : " + reqWidth+" height : "+reqHeight);
@@ -288,8 +284,11 @@ public class Utils {
             final int heightRatio = Math.round((float) height / (float) reqHeight);
             final int widthRatio = Math.round((float) width / (float) reqWidth);
 
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+            inSampleSize = (heightRatio <= widthRatio && height > reqHeight) ? heightRatio :
+                    (widthRatio <= heightRatio && width > reqWidth) ? widthRatio : 1;
         }
+
+        if(inSampleSize == 0) inSampleSize = 1;
 
         Bitmap btmp = Bitmap.createScaledBitmap(bitmap, width/inSampleSize, height/inSampleSize, false);
         if(btmp != bitmap) bitmap.recycle();
