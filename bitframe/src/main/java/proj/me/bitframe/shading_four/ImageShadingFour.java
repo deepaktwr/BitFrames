@@ -939,7 +939,7 @@ public final class ImageShadingFour extends ImageShades {
             //bindingShadeThree.setDividerVisible(Utils.showShowDivider());
             bindingShadeFour.setDividerColor(inverseColor);
 
-            final Picasso picasso = Picasso.with(context.getApplicationContext());
+            final Picasso picasso = getCurrentFramePicasso();
             //need to notify ImageShading too, to load image via picasso
             Utils.logVerbose("IMAGE_LOADING : "+" going to load four image");
             if(frameModel.isShouldStoreImages()){

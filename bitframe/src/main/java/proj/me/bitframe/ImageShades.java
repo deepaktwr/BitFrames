@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 
+import com.squareup.picasso.Picasso;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -26,6 +28,16 @@ public abstract class ImageShades implements ImageClickHandler{
 
     protected boolean getResult(){
         return result;
+    }
+
+    Picasso currentFramePicasso;
+
+    protected Picasso getCurrentFramePicasso() {
+        return currentFramePicasso;
+    }
+
+    void setCurrentFramePicasso(Picasso currentFramePicasso) {
+        this.currentFramePicasso = currentFramePicasso;
     }
 
     protected void addImageView(View view, int viewWidth, int viewHeight, boolean hasAddInLayout) {

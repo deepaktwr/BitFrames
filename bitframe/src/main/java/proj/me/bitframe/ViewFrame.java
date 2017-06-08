@@ -45,6 +45,7 @@ public class ViewFrame extends LinearLayout{
     FrameCallback frameCallback;
 
     List<UnframedPicassoTargetNew> targets;
+    Picasso currentFramePicasso;
 
     ImageCallback imageCallback;
 
@@ -147,6 +148,7 @@ public class ViewFrame extends LinearLayout{
         frameModel = new FrameModel();
         setImageContainer(attrs, defStyleAttr);
         imageCallback = new MyImageCallback(this);
+        currentFramePicasso = new Picasso.Builder(this.getContext()).build();
     }
 
     private void setImageContainer(AttributeSet attrs, int defStyleAttr){
@@ -466,7 +468,7 @@ public class ViewFrame extends LinearLayout{
         linkCount = beanImageList.size();
 
 
-        ImageShading imageShading = new ImageShading(this.getContext(), imageCallback, frameModel);
+        ImageShading imageShading = new ImageShading(this.getContext(), imageCallback, frameModel, currentFramePicasso);
 
         binadingBitFrame.setProgressBarVisibility(true);
         imageContainer.removeAllViews();
@@ -476,7 +478,7 @@ public class ViewFrame extends LinearLayout{
                 if(targets == null) targets = new ArrayList<>();
                 else{
                     for(UnframedPicassoTargetNew target : targets){
-                        Picasso.with(this.getContext().getApplicationContext()).cancelRequest(target);
+                        currentFramePicasso.cancelRequest(target);
                     }
                     targets.clear();
                 }
@@ -500,6 +502,16 @@ public class ViewFrame extends LinearLayout{
 
     }
 
+    /**came to
+     * A new #Picasso instance has been created for every frame.
+     * It should not be shutdown during frame creation otherwise it will throw #IllegalStateException on loading images.
+     * You should use this instance to load other uri's instead of creating your own instance, though the cancelling of
+     * requests should be done using picasso request tags, otherwise frame requests could also get cancelled.
+     * */
+    public Picasso getPicassoInstance(){
+        return currentFramePicasso;
+    }
+
     public void destroyFrame(){
         Utils.logVerbose("view detached");
         Utils.unbindDrawables(this, true, frameModel.isShouldRecycleBitmaps());
@@ -516,11 +528,13 @@ public class ViewFrame extends LinearLayout{
         frameCallback = null;
         if(targets != null) {
             for (UnframedPicassoTargetNew target : targets) {
-                Picasso.with(this.getContext().getApplicationContext()).cancelRequest(target);
+                currentFramePicasso.cancelRequest(target);
                 target = null;
             }
             targets.clear();
         }
+        currentFramePicasso.shutdown();
+        currentFramePicasso = null;
         targets = null;
         imageCallback = null;
     }

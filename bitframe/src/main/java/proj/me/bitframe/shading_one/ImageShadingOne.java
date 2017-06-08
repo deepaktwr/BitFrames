@@ -164,7 +164,7 @@ public final class ImageShadingOne extends ImageShades{
 
             //need to notify ImageShading too, to load image via picasso
             Utils.logVerbose("IMAGE_LOADING : "+" going to load one image");
-            final Picasso picasso = Picasso.with(context.getApplicationContext());
+            final Picasso picasso = getCurrentFramePicasso();
             if(frameModel.isShouldStoreImages()){
                 picasso.load(imageLink1).fit().centerInside().noPlaceholder().
                 into(singleImage, new Callback() {

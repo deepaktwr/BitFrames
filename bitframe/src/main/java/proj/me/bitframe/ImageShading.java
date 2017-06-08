@@ -43,19 +43,21 @@ final class ImageShading implements ImageResult{
     FrameModel frameModel;
     int unframedImageCounter;
 
-    MyHandler myHandler;
+    FrameHandler frameHandler;
 
     List<BeanImage> beanImages = new ArrayList<>();
     List<UnframedPicassoTargetNew> targets;
+    Picasso currentFramePicasso;
 
 
-    ImageShading(Context context, ImageCallback layoutCallback, FrameModel frameModel){
+    ImageShading(Context context, ImageCallback layoutCallback, FrameModel frameModel, Picasso currentFramePicasso){
         this.context =context;
         images = new ArrayList<>();
         loadedBeanImages = new ArrayList<>();
         this.layoutCallback = layoutCallback;
         this.frameModel = frameModel;
-        myHandler = new MyHandler(this);
+        frameHandler = new FrameHandler(this);
+        this.currentFramePicasso = currentFramePicasso;
     }
 
     void mapUnframedImages(List<BeanImage> beanImages, List<UnframedPicassoTargetNew> targets){
@@ -72,23 +74,10 @@ final class ImageShading implements ImageResult{
             Utils.logVerbose("LADING AS : "+"local image " + beanImage.getImageLink());
             new UnframedLocalTask(this).execute(beanImage);
         } else {
-            Utils.logVerbose("LADING AS : "+"server image " + beanImage.getImageLink());
-            /*final UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
-            targets.add(target);
-
-            Picasso.with(context.getApplicationContext())
-                    .load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_CACHE)
-            .transform(new ScaleTransformation(frameModel.getMaxContainerWidth(),
-                    frameModel.getMaxContainerHeight(), totalImages, beanImage.getImageLink()))
-                    .noPlaceholder()
-                    .into(target);*/
-
-            /*UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
-            targets.add(target);*/
+            Utils.logVerbose("LADING AS : " + "server image " + beanImage.getImageLink());
             UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(beanImage, targets, this);
             targets.add(target);
-            Picasso.with(context.getApplicationContext())
-                    .load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
+            currentFramePicasso.load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
                     .networkPolicy(NetworkPolicy.NO_STORE)
                     .noPlaceholder()
                     .transform(new ScaleTransformation(frameModel.getMaxContainerWidth(),
@@ -96,21 +85,7 @@ final class ImageShading implements ImageResult{
                             beanImage, this))
                     .into(target);
 
-
         }
-
-        /*for(BeanImage beanImage : beanImages){
-            if(beanImage.isLocalImage()) new UnframedLocalTask(this).execute(beanImage);
-            else {
-                final UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
-                targets.add(target);
-
-                Picasso.with(context.getApplicationContext())
-                        .load(beanImage.getImageLink())*//*.memoryPolicy(MemoryPolicy.NO_CACHE)*//*
-                .transform(new ScaleTransformation(frameModel.getMaxContainerWidth(),
-                        frameModel.getMaxContainerHeight(), totalImages, beanImage.getImageLink())).into(target);
-            }
-        }*/
     }
 
     @Override
@@ -123,14 +98,11 @@ final class ImageShading implements ImageResult{
             new UnframedLocalTask(this).execute(beanImage);
         } else {
             Utils.logVerbose("LADING AS : "+"server image " + beanImage.getImageLink());
-            Picasso picasso = Picasso.with(context.getApplicationContext());
-            if(!TextUtils.isEmpty(lastImagePath)) picasso.invalidate(lastImagePath);
-            /*UnframedPicassoTarget target = new UnframedPicassoTarget(beanImage, targets, this);
-            targets.add(target);*/
+            if(!TextUtils.isEmpty(lastImagePath)) currentFramePicasso.invalidate(lastImagePath);
             UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(beanImage, targets, this);
             targets.add(target);
 
-            picasso.load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
+            currentFramePicasso.load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
                     .networkPolicy(NetworkPolicy.NO_STORE)
                     .noPlaceholder()
                     .transform(new ScaleTransformation(frameModel.getMaxContainerWidth(),
@@ -143,15 +115,15 @@ final class ImageShading implements ImageResult{
     @Override
     public void handleTransformedResult(Bitmap bitmap, BeanImage beanImage) {
         if(beanImage == null){
-            Message message = myHandler.obtainMessage(3, bitmap);
-            myHandler.sendMessageDelayed(message, 100);
+            Message message = frameHandler.obtainMessage(3, bitmap);
+            frameHandler.sendMessageDelayed(message, 100);
             return;
         }
         BeanHandler beanHandler = new BeanHandler();
         beanHandler.setBitmap(bitmap);
         beanHandler.setBeanImage(beanImage);
 
-        Message message = myHandler.obtainMessage(1, beanHandler);
+        Message message = frameHandler.obtainMessage(1, beanHandler);
         message.sendToTarget();
     }
 
@@ -173,6 +145,7 @@ final class ImageShading implements ImageResult{
             loadedBeanImages.add(beanImage);
             ImageShades imageShades = new ImageShadingOne(context, totalImages, frameModel);
             imageShades.setImageCallback(layoutCallback);
+            imageShades.setCurrentFramePicasso(currentFramePicasso);
             imageShades.setResult(false);
             imageShades.updateFrameUi(null, loadedBeanImages, false);
             images.clear();
@@ -202,9 +175,10 @@ final class ImageShading implements ImageResult{
             }
             if(imageShades != null){
                 imageShades.setImageCallback(layoutCallback);
+                imageShades.setCurrentFramePicasso(currentFramePicasso);
                 imageShades.updateFrameUi(images, loadedBeanImages, false);
             }
-            if(frameModel.isShouldRecycleBitmaps()) myHandler.sendEmptyMessageDelayed(2, 500);
+            if(frameModel.isShouldRecycleBitmaps()) frameHandler.sendEmptyMessageDelayed(2, 500);
             else images.clear();
             loadedBeanImages.clear();
             this.result =false;
@@ -265,6 +239,7 @@ final class ImageShading implements ImageResult{
             }
             ImageShades imageShades = new ImageShadingFour(context, totalImages, frameModel);
             imageShades.setImageCallback(layoutCallback);
+            imageShades.setCurrentFramePicasso(currentFramePicasso);
             imageShades.updateFrameUi(null, loadedBeanImages, true);
         }else{
             //go to mapping directly
@@ -289,20 +264,20 @@ final class ImageShading implements ImageResult{
             }
             if(imageShades != null){
                 imageShades.setImageCallback(layoutCallback);
+                imageShades.setCurrentFramePicasso(currentFramePicasso);
                 imageShades.updateFrameUi(null, loadedBeanImages, true);
             }
         }
     }
 
-
-    static class MyHandler extends Handler{
-        WeakReference<ImageResult> imageShadingWeakReference;
-        MyHandler(ImageResult imageResult){
-            imageShadingWeakReference = new WeakReference<>(imageResult);
+    static class FrameHandler extends Handler {
+        WeakReference<ImageResult> imageResultWeakReference;
+        FrameHandler(ImageResult imageResult){
+            imageResultWeakReference = new WeakReference<>(imageResult);
         }
         @Override
         public void handleMessage(Message msg) {
-            final ImageResult imageResult = imageShadingWeakReference.get();
+            final ImageResult imageResult = imageResultWeakReference.get();
             if(imageResult == null){
                 super.handleMessage(msg);
                 return;
@@ -315,21 +290,12 @@ final class ImageShading implements ImageResult{
                     if(imageResult.getCounter() >= imageResult.getFrameModel().getMaxFrameCount()){
                         imageResult.updateCounter();
                         final BeanBitFrame beanBitFrame = new BeanBitFrame();
-                        beanBitFrame.setWidth(/*beanBitmapResult.getWidth()*/bitmap.getWidth());
-                        beanBitFrame.setHeight(/*beanBitmapResult.getHeight()*/bitmap.getHeight());
+                        beanBitFrame.setWidth(bitmap.getWidth());
+                        beanBitFrame.setHeight(bitmap.getHeight());
                         beanBitFrame.setLoaded(true);
-                        Palette.from(/*beanBitmapResult.getBitmap()*/bitmap).generate(new Palette.PaletteAsyncListener() {
+                        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                             @Override
                             public void onGenerated(Palette palette) {
-                                /*int defaultColor = Color.parseColor("#ffffffff");
-                                beanBitFrame.setVibrantColor(palette.getVibrantColor(defaultColor));
-                                beanBitFrame.setMutedColor(palette.getMutedColor(defaultColor));
-                                imageResult.getImageCallback().frameResult(beanBitFrame);
-                                Utils.logVerbose("exppp pallet width "+bitmap.getWidth()+" height "+bitmap.getHeight());
-                                if(!bitmap.isRecycled()) bitmap.recycle();*/
-
-
-
                                 int defaultColor = Color.parseColor("#ffffffff");
                                 Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                                 Palette.Swatch mutedSwatch = palette.getMutedSwatch();
@@ -351,7 +317,7 @@ final class ImageShading implements ImageResult{
                                 beanBitFrame.setSecondaryCount(beanImage.getSecondaryCount());
 
                                 imageResult.getImageCallback().frameResult(beanBitFrame);
-                                Utils.logVerbose("exppp pallet width "+bitmap.getWidth()+" height "+bitmap.getHeight());
+                                Utils.logVerbose("exppp pallet width " + bitmap.getWidth() + " height " + bitmap.getHeight());
                                 if(!bitmap.isRecycled()) bitmap.recycle();
                             }
                         });

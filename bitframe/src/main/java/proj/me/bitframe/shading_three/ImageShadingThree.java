@@ -597,7 +597,7 @@ public final class ImageShadingThree extends ImageShades {
             //bindingShadeThree.setDividerVisible(Utils.showShowDivider());
             bindingShadeThree.setDividerColor(inverseColor);
 
-            final Picasso picasso = Picasso.with(context.getApplicationContext());
+            final Picasso picasso = getCurrentFramePicasso();
             //need to notify ImageShading too, to load image via picasso
             Utils.logVerbose("IMAGE_LOADING : "+" going to load three image");
             if(frameModel.isShouldStoreImages()){

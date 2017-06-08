@@ -288,7 +288,7 @@ public final class ImageShadingTwo extends ImageShades {
                 }
             }
 
-            final Picasso picasso = Picasso.with(context.getApplicationContext());
+            final Picasso picasso = getCurrentFramePicasso();
             //need to notify ImageShading too, to load image via picasso
             Utils.logVerbose("IMAGE_LOADING : " + " going to load two image");
             if (frameModel.isShouldStoreImages()) {
