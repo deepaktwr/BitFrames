@@ -83,31 +83,31 @@ public final class ImageShadingThree extends ImageShades {
         int width3 = hasImageProperties ? (int)beanBitFrameThird.getWidth() : images.get(2).getWidth();
         int height3 = hasImageProperties ? (int)beanBitFrameThird.getHeight() : images.get(2).getHeight();
 
-        Log.e("MAX_WIDTH", ""+ frameModel.getMaxContainerWidth());
-        Log.e("MAX_HEIGHT", ""+frameModel.getMaxContainerHeight());
-        Log.e("MIN_WIDTH", ""+frameModel.getMinFrameWidth());
-        Log.e("MIN_HIGHT", ""+frameModel.getMinFrameHeight());
+        Utils.logMessage("MAX_WIDTH"+" "+ frameModel.getMaxContainerWidth());
+        Utils.logMessage("MAX_HEIGHT"+" "+frameModel.getMaxContainerHeight());
+        Utils.logMessage("MIN_WIDTH"+" "+frameModel.getMinFrameWidth());
+        Utils.logMessage("MIN_HIGHT"+" "+frameModel.getMinFrameHeight());
 
-        Log.e("getWidth1 : ", ""+width1);
-        Log.e("getHeight1 : ", ""+height1);
-        Log.e("getWidth2 : ", ""+width2);
-        Log.e("getHeight2 : ", ""+height2);
-        Log.e("getWidth3 : ", ""+width3);
-        Log.e("getHeight3 : ", ""+height3+"\n\n");
+        Utils.logMessage("getWidth1 : "+" "+width1);
+        Utils.logMessage("getHeight1 : "+" "+height1);
+        Utils.logMessage("getWidth2 : "+" "+width2);
+        Utils.logMessage("getHeight2 : "+" "+height2);
+        Utils.logMessage("getWidth3 : "+" "+width3);
+        Utils.logMessage("getHeight3 : "+" "+height3+"\n\n");
 
         BeanShade3 beanShade3 = ShadeThree.calculateDimentions(frameModel, width1, height1, width2, height2, width3, height3);
 
-        Log.e("Start", "++++++++++++++++++++++++++++++++++++Start");
-        Log.e("getWidth1 : ", ""+beanShade3.getWidth1());
-        Log.e("getHeight1 : ", ""+beanShade3.getHeight1());
-        Log.e("getWidth2 : ", ""+beanShade3.getWidth2());
-        Log.e("getHeight2 : ", ""+beanShade3.getHeight2());
-        Log.e("getWidth3 : ", ""+beanShade3.getWidth3());
-        Log.e("getHeight3 : ", ""+beanShade3.getHeight3());
-        for(int i=0;i<3;i++) Log.e("image order : ", ""+beanShade3.getImageOrderList().get(i));
+        Utils.logMessage("Start"+" ++++++++++++++++++++++++++++++++++++Start");
+        Utils.logMessage("getWidth1 : "+" "+beanShade3.getWidth1());
+        Utils.logMessage("getHeight1 : "+" "+beanShade3.getHeight1());
+        Utils.logMessage("getWidth2 : "+" "+beanShade3.getWidth2());
+        Utils.logMessage("getHeight2 : "+" "+beanShade3.getHeight2());
+        Utils.logMessage("getWidth3 : "+" "+beanShade3.getWidth3());
+        Utils.logMessage("getHeight3 : "+" "+beanShade3.getHeight3());
+        for(int i=0;i<3;i++) Utils.logMessage("image order : "+" "+beanShade3.getImageOrderList().get(i));
 
-        Log.e("layoutType : ", ""+beanShade3.getLayoutType());
-        Log.e("End", "++++++++++++++++++++++++++++++++++++End");
+        Utils.logMessage("layoutType : "+" "+beanShade3.getLayoutType());
+        Utils.logMessage("End"+" ++++++++++++++++++++++++++++++++++++End");
 
         imageLink1  = beanImages.get(0).getImageLink();
         imageLink2  = beanImages.get(1).getImageLink();

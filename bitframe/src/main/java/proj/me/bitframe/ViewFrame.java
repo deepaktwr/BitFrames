@@ -406,7 +406,7 @@ public class ViewFrame extends LinearLayout{
 
         if(frameModel.getMaxContainerHeight() <= 0 || frameModel.getMaxContainerWidth() <= 0 || frameModel.getMaxContainerHeight() > heightPixels || frameModel.getMaxContainerWidth() > widthPixels){
             Utils.logVerbose("container max height or width should not greater than the device dimensions "+
-            Utils.formatMessage("device width pixels $1%d and device height pixels $2%d", widthPixels, heightPixels));
+            Utils.formatMessage("device width pixels %d and device height pixels %d", widthPixels, heightPixels));
             int maxW = round(widthPixels - widthPixels * 0.04f);
             int maxH = round(maxW + maxW * 0.15f > heightPixels ? maxW : maxW + maxW * 0.15f);
 
@@ -416,7 +416,7 @@ public class ViewFrame extends LinearLayout{
             frameModel.setMaxContainerWidth(maxW);
             frameModel.setMaxContainerHeight(maxH);
 
-            Utils.logMessage(Utils.formatMessage("setting max container width to $1%d and max container height to $2%d",
+            Utils.logMessage(Utils.formatMessage("setting max container width to %d and max container height to %d",
                     maxW, maxH));
         }
         if(frameModel.getMinFrameWidth() <= 0 || frameModel.getMinFrameHeight() <= 0f || frameModel.getMinFrameWidth() * 2 >= frameModel.getMaxContainerWidth() ||
@@ -436,8 +436,8 @@ public class ViewFrame extends LinearLayout{
             frameModel.setMinFrameHeight(minH);
 
 
-            Utils.logMessage(Utils.formatMessage("device width pixels are $1%d and height pixels are $2%d," +
-                    " setting min frame width to $3%d and min frame height to $4%d",
+            Utils.logMessage(Utils.formatMessage("device width pixels are %d and height pixels are %d," +
+                    " setting min frame width to %d and min frame height to %d",
                     widthPixels, heightPixels, minW, minH));
         }
         if(frameModel.getMaxFrameCount() > 4){

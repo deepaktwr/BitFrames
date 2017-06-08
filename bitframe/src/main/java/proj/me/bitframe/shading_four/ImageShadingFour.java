@@ -92,35 +92,35 @@ public final class ImageShadingFour extends ImageShades {
         int width4 = hasImageProperties ? (int)beanBitFrameFourth.getWidth() : images.get(3).getWidth();
         int height4 = hasImageProperties ? (int)beanBitFrameFourth.getHeight() : images.get(3).getHeight();
 
-        Log.e("MAX_WIDTH", ""+frameModel.getMaxContainerWidth());
-        Log.e("MAX_HEIGHT", ""+frameModel.getMaxContainerHeight());
-        Log.e("MIN_WIDTH", ""+frameModel.getMinFrameWidth());
-        Log.e("MIN_HIGHT", ""+ frameModel.getMinFrameHeight());
+        Utils.logMessage("MAX_WIDTH"+" "+frameModel.getMaxContainerWidth());
+        Utils.logMessage("MAX_HEIGHT"+" "+frameModel.getMaxContainerHeight());
+        Utils.logMessage("MIN_WIDTH"+" "+frameModel.getMinFrameWidth());
+        Utils.logMessage("MIN_HIGHT"+" "+ frameModel.getMinFrameHeight());
 
-        Log.e("getWidth1 : ", ""+width1);
-        Log.e("getHeight1 : ", ""+height1);
-        Log.e("getWidth2 : ", ""+width2);
-        Log.e("getHeight2 : ", ""+height2);
-        Log.e("getWidth3 : ", ""+width3);
-        Log.e("getHeight3 : ", ""+height3);
-        Log.e("getWidth4 : ", ""+width4);
-        Log.e("getHeight4 : ", ""+height4+"\n\n");
+        Utils.logMessage("getWidth1 : "+" "+width1);
+        Utils.logMessage("getHeight1 : "+" "+height1);
+        Utils.logMessage("getWidth2 : "+" "+width2);
+        Utils.logMessage("getHeight2 : "+" "+height2);
+        Utils.logMessage("getWidth3 : "+" "+width3);
+        Utils.logMessage("getHeight3 : "+" "+height3);
+        Utils.logMessage("getWidth4 : "+" "+width4);
+        Utils.logMessage("getHeight4 : "+" "+height4+"\n\n");
 
 
         BeanShade4 beanShade4 = ShadeFour.calculateDimentions(frameModel, width1, height1, width2, height2, width3, height3, width4, height4);
-        Log.e("Start", "++++++++++++++++++++++++++++++++++++Start");
-        Log.e("getWidth1 : ", ""+beanShade4.getWidth1());
-        Log.e("getHeight1 : ", ""+beanShade4.getHeight1());
-        Log.e("getWidth2 : ", ""+beanShade4.getWidth2());
-        Log.e("getHeight2 : ", ""+beanShade4.getHeight2());
-        Log.e("getWidth3 : ", ""+beanShade4.getWidth3());
-        Log.e("getHeight3 : ", ""+beanShade4.getHeight3());
-        Log.e("getWidth4 : ", ""+beanShade4.getWidth4());
-        Log.e("getHeight4 : ", ""+beanShade4.getHeight4());
-        for(int i=0;i<4;i++) Log.e("image order : ", ""+beanShade4.getImageOrderList().get(i));
+        Utils.logMessage("Start"+" ++++++++++++++++++++++++++++++++++++Start");
+        Utils.logMessage("getWidth1 : "+" "+beanShade4.getWidth1());
+        Utils.logMessage("getHeight1 : "+" "+beanShade4.getHeight1());
+        Utils.logMessage("getWidth2 : "+" "+beanShade4.getWidth2());
+        Utils.logMessage("getHeight2 : "+" "+beanShade4.getHeight2());
+        Utils.logMessage("getWidth3 : "+" "+beanShade4.getWidth3());
+        Utils.logMessage("getHeight3 : "+" "+beanShade4.getHeight3());
+        Utils.logMessage("getWidth4 : "+" "+beanShade4.getWidth4());
+        Utils.logMessage("getHeight4 : "+" "+beanShade4.getHeight4());
+        for(int i=0;i<4;i++) Utils.logMessage("image order : "+" "+beanShade4.getImageOrderList().get(i));
 
-        Log.e("layoutType : ", ""+beanShade4.getLayoutType());
-        Log.e("End", "++++++++++++++++++++++++++++++++++++End");
+        Utils.logMessage("layoutType : "+" "+beanShade4.getLayoutType());
+        Utils.logMessage("End"+" ++++++++++++++++++++++++++++++++++++End");
 
         imageLink1  = beanImages.get(0).getImageLink();
         imageLink2  = beanImages.get(1).getImageLink();
