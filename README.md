@@ -205,4 +205,4 @@ dataBinding{
 
 into your gradle as library uses databinding.
 
-* *_*_** the library have dependencies of picasso and palette to load images and fetch palette.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
+**_*_** *_the library have dependencies of picasso and palette to load images and fetch palette.please don't include these depedencies into your own build.gradle, you may use them directly from the library._*
