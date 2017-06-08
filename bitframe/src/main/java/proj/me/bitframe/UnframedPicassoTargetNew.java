@@ -29,7 +29,7 @@ class UnframedPicassoTargetNew implements Target {
     @Override
     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
         targets.remove(this);
-        Utils.logMessage("Came image loaded -> "+imageResult.getCounter() + "bit width = "+bitmap.getWidth()+" height "+bitmap.getHeight());
+        Utils.logMessage("Came image loaded -> "+imageResult.getCounter() + " bit width = "+bitmap.getWidth()+" height "+bitmap.getHeight());
         imageResult.callNextCycle(beanImage.getImageLink());
         imageResult.handleTransformedResult(bitmap, bitmap.getWidth() > 1 ? beanImage : null);
     }
@@ -60,7 +60,8 @@ class UnframedPicassoTargetNew implements Target {
     public void onPrepareLoad(Drawable placeHolderDrawable) {
     }
 
-    @Override
+    //should not be used for similar images, need to handle the case of similar images at the time of frame creation
+    /*@Override
     public boolean equals(Object o) {
         return this.beanImage.getImageLink().equals(((UnframedPicassoTargetNew)o).beanImage.getImageLink());
     }
@@ -68,5 +69,5 @@ class UnframedPicassoTargetNew implements Target {
     @Override
     public int hashCode() {
         return targets.size() + 1;
-    }
+    }*/
 }
