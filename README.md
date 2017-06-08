@@ -17,6 +17,18 @@ Frame of Bitmaps
 You may find a working implementation in /app
 
 
+###Description
+ViewFrame takes set of image links (local or network based) and will frame them based on their dimensions.The container may contain 1, 2, 3 or max 4 images and they will occupy space based on their dimensions.The image count with greater than 4 will show the overflow number.
+
+You may shuffle and frames by setting different primary and secondary count values and setting 
+```xml
+frame:shouldSortImages
+```
+to true.
+
+Palette colors has been used to set background of the image.Inverse color and mixed color of all the images used to create divider color of the container
+
+
 #Usage
 
 
@@ -30,20 +42,18 @@ You may find a working implementation in /app
 ```
 
 
-by default the width and height of the frame will be set as widthPixelsOfDevice - 50, heightPixelsOfDevice - 500.
-but you may explicitly alter these as widget attributes:
+by default the width and height has been set as 192 dp and 256 dp.
 
 ```xml
 frame:max_container_width="@dimen/d_192"
 frame:max_container_height="@dimen/d_256"
 ```
-
-or can set it from ViewFrame's method:
+you may alter these or can set it from ViewFrame's method:
 
 ```java
 public void setFrameDimensions(float minFrameWidth, float minFrameHeight, float maxContainerWidth, float maxContainerHeight);
 ```
-
+passing 0's to all will set width and height of the frame as 99.96% 0f widthPixelsOfDevice and same in height if it's not greater than widthPixelsOfDevice.
 
 
 ###Make frames based of local path or links to the images:
@@ -54,7 +64,7 @@ viewFrame.showBitFrame(beanImageList, callback, frameType);
 
 #####beanImageList :
 the list of image uris, comments, primary and secondary count.
-it can be a list of @BeanImages if you don't have image dimensions and colors otherwise you can pass @BeanBitFrame with dimensions and colors to the image to show pallete* colors until they load.
+it can be a list of @BeanImages if you don't have image dimensions and colors otherwise you can pass @BeanBitFrame with dimensions and colors to the image to show palette* colors until they load.
 
 ####callback:
 gives you the all image dimensions , colors in that frame(you might ignore it and pass it null if you don't want any callback)
@@ -163,7 +173,7 @@ repositories {
     jcenter()
 }
 dependencies{
-    compile 'com.github.deepaktwr:bitframe:0.1.1'
+    compile 'com.github.deepaktwr:bitframe:0.1.2'
 }
 ```
 
@@ -195,4 +205,4 @@ dataBinding{
 
 into your gradle as library uses databinding.
 
-**_*_** the library have dependencies of picasso and pallete to load images and fetch pallete.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
+**_*_** the library have dependencies of picasso and palette to load images and fetch palette.please don't include these depedencies into your own build.gradle, you may use them directly from the library.
