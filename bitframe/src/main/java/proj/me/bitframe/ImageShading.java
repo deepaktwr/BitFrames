@@ -48,15 +48,18 @@ final class ImageShading implements ImageResult{
     List<BeanImage> beanImages = new ArrayList<>();
     List<UnframedPicassoTargetNew> targets;
     Picasso currentFramePicasso;
+    int position;
 
 
-    ImageShading(Context context, ImageCallback layoutCallback, FrameModel frameModel, Picasso currentFramePicasso){
+    ImageShading(Context context, ImageCallback layoutCallback, FrameModel frameModel, Picasso currentFramePicasso, int position){
         this.context =context;
         images = new ArrayList<>();
         loadedBeanImages = new ArrayList<>();
         this.layoutCallback = layoutCallback;
         this.frameModel = frameModel;
-        frameHandler = new FrameHandler(this);
+        frameHandler = new FrameHandler(this, position);
+        this.position = position;
+        Utils.logError("creating handler reference : handler : "+frameHandler.toString()+"  imageshading : "+this.toString()+"  "+position);
         this.currentFramePicasso = currentFramePicasso;
     }
 
@@ -72,10 +75,10 @@ final class ImageShading implements ImageResult{
         BeanImage beanImage = beanImages.get(0);
         if(Utils.isLocalPath(beanImage.getImageLink())){
             Utils.logVerbose("LADING AS : "+"local image " + beanImage.getImageLink());
-            new UnframedLocalTask(this).execute(beanImage);
+            new UnframedLocalTask(this).execute();
         } else {
             Utils.logVerbose("LADING AS : " + "server image " + beanImage.getImageLink());
-            UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(beanImage, targets, this);
+            UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(this, position);
             targets.add(target);
             currentFramePicasso.load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
                     .networkPolicy(NetworkPolicy.NO_STORE)
@@ -91,15 +94,17 @@ final class ImageShading implements ImageResult{
     @Override
     public void callNextCycle(String lastImagePath) {
         beanImages.remove(0);
+        //because targets are also running sequential, in case of parallel need to shift it to respective class
+        targets.remove(0);
         if(beanImages.size() == 0) return;
         BeanImage beanImage = beanImages.get(0);
         if(Utils.isLocalPath(beanImage.getImageLink())){
             Utils.logVerbose("LADING AS : "+"local image " + beanImage.getImageLink());
-            new UnframedLocalTask(this).execute(beanImage);
+            new UnframedLocalTask(this).execute();
         } else {
             Utils.logVerbose("LADING AS : "+"server image " + beanImage.getImageLink());
             if(!TextUtils.isEmpty(lastImagePath)) currentFramePicasso.invalidate(lastImagePath);
-            UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(beanImage, targets, this);
+            UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(this, position);
             targets.add(target);
 
             currentFramePicasso.load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
@@ -114,6 +119,7 @@ final class ImageShading implements ImageResult{
 
     @Override
     public void handleTransformedResult(Bitmap bitmap, BeanImage beanImage) {
+        //caller responsibility
         if(beanImage == null){
             Message message = frameHandler.obtainMessage(3, bitmap);
             frameHandler.sendMessageDelayed(message, 100);
@@ -132,8 +138,11 @@ final class ImageShading implements ImageResult{
         return images;
     }
 
+
+
     @Override
     public void onImageLoaded(boolean result, Bitmap bitmap, BeanImage beanImage) throws FrameException{
+        Utils.logError("image loaded  imageshading : "+this.toString()+"  "+position);
         if(result) {
             images.add(bitmap);
             loadedBeanImages.add(beanImage);
@@ -178,6 +187,7 @@ final class ImageShading implements ImageResult{
                 imageShades.setCurrentFramePicasso(currentFramePicasso);
                 imageShades.updateFrameUi(images, loadedBeanImages, false);
             }
+            //FrameHandler responsibility
             if(frameModel.isShouldRecycleBitmaps()) frameHandler.sendEmptyMessageDelayed(2, 500);
             else images.clear();
             loadedBeanImages.clear();
@@ -219,6 +229,11 @@ final class ImageShading implements ImageResult{
     @Override
     public int getCounter() {
         return unframedImageCounter;
+    }
+
+    @Override
+    public BeanImage getNextUnframedBean() {
+        return beanImages.get(0);
     }
 
 

@@ -11,19 +11,28 @@ import proj.me.bitframe.exceptions.FrameException;
  * Created by root on 13/9/16.
  */
 
- interface ImageResult {
+interface ImageResult {
     void onImageLoaded(boolean result, Bitmap bitmap, BeanImage beanImage) throws FrameException;
+
     void setDoneLoading(boolean doneLoading);
 
     FrameModel getFrameModel();
+
     ImageCallback getImageCallback();
+
     int getTotalImages();
+
     Context getContext();
 
     void updateCounter();
+
     int getCounter();
 
+    BeanImage getNextUnframedBean();
+
     void callNextCycle(String lastImagePath);
+
     void handleTransformedResult(Bitmap bitmap, BeanImage beanImage);
+
     List<Bitmap> getImages();
 }

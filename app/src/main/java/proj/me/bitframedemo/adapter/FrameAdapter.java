@@ -47,7 +47,8 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
         holder.cardContainerBinding.viewFrame.clearContainerChilds();
         holder.cardBinder.setTitle(frameBean.getTitle());
         holder.cardBinder.setDescription(frameBean.getDescription());
-        holder.cardContainerBinding.viewFrame.showBitFrame(frameBean.getBeanBitFrameList(), holder, FrameType.FRAMED);
+        holder.cardContainerBinding.viewFrame.position(position);
+        holder.cardContainerBinding.viewFrame.showBitFrame(frameBean.getBeanBitFrameList(), holder, FrameType.UNFRAMED);
     }
 
     @Override

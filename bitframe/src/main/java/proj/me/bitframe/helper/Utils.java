@@ -51,6 +51,10 @@ public class Utils {
     public static void logVerbose(String message){
         Log.v(TAG, message);
     }
+    public static void logError(String message){
+        Log.e(TAG, message);
+    }
+
     public static void showToast(Context context,String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }

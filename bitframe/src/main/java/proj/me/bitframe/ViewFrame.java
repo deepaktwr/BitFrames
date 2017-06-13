@@ -386,6 +386,11 @@ public class ViewFrame extends LinearLayout{
         frameModel.setHasFixedDimensions(hasFixedDimensions);
     }
 
+    int position;
+    public void position(int position){
+        this.position = position;
+    }
+
     /**
      * to generate the bit frame based on a list of images.
      * @param beanImageList the list of image uri's and the notes on that image by user, it can be a list of @BeanImages
@@ -468,7 +473,8 @@ public class ViewFrame extends LinearLayout{
         linkCount = beanImageList.size();
 
 
-        ImageShading imageShading = new ImageShading(this.getContext(), imageCallback, frameModel, currentFramePicasso);
+        Utils.logError("creating shading reference");
+        ImageShading imageShading = new ImageShading(this.getContext(), imageCallback, frameModel, currentFramePicasso, position);
 
         binadingBitFrame.setProgressBarVisibility(true);
         imageContainer.removeAllViews();
