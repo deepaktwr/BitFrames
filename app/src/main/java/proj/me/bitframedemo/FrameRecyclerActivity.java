@@ -172,6 +172,7 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
                             " per your needs..");
                     List<BeanImage> beanImages = new ArrayList<>();
                     frameBean.setBeanBitFrameList(beanImages);
+                    int count = 1;
                     for(proj.me.bitframedemo.beans.Bundle bundle : bundleDetail.getImages()){
                         //change
                         //because picasso is not loading IMG_currentTimeInMillis_1
@@ -180,16 +181,47 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
                         //so for picasso i thing the extension is required
                         BeanBitFrame beanBitFrame = new BeanBitFrame();
                         beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
-                        beanBitFrame.setPrimaryCount(bundle.getPrimaryCount());
-                        beanBitFrame.setSecondaryCount(bundle.getSecondaryCount());
-                        beanBitFrame.setImageLink(/*bundle.getImgName()*/"https://s3-us-west-1.amazonaws.com/pro-manager/images/20170606174814752942003.jpg");
+                        beanBitFrame.setPrimaryCount(/*getPrimaryCountbundle.getPrimaryCount()*/count);
+                        beanBitFrame.setSecondaryCount(/*bundle.getSecondaryCount()*/count);
+                        beanBitFrame.setImageLink(bundle.getImgName()/*"https://s3-us-west-1.amazonaws.com/pro-manager/images/20170606174814752942003.jpg"*/);
                         beanBitFrame.setImageComment(bundle.getComment());
                         beanBitFrame.setWidth(bundle.getWidth());
                         beanBitFrame.setHeight(bundle.getHeight());
                         beanBitFrame.setMutedColor(bundle.getMutedColor());
                         beanBitFrame.setVibrantColor(bundle.getVibrantColor());
-                        beanBitFrame.setLoaded(true);
+                        beanBitFrame.setLoaded(false);
                         beanImages.add(beanBitFrame);
+
+
+
+                        beanBitFrame = new BeanBitFrame();
+                        beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
+                        beanBitFrame.setPrimaryCount(0);
+                        beanBitFrame.setSecondaryCount(0);
+                        beanBitFrame.setImageLink(bundle.getImgName()/*"https://s3-us-west-1.amazonaws.com/pro-manager/images/20170606174814752942003.jpg"*/);
+                        beanBitFrame.setImageComment(bundle.getComment());
+                        beanBitFrame.setWidth(bundle.getWidth());
+                        beanBitFrame.setHeight(bundle.getHeight());
+                        beanBitFrame.setMutedColor(bundle.getMutedColor());
+                        beanBitFrame.setVibrantColor(bundle.getVibrantColor());
+                        beanBitFrame.setLoaded(false);
+                        beanImages.add(beanBitFrame);
+
+
+                        beanBitFrame = new BeanBitFrame();
+                        beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
+                        beanBitFrame.setPrimaryCount(0);
+                        beanBitFrame.setSecondaryCount(0);
+                        beanBitFrame.setImageLink(bundle.getImgName()/*"https://s3-us-west-1.amazonaws.com/pro-manager/images/20170606174814752942003.jpg"*/);
+                        beanBitFrame.setImageComment(bundle.getComment());
+                        beanBitFrame.setWidth(bundle.getWidth());
+                        beanBitFrame.setHeight(bundle.getHeight());
+                        beanBitFrame.setMutedColor(bundle.getMutedColor());
+                        beanBitFrame.setVibrantColor(bundle.getVibrantColor());
+                        beanBitFrame.setLoaded(false);
+                        beanImages.add(beanBitFrame);
+
+                        count++;
                     }
                     if(beanImages.size() > 0) frameBeanList.add(frameBean);
                 }

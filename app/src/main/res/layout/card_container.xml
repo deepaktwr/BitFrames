@@ -36,7 +36,8 @@
                     android:layout_height="wrap_content"
                     frame:hasFixedDimensions="@bool/bool_true"
                     frame:shouldShowComment="@bool/bool_false"
-                    frame:shouldStoreImages="@bool/bool_false"/>
+                    frame:shouldStoreImages="@bool/bool_false"
+                    frame:shouldSortImages="@bool/bool_true"/>
 
                 <TextView
                     android:layout_width="wrap_content"

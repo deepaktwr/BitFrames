@@ -69,9 +69,19 @@ public class BeanImage implements Comparable<BeanImage>, Parcelable {
 
     @Override
     public int compareTo(BeanImage another) {
-        if(primaryCount > another.getPrimaryCount() || secondaryCount > another.getSecondaryCount()) return 1;
-        else if(primaryCount == another.getPrimaryCount() || secondaryCount == another.getSecondaryCount()) return 0;
-        return -1;
+        /*//if in right order then <= 0
+        //else need to interchange so > 0
+        if(primaryCount == another.getPrimaryCount() && secondaryCount == another.getSecondaryCount()) return 0;
+        else if(primaryCount < another.getPrimaryCount()) return 1;//need to interchange a/c to our requirement
+        else if(primaryCount > another.getPrimaryCount()) return -1;//are in right order a/c to our requirement
+        else if(secondaryCount < another.getSecondaryCount()) return 1;
+        else if(secondaryCount > another.getSecondaryCount()) return -1;
+        return 1;*/
+
+        int first = Math.max(primaryCount + ViewFrame.SORT_DIFFERENCE_THRESHOLD, secondaryCount);
+        int second = Math.max(another.getPrimaryCount() + ViewFrame.SORT_DIFFERENCE_THRESHOLD, another.getSecondaryCount());
+
+        return second - first;
     }
 
 

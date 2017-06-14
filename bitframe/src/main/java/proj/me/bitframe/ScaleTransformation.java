@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.squareup.picasso.Transformation;
 
+import java.lang.ref.SoftReference;
+
 import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
 
@@ -17,7 +19,7 @@ class ScaleTransformation implements Transformation {
     int totalImage;
     String key;
     BeanImage beanImage;
-    ImageResult imageResult;
+    SoftReference<ImageResult> imageResultSoftReference;
 
     ScaleTransformation(float containerWidth, float containerHeight, int totalImage, String key, BeanImage beanImage, ImageResult imageResult){
         this.containerWidth = containerWidth;
@@ -25,12 +27,12 @@ class ScaleTransformation implements Transformation {
         this.totalImage = totalImage;
         this.key = key;
         this.beanImage = beanImage;
-        this.imageResult = imageResult;
+        imageResultSoftReference = new SoftReference<>(imageResult);
     }
     @Override
     public Bitmap transform(Bitmap source) {
         totalImage = totalImage > 4 ? 4 : totalImage;
-        Utils.logVerbose("transforming"+source.getWidth()+" h"+source.getHeight());
+        Utils.logVerbose("transforming w : "+source.getWidth()+" h : "+source.getHeight());
         Bitmap target = null;
         try {
             target = Utils.getScaledBitmap(source,
@@ -41,6 +43,13 @@ class ScaleTransformation implements Transformation {
         }
         boolean isNotEqual = false;
         if(isNotEqual = target != source) source.recycle();
+
+        ImageResult imageResult = imageResultSoftReference.get();
+
+        if(imageResult == null){
+            Utils.logVerbose("ScaleTransformation, ImageResult : collected ");
+            return target;
+        }
 
         if(isNotEqual) imageResult.handleTransformedResult(target, beanImage);
 

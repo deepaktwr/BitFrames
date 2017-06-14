@@ -6,10 +6,12 @@ import android.view.View;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 import proj.me.bitframe.exceptions.FrameException;
+import proj.me.bitframe.helper.Utils;
 
 /**
  * Created by root on 23/9/16.
@@ -65,15 +67,18 @@ public abstract class ImageShades implements ImageClickHandler{
 
     public static class PaletteListener implements Palette.PaletteAsyncListener{
         int viewId;
-        WeakReference<ImageShades> imageShadesWeakReference;
+        SoftReference<ImageShades> imageShadesSoftReference;
         public PaletteListener(int viewId, ImageShades imageShades){
             this.viewId = viewId;
-            imageShadesWeakReference = new WeakReference<>(imageShades);
+            imageShadesSoftReference = new SoftReference<>(imageShades);
         }
         @Override
         public void onGenerated(Palette palette) {
-            ImageShades imageShades = imageShadesWeakReference.get();
-            if(imageShades == null) return;
+            ImageShades imageShades = imageShadesSoftReference.get();
+            if(imageShades == null){
+                Utils.logVerbose("Palette listener, ImageShades : collected ");
+                return;
+            }
             try {
                 imageShades.onPaletteGenerated(palette, viewId);
             } catch (FrameException e) {
