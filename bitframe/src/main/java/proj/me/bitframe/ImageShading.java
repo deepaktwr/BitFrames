@@ -50,6 +50,8 @@ final class ImageShading implements ImageResult{
     List<UnframedPicassoTargetNew> targets;
     Picasso currentFramePicasso;
 
+    static int SORT_DIFFERENCE_THRESHOLD = 0;
+
 
     ImageShading(Context context, ImageCallback layoutCallback, FrameModel frameModel, Picasso currentFramePicasso){
         this.context =context;
@@ -60,6 +62,8 @@ final class ImageShading implements ImageResult{
         frameHandler = new FrameHandler(this);
         recycleHandler = new RecycleHandler(this);
         this.currentFramePicasso = currentFramePicasso;
+
+        SORT_DIFFERENCE_THRESHOLD = frameModel.getSortDifferenceThreshold();
     }
 
     void mapUnframedImages(List<BeanImage> beanImages, List<UnframedPicassoTargetNew> targets){

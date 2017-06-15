@@ -78,8 +78,8 @@ public class BeanImage implements Comparable<BeanImage>, Parcelable {
         else if(secondaryCount > another.getSecondaryCount()) return -1;
         return 1;*/
 
-        int first = Math.max(primaryCount + ViewFrame.SORT_DIFFERENCE_THRESHOLD, secondaryCount);
-        int second = Math.max(another.getPrimaryCount() + ViewFrame.SORT_DIFFERENCE_THRESHOLD, another.getSecondaryCount());
+        int first = Math.max(primaryCount + ImageShading.SORT_DIFFERENCE_THRESHOLD, secondaryCount);
+        int second = Math.max(another.getPrimaryCount() + ImageShading.SORT_DIFFERENCE_THRESHOLD, another.getSecondaryCount());
 
         return second - first;
     }

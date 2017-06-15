@@ -46,9 +46,6 @@ public class ViewFrame extends LinearLayout{
 
     ImageShading imageShading;
 
-    public static final int SORT_DIFFERENCE_THRESHOLD = 4;
-
-
     static class MyImageCallback implements ImageCallback{
         WeakReference<ViewFrame> viewFrameSoftReference;
         WeakReference<FrameCallback> frameCallbackSoftReference;
@@ -230,6 +227,15 @@ public class ViewFrame extends LinearLayout{
         if(commentTransparencyPercent <= 0)
             commentTransparencyPercent = resources.getInteger(R.integer.comment_transparency_percent);
 
+        //getting sort difference threshold
+        int sortDifferenceThreshold = typedArray.getResourceId(R.styleable.ViewFrame_sortDifferenceThreshold, -1);
+        if(sortDifferenceThreshold == -1)
+            sortDifferenceThreshold = typedArray.getInteger(R.styleable.ViewFrame_sortDifferenceThreshold, -1);
+        else
+            sortDifferenceThreshold = resources.getInteger(sortDifferenceThreshold);
+        if(sortDifferenceThreshold <= 0)
+            sortDifferenceThreshold = resources.getInteger(R.integer.sort_difference_threshold);
+
         //getting max frame count
         int maxFrameCount = typedArray.getResourceId(R.styleable.ViewFrame_maxFrameCount, -1);
         if(maxFrameCount == -1)
@@ -374,6 +380,7 @@ public class ViewFrame extends LinearLayout{
 
         //setting values to frame model
         frameModel.setCommentTransparencyPercent(commentTransparencyPercent);
+        frameModel.setSortDifferenceThreshold(sortDifferenceThreshold);
 
 
         //first convert width and height to pixel

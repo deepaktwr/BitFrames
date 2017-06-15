@@ -37,6 +37,7 @@
                     frame:hasFixedDimensions="@bool/bool_true"
                     frame:shouldShowComment="@bool/bool_false"
                     frame:shouldStoreImages="@bool/bool_false"
+                    frame:sortDifferenceThreshold="4"
                     frame:shouldSortImages="@bool/bool_true"/>
 
                 <TextView
