@@ -5,10 +5,12 @@
     <item name="bool_false" type="bool">false</item>
 
     <item name="trans_percent" type="integer">70</item>
+    <item name="diff_threshold" type="integer">0</item>
     <item name="max_frame" type="integer">4</item>
     <item name="min_add_rato" type="fraction">25%</item>
 
     <item name="comment_transparency_percent" format="reference" type="integer">@integer/trans_percent</item>
+    <item name="sort_difference_threshold" format="reference" type="integer">@integer/diff_threshold</item>
     <item name="max_frame_count" format="reference" type="integer">@integer/max_frame</item>
     <item name="min_add_ratio" format="reference" type="fraction">@fraction/min_add_rato</item>
     <item name="error_drawable" format="reference" type="drawable">@drawable/ic_launcher</item>
@@ -26,6 +28,7 @@
 
     <declare-styleable name="ViewFrame">
         <attr name="commentTransparencyPercent" format="integer|reference"/>
+        <attr name="sortDifferenceThreshold" format="integer|reference"/>
         <attr name="minFrameWidth" format="dimension|reference"/>
         <attr name="minFrameHeight" format="dimension|reference"/>
         <attr name="maxContainerWidth" format="dimension|reference"/>

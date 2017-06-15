@@ -28,8 +28,6 @@ interface ImageResult {
 
     int getCounter();
 
-    BeanImage getNextUnframedBean();
-
     void callNextCycle(String lastImagePath);
 
     void handleTransformedResult(Bitmap bitmap, BeanImage beanImage);

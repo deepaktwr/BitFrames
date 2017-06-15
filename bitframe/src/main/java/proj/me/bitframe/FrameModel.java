@@ -9,6 +9,7 @@ import proj.me.bitframe.helper.ColorCombination;
  */
 public class FrameModel {
     int commentTransparencyPercent;
+    int sortDifferenceThreshold;
     float minFrameWidth;
     float minFrameHeight;
     float maxContainerWidth;
@@ -64,6 +65,14 @@ public class FrameModel {
 
     public void setCommentTransparencyPercent(int commentTransparencyPercent) {
         this.commentTransparencyPercent = commentTransparencyPercent;
+    }
+
+    public int getSortDifferenceThreshold() {
+        return sortDifferenceThreshold;
+    }
+
+    public void setSortDifferenceThreshold(int sortDifferenceThreshold) {
+        this.sortDifferenceThreshold = sortDifferenceThreshold;
     }
 
     public boolean isHasFixedDimensions() {
