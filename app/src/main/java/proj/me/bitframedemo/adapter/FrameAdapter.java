@@ -27,7 +27,6 @@ import proj.me.bitframedemo.databinding.CardContainerBinding;
 
 public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
 
-    List<Integer> positions;
     List<FrameBean> frameBeanList;
     int containerWidth;
     int containerHeight;
@@ -35,9 +34,7 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
         this.frameBeanList = frameBeanList;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
-        positions = new ArrayList<>();
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,51 +42,17 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
         return new ViewHolder(inflater.inflate(R.layout.card_container, parent, false), containerWidth, containerHeight);
     }
 
-    int lastPosition = 0;
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         FrameBean frameBean = frameBeanList.get(position);
-        if(positions.size() == 4){
-            if(lastPosition <= position){
-                //down
-                int at1 = positions.get(1);
-                int at2 = positions.get(2);
-                int at3 = positions.get(3);
-                positions.clear();
-
-                positions.add(at1);
-                positions.add(at2);
-                positions.add(at3);
-                positions.add(position);
-            }else{
-                //up
-                int at0 = positions.get(0);
-                int at1 = positions.get(1);
-                int at2 = positions.get(2);
-                positions.clear();
-
-                positions.add(position);
-                positions.add(at0);
-                positions.add(at1);
-                positions.add(at2);
-            }
-        }else positions.add(position);
-
         Utils.logVerbose("IMAGE_LOADING : "+" came to load view frame at "+position);
-
-        String collectPositions = "";
-        for(int pos : positions) collectPositions += pos+", ";
-        Utils.logVerbose("collect positions : "+collectPositions);
-
         holder.cardContainerBinding.viewFrame.clearContainerChilds();
         holder.cardBinder.setTitle(frameBean.getTitle());
         holder.cardBinder.setDescription(frameBean.getDescription());
         holder.cardBinder.setTitleColor(Color.parseColor("#000000"));
         holder.cardBinder.setDescriptionColor(Color.parseColor("#000000"));
         List<BeanImage> beanImageList = frameBean.getBeanBitFrameList();
-        holder.cardContainerBinding.viewFrame.setTag(beanImageList.size()+" "+position);
-        holder.cardContainerBinding.viewFrame.showBitFrame(beanImageList, holder, FrameType.UNFRAMED);
-        lastPosition = position;
+        holder.cardContainerBinding.viewFrame.showBitFrame(beanImageList, holder, FrameType.FRAMED);
     }
 
     @Override

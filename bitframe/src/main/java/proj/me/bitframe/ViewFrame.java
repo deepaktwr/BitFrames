@@ -50,29 +50,26 @@ public class ViewFrame extends LinearLayout{
 
 
     static class MyImageCallback implements ImageCallback{
-        SoftReference<ViewFrame> viewFrameSoftReference;
-        SoftReference<FrameCallback> frameCallbackSoftReference;
+        WeakReference<ViewFrame> viewFrameSoftReference;
+        WeakReference<FrameCallback> frameCallbackSoftReference;
         List<BeanBitFrame> beanBitFramesResult;
         int linkCount;
         MyImageCallback(ViewFrame viewFrame, FrameCallback frameCallback, int linkCount){
-            viewFrameSoftReference = new SoftReference<>(viewFrame);
-            frameCallbackSoftReference = new SoftReference<>(frameCallback);
+            viewFrameSoftReference = new WeakReference<>(viewFrame);
+            frameCallbackSoftReference = new WeakReference<>(frameCallback);
             beanBitFramesResult = new ArrayList<>();
             this.linkCount = linkCount;
         }
         @Override
         public void addImageView(View view, int viewWidth, int viewHeight, boolean isAddInLayout) {
             ViewFrame viewFrame = viewFrameSoftReference.get();
-            if(viewFrame == null){
-                Utils.logVerbose("MyImageCallback, ViewFrame : collected ");
-                return;
-            }
+            if(viewFrame == null) return;
 
             FrameCallback frameCallback = frameCallbackSoftReference.get();
-            if(frameCallback == null){
-                Utils.logVerbose("MyImageCallback, FrameCallback : collected ");
-                return;
-            }
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
 
             viewFrame.binadingBitFrame.setProgressBarVisibility(false);
 
@@ -85,16 +82,13 @@ public class ViewFrame extends LinearLayout{
         @Override
         public void imageClicked(ImageType imageType, int imagePosition, String imageLink) {
             ViewFrame viewFrame = viewFrameSoftReference.get();
-            if(viewFrame == null){
-                Utils.logVerbose("MyImageCallback, ViewFrame : collected ");
-                return;
-            }
+            if(viewFrame == null) return;
 
             FrameCallback frameCallback = frameCallbackSoftReference.get();
-            if(frameCallback == null){
-                Utils.logVerbose("MyImageCallback, FrameCallback : collected ");
-                return;
-            }
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
 
             Bundle imageBundle = new Bundle();
 
@@ -104,24 +98,19 @@ public class ViewFrame extends LinearLayout{
             imageScrollParcelable.setImageLink(imageLink);
             imageBundle.putParcelable("image_data", imageScrollParcelable);
 
-            Utils.showToast(viewFrame.getContext().getApplicationContext(), "image clicked");
-
             frameCallback.imageClick(imageType, imagePosition, imageLink);
         }
 
         @Override
         public void setColorsToAddMoreView(int resultColor, int mixedColor, int invertedColor) {
             ViewFrame viewFrame = viewFrameSoftReference.get();
-            if(viewFrame == null){
-                Utils.logVerbose("MyImageCallback, ViewFrame : collected ");
-                return;
-            }
+            if(viewFrame == null) return;
 
             FrameCallback frameCallback = frameCallbackSoftReference.get();
-            if(frameCallback == null){
-                Utils.logVerbose("MyImageCallback, FrameCallback : collected ");
-                return;
-            }
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
 
             Utils.logVerbose("colors came");
             viewFrame.binadingBitFrame.setProgressBarColor(mixedColor);
@@ -132,37 +121,30 @@ public class ViewFrame extends LinearLayout{
         @Override
         public void frameResult(BeanBitFrame... beanBitFrames) {
             ViewFrame viewFrame = viewFrameSoftReference.get();
-            if(viewFrame == null){
-                Utils.logVerbose("MyImageCallback, ViewFrame : collected ");
-                return;
-            }
+            if(viewFrame == null) return;
 
             FrameCallback frameCallback = frameCallbackSoftReference.get();
-            if(frameCallback == null){
-                Utils.logVerbose("MyImageCallback, FrameCallback : collected ");
-                return;
-            }
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
 
             Utils.logVerbose("frame result came");
             //might be called multiple times
             beanBitFramesResult.addAll(Arrays.asList(beanBitFrames));
-            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
-            if(linkCount == beanBitFramesResult.size() && this.hashCode() == hashCode) frameCallback.frameResult(beanBitFramesResult);
+            if(linkCount == beanBitFramesResult.size()) frameCallback.frameResult(beanBitFramesResult);
         }
 
         @Override
         public void addMore() {
             ViewFrame viewFrame = viewFrameSoftReference.get();
-            if(viewFrame == null){
-                Utils.logVerbose("MyImageCallback, ViewFrame : collected ");
-                return;
-            }
+            if(viewFrame == null) return;
 
             FrameCallback frameCallback = frameCallbackSoftReference.get();
-            if(frameCallback == null){
-                Utils.logVerbose("MyImageCallback, FrameCallback : collected ");
-                return;
-            }
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
 
             //when add in layout enabled, then it's click will come in this method
             frameCallback.addMoreClick();
@@ -535,7 +517,7 @@ public class ViewFrame extends LinearLayout{
                     e.printStackTrace();
                 }
                 break;
-            default: Utils.logVerbose("invalid frame type");
+            default: Utils.logError("invalid frame type");
         }
 
     }

@@ -74,13 +74,13 @@ final class ImageShading implements ImageResult{
         BeanImage beanImage = beanImages.get(0);
         if(Utils.isLocalPath(beanImage.getImageLink())){
             Utils.logVerbose("LADING AS : "+"local image " + beanImage.getImageLink());
-            new UnframedLocalTask(this).execute();
+            new UnframedLocalTask(this).execute(beanImage);
         } else {
             Utils.logVerbose("LADING AS : " + "server image " + beanImage.getImageLink());
             UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(this, beanImage);
             targets.add(target);
             currentFramePicasso.load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
-                    /*.networkPolicy(NetworkPolicy.NO_STORE)*/
+                    .networkPolicy(NetworkPolicy.NO_STORE)
                     .noPlaceholder()
                     .transform(new ScaleTransformation(frameModel.getMaxContainerWidth(),
                             frameModel.getMaxContainerHeight(), totalImages, beanImage.getImageLink(),
@@ -93,21 +93,21 @@ final class ImageShading implements ImageResult{
     @Override
     public void callNextCycle(String lastImagePath) {
         if(!TextUtils.isEmpty(lastImagePath)) currentFramePicasso.invalidate(lastImagePath);
-        beanImages.remove(0);
+        if(beanImages != null && beanImages.size() > 0) beanImages.remove(0);
         //because targets are also running sequential, in case of parallel need to shift it to respective class
-        targets.remove(0);
+        if(targets != null && targets.size() > 0) targets.remove(0);
         if(beanImages.size() == 0) return;
         BeanImage beanImage = beanImages.get(0);
         if(Utils.isLocalPath(beanImage.getImageLink())){
             Utils.logVerbose("LADING AS : "+"local image " + beanImage.getImageLink());
-            new UnframedLocalTask(this).execute();
+            new UnframedLocalTask(this).execute(beanImage);
         } else {
             Utils.logVerbose("LADING AS : "+"server image " + beanImage.getImageLink());
             UnframedPicassoTargetNew target = new UnframedPicassoTargetNew(this, beanImage);
             targets.add(target);
 
             currentFramePicasso.load(beanImage.getImageLink()).memoryPolicy(MemoryPolicy.NO_STORE)
-                    /*.networkPolicy(NetworkPolicy.NO_STORE)*/
+                    .networkPolicy(NetworkPolicy.NO_STORE)
                     .noPlaceholder()
                     .transform(new ScaleTransformation(frameModel.getMaxContainerWidth(),
                             frameModel.getMaxContainerHeight(), totalImages, beanImage.getImageLink(),
@@ -279,16 +279,15 @@ final class ImageShading implements ImageResult{
     }
 
     static class RecycleHandler extends Handler{
-        SoftReference<ImageResult> imageResultSoftReference;
+        WeakReference<ImageResult> imageResultSoftReference;
         RecycleHandler(ImageResult imageResult){
-            imageResultSoftReference = new SoftReference<>(imageResult);
+            imageResultSoftReference = new WeakReference<>(imageResult);
         }
 
         @Override
         public void handleMessage(Message msg) {
             ImageResult imageResult = imageResultSoftReference.get();
             if(imageResult == null) {
-                Utils.logVerbose("ImageShading, ImageResult : collected ");
                 super.handleMessage(msg);
                 return;
             }

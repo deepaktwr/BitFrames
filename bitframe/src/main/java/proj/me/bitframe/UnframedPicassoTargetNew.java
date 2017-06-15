@@ -19,21 +19,18 @@ import proj.me.bitframe.helper.Utils;
  */
 
 class UnframedPicassoTargetNew implements Target {
-    SoftReference<ImageResult> imageResultSoftReference;
+    WeakReference<ImageResult> imageResultSoftReference;
     BeanImage beanImage;
 
     UnframedPicassoTargetNew(ImageResult imageResult, BeanImage beanImage) {
-        imageResultSoftReference = new SoftReference<>(imageResult);
+        imageResultSoftReference = new WeakReference<>(imageResult);
         this.beanImage = beanImage;
     }
 
     @Override
     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
         ImageResult imageResult = imageResultSoftReference.get();
-        if(imageResult == null){
-            Utils.logVerbose("UnframedPicassoTargetNew, ImageResult : collected ");
-            return;
-        }
+        if(imageResult == null) return;
         Utils.logMessage("Came image loaded -> "+imageResult.getCounter() + " bit width = "+bitmap.getWidth()+" height "+bitmap.getHeight());
         imageResult.callNextCycle(beanImage.getImageLink());
         imageResult.handleTransformedResult(bitmap, bitmap.getWidth() > 1 ? beanImage : null);

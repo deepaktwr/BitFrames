@@ -16,18 +16,15 @@ import proj.me.bitframe.helper.Utils;
  */
 
 class UnframedLocalTask extends AsyncTask<BeanImage, Integer, BeanResult> {
-    SoftReference<ImageResult> imageResultSoftReference;
+    WeakReference<ImageResult> imageResultSoftReference;
 
     UnframedLocalTask(ImageResult imageResult){
-        imageResultSoftReference = new SoftReference<>(imageResult);
+        imageResultSoftReference = new WeakReference<>(imageResult);
     }
     @Override
     protected BeanResult doInBackground(BeanImage... params) {
         ImageResult imageResult = imageResultSoftReference.get();
-        if(imageResult == null || params == null || params.length == 0){
-            Utils.logVerbose("UnframedLocalTask, ImageResult : collected ");
-            return null;
-        }
+        if(imageResult == null) return null;
 
         BeanImage beanImage = params[0];
         BeanResult beanResult = null;

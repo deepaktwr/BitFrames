@@ -2,19 +2,16 @@ package proj.me.bitframe;
 
 import android.graphics.Color;
 import android.support.v7.graphics.Palette;
-
-import java.lang.ref.SoftReference;
-
-import proj.me.bitframe.helper.Utils;
+import java.lang.ref.WeakReference;
 
 final class PaletteListener implements Palette.PaletteAsyncListener {
-    SoftReference<ImageResult> imageResultSoftReference;
+    WeakReference<ImageResult> imageResultSoftReference;
     BeanBitFrame beanBitFrame;
     BeanImage beanImage;
     boolean shouldCallNextCycle;
 
     PaletteListener(ImageResult imageResult, BeanBitFrame beanBitFrame, BeanImage beanImage, boolean shouldCallNextCycle) {
-        imageResultSoftReference = new SoftReference<>(imageResult);
+        imageResultSoftReference = new WeakReference<>(imageResult);
         this.beanBitFrame = beanBitFrame;
         this.beanImage = beanImage;
         this.shouldCallNextCycle = shouldCallNextCycle;
@@ -23,10 +20,7 @@ final class PaletteListener implements Palette.PaletteAsyncListener {
     @Override
     public void onGenerated(Palette palette) {
         ImageResult imageResult = imageResultSoftReference.get();
-        if (imageResult == null){
-            Utils.logVerbose("PaletteListener, ImageResult : collected ");
-            return;
-        }
+        if (imageResult == null) return;
 
         int defaultColor = Color.parseColor("#ffffffff");
         Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();

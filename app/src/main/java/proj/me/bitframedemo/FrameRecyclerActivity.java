@@ -61,7 +61,7 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
 
         int maxW = widthPixels - Utils.dpToPx(24, getResources());
         //int maxH = (int)(heightPixels - heightPixels*0.4f) < widthPixels ? widthPixels : (int)(heightPixels - heightPixels*0.4f);
-        int maxH = ((int)(maxW + maxW * 0.2f) > heightPixels ? maxW : (int)(maxW + maxW * 0.2f)) - 600;
+        int maxH = (int)(maxW + maxW * 0.2f) > heightPixels ? maxW : (int)(maxW + maxW * 0.2f);
 
         Utils.logMessage("DISPLAY : "+widthPixels+" "+heightPixels);
         Utils.logMessage("DISPLAY : "+maxW+" "+maxH);
@@ -172,56 +172,24 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
                             " per your needs..");
                     List<BeanImage> beanImages = new ArrayList<>();
                     frameBean.setBeanBitFrameList(beanImages);
-                    int count = 1;
                     for(proj.me.bitframedemo.beans.Bundle bundle : bundleDetail.getImages()){
                         //change
                         //because picasso is not loading IMG_currentTimeInMillis_1
                         //while it's loading imgcurrentTimeInMillis1m.png
                         //if(!bundle.getImgName().contains(".png")) continue;
-                        //so for picasso i thing the extension is required
+                        //so for picasso i think the extension is required
                         BeanBitFrame beanBitFrame = new BeanBitFrame();
                         beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
-                        beanBitFrame.setPrimaryCount(/*getPrimaryCountbundle.getPrimaryCount()*/count);
-                        beanBitFrame.setSecondaryCount(/*bundle.getSecondaryCount()*/count);
-                        beanBitFrame.setImageLink(bundle.getImgName()/*"https://s3-us-west-1.amazonaws.com/pro-manager/images/20170606174814752942003.jpg"*/);
+                        beanBitFrame.setPrimaryCount(bundle.getPrimaryCount());
+                        beanBitFrame.setSecondaryCount(bundle.getSecondaryCount());
+                        beanBitFrame.setImageLink(bundle.getImgName());
                         beanBitFrame.setImageComment(bundle.getComment());
                         beanBitFrame.setWidth(bundle.getWidth());
                         beanBitFrame.setHeight(bundle.getHeight());
                         beanBitFrame.setMutedColor(bundle.getMutedColor());
                         beanBitFrame.setVibrantColor(bundle.getVibrantColor());
-                        beanBitFrame.setLoaded(false);
+                        beanBitFrame.setLoaded(true);
                         beanImages.add(beanBitFrame);
-
-
-
-                        beanBitFrame = new BeanBitFrame();
-                        beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
-                        beanBitFrame.setPrimaryCount(0);
-                        beanBitFrame.setSecondaryCount(0);
-                        beanBitFrame.setImageLink(bundle.getImgName()/*"https://s3-us-west-1.amazonaws.com/pro-manager/images/20170606174814752942003.jpg"*/);
-                        beanBitFrame.setImageComment(bundle.getComment());
-                        beanBitFrame.setWidth(bundle.getWidth());
-                        beanBitFrame.setHeight(bundle.getHeight());
-                        beanBitFrame.setMutedColor(bundle.getMutedColor());
-                        beanBitFrame.setVibrantColor(bundle.getVibrantColor());
-                        beanBitFrame.setLoaded(false);
-                        beanImages.add(beanBitFrame);
-
-
-                        beanBitFrame = new BeanBitFrame();
-                        beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
-                        beanBitFrame.setPrimaryCount(0);
-                        beanBitFrame.setSecondaryCount(0);
-                        beanBitFrame.setImageLink(bundle.getImgName()/*"https://s3-us-west-1.amazonaws.com/pro-manager/images/20170606174814752942003.jpg"*/);
-                        beanBitFrame.setImageComment(bundle.getComment());
-                        beanBitFrame.setWidth(bundle.getWidth());
-                        beanBitFrame.setHeight(bundle.getHeight());
-                        beanBitFrame.setMutedColor(bundle.getMutedColor());
-                        beanBitFrame.setVibrantColor(bundle.getVibrantColor());
-                        beanBitFrame.setLoaded(false);
-                        beanImages.add(beanBitFrame);
-
-                        count++;
                     }
                     if(beanImages.size() > 0) frameBeanList.add(frameBean);
                 }

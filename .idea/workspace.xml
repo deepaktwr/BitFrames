@@ -15,13 +15,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/card_container.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/card_container.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/bitframe.iml" afterPath="$PROJECT_DIR$/bitframe/bitframe.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageResult.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/PaletteListener.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/PaletteListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" />
@@ -61,38 +57,28 @@
       <file leaf-file-name="UnframedLocalTask.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="80" column="130" selection-start-line="80" selection-start-column="130" selection-end-line="80" selection-end-column="130" />
+            <state relative-caret-position="-162">
+              <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FrameRecyclerActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3402">
-              <caret line="220" column="54" selection-start-line="220" selection-start-column="54" selection-end-line="220" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FrameAdapter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FrameAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+            <state relative-caret-position="190">
+              <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewFrame.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java">
+      <file leaf-file-name="ImageShades.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="525" column="21" selection-start-line="525" selection-start-column="21" selection-end-line="525" selection-end-column="21" />
+            <state relative-caret-position="180">
+              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -101,8 +87,58 @@
       <file leaf-file-name="FrameHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="45" column="46" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="46" />
+            <state relative-caret-position="378">
+              <caret line="37" column="92" selection-start-line="37" selection-start-column="92" selection-end-line="37" selection-end-column="92" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScaleTransformation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="738">
+              <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageShadingFour.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/ImageShadingFour.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="974" column="36" selection-start-line="974" selection-start-column="36" selection-end-line="974" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageShadingOne.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/ImageShadingOne.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="206" column="24" selection-start-line="206" selection-start-column="24" selection-end-line="206" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FrameActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2926">
+              <caret line="276" column="25" selection-start-line="276" selection-start-column="25" selection-end-line="276" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageShading.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="97" column="68" selection-start-line="97" selection-start-column="68" selection-end-line="97" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -111,21 +147,11 @@
       <file leaf-file-name="PaletteListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/PaletteListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="53" column="94" selection-start-line="53" selection-start-column="94" selection-end-line="53" selection-end-column="94" />
+            <state relative-caret-position="252">
+              <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BeanImage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="77" column="72" selection-start-line="77" selection-start-column="72" selection-end-line="77" selection-end-column="72" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -2750,31 +2776,31 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/ImageShadingOne.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_two/ImageShadingTwo.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/MyHandler.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/SlowRecyclngHandler.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/SlowRecyclingHandler.java" />
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/ImageShadingFour.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_three/ImageShadingThree.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/network/RetrofitClient.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageResult.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/RecycleHandler.java" />
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java" />
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" />
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/res/values/integeres.xml" />
         <option value="$PROJECT_DIR$/bitframe/src/main/res/values/ids.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/card_container.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" />
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java" />
         <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/PaletteListener.java" />
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java" />
-        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/ImageShadingOne.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/ImageShadingFour.java" />
+        <option value="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" />
       </list>
     </option>
   </component>
@@ -2823,12 +2849,16 @@
     <property name="FullScreen" value="false" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="57c5cc9c" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5X_API_22" />
-    <property name="SearchEverywhereHistoryKey" value="FrameH&#9;FILE&#9;file:///Users/deepak/android/Examples/BitFrames/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java&#10;Ut&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java&#10;Unfra&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" />
+    <property name="SearchEverywhereHistoryKey" value="FrameAda&#9;FILE&#9;file:///Users/deepak/android/Examples/BitFrames/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java&#10;Unfra&#9;FILE&#9;file:///Users/deepak/android/Examples/BitFrames/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java&#10;FrameH&#9;FILE&#9;file:///Users/deepak/android/Examples/BitFrames/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java&#10;FrameAd&#9;FILE&#9;file:///Users/deepak/android/Examples/BitFrames/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java&#10;FrameA&#9;FILE&#9;file:///Users/deepak/android/Examples/BitFrames/app/src/main/java/proj/me/bitframedemo/FrameActivity.java&#10;recy&#9;FILE&#9;file:///Users/deepak/android/Examples/BitFrames/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java&#10;Ut&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Studio14/BitFrameDemo" />
     <property name="device.picker.selection" value="57c5cc9c" />
     <property name="UI_DESIGNER_EDITOR_MODE.NlPaletteManager-NlPreviewForm.SHOW" value="false" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
+    <property name="DEBUGGABLE_DEVICE" value="xiaomi-2014818-57c5cc9c" />
+    <property name="DEBUGGABLE_PROCESS" value="proj.me.bitframedemo" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="DEBUGGER_ID" value="Auto" />
   </component>
   <component name="RunManager" selected="Android App.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
@@ -3202,18 +3232,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33816424" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06534091" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.67897725" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.765625" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3222,11 +3252,11 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.84517044" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38920453" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4474432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -3252,18 +3282,32 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java</url>
+          <line>48</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java</url>
+          <line>143</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java</url>
+          <line>94</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="8" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7416">
-          <caret line="438" column="24" selection-start-line="438" selection-start-column="24" selection-end-line="438" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="846">
@@ -3324,13 +3368,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/ImageShadingOne.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="164" column="72" selection-start-line="164" selection-start-column="72" selection-end-line="164" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_two/ImageShadingTwo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -3358,14 +3395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3401,14 +3430,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/ImageShadingFour.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/helper/BeanBitmapResult.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -3421,14 +3442,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -3459,14 +3472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="34" column="69" selection-start-line="34" selection-start-column="69" selection-end-line="34" selection-end-column="69" />
           <folding />
         </state>
       </provider>
@@ -3514,22 +3519,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="78" column="39" selection-start-line="78" selection-start-column="39" selection-end-line="78" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="25" column="68" selection-start-line="25" selection-start-column="68" selection-end-line="25" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/frame_recycler.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3563,60 +3552,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-262">
-          <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
           <caret line="52" column="26" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="80" column="130" selection-start-line="80" selection-start-column="130" selection-end-line="80" selection-end-column="130" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3402">
-          <caret line="220" column="54" selection-start-line="220" selection-start-column="54" selection-end-line="220" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/PaletteListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="53" column="94" selection-start-line="53" selection-start-column="94" selection-end-line="53" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="77" column="72" selection-start-line="77" selection-start-column="72" selection-end-line="77" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -3648,18 +3587,132 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java">
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="45" column="46" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="46" />
+        <state relative-caret-position="954">
+          <caret line="77" column="72" selection-start-line="77" selection-start-column="72" selection-end-line="77" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="63" column="19" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="519" column="58" selection-start-line="519" selection-start-column="58" selection-end-line="519" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/PaletteListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2926">
+          <caret line="276" column="25" selection-start-line="276" selection-start-column="25" selection-end-line="276" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="37" column="92" selection-start-line="37" selection-start-column="92" selection-end-line="37" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/ImageShadingOne.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="206" column="24" selection-start-line="206" selection-start-column="24" selection-end-line="206" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/ImageShadingFour.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="974" column="36" selection-start-line="974" selection-start-column="36" selection-end-line="974" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="525" column="21" selection-start-line="525" selection-start-column="21" selection-end-line="525" selection-end-column="21" />
+          <caret line="97" column="68" selection-start-line="97" selection-start-column="68" selection-end-line="97" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
           <folding />
         </state>
       </provider>

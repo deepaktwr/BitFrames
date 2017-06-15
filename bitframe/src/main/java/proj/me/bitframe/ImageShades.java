@@ -67,18 +67,15 @@ public abstract class ImageShades implements ImageClickHandler{
 
     public static class PaletteListener implements Palette.PaletteAsyncListener{
         int viewId;
-        SoftReference<ImageShades> imageShadesSoftReference;
+        WeakReference<ImageShades> imageShadesSoftReference;
         public PaletteListener(int viewId, ImageShades imageShades){
             this.viewId = viewId;
-            imageShadesSoftReference = new SoftReference<>(imageShades);
+            imageShadesSoftReference = new WeakReference<>(imageShades);
         }
         @Override
         public void onGenerated(Palette palette) {
             ImageShades imageShades = imageShadesSoftReference.get();
-            if(imageShades == null){
-                Utils.logVerbose("Palette listener, ImageShades : collected ");
-                return;
-            }
+            if(imageShades == null) return;
             try {
                 imageShades.onPaletteGenerated(palette, viewId);
             } catch (FrameException e) {

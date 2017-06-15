@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.squareup.picasso.Transformation;
 
 import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 
 import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
@@ -19,7 +20,7 @@ class ScaleTransformation implements Transformation {
     int totalImage;
     String key;
     BeanImage beanImage;
-    SoftReference<ImageResult> imageResultSoftReference;
+    WeakReference<ImageResult> imageResultSoftReference;
 
     ScaleTransformation(float containerWidth, float containerHeight, int totalImage, String key, BeanImage beanImage, ImageResult imageResult){
         this.containerWidth = containerWidth;
@@ -27,7 +28,7 @@ class ScaleTransformation implements Transformation {
         this.totalImage = totalImage;
         this.key = key;
         this.beanImage = beanImage;
-        imageResultSoftReference = new SoftReference<>(imageResult);
+        imageResultSoftReference = new WeakReference<>(imageResult);
     }
     @Override
     public Bitmap transform(Bitmap source) {
@@ -46,10 +47,7 @@ class ScaleTransformation implements Transformation {
 
         ImageResult imageResult = imageResultSoftReference.get();
 
-        if(imageResult == null){
-            Utils.logVerbose("ScaleTransformation, ImageResult : collected ");
-            return target;
-        }
+        if(imageResult == null) return target;
 
         if(isNotEqual) imageResult.handleTransformedResult(target, beanImage);
 
