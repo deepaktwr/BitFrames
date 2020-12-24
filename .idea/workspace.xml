@@ -11,19 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="020d76a2-172b-448b-8366-2ad3e6bfcf97" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/BindingAddText.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/BindingAddText.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/CardBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/CardBinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/FrameBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/FrameBinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_frame.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_frame.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/card_container.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/card_container.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frame_recycler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frame_recycler.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
