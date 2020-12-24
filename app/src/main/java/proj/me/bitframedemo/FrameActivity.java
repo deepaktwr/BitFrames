@@ -8,17 +8,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.databinding.DataBindingUtil;
+
+import androidx.core.app.NotificationCompat;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NavUtils;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NavUtils;
+import androidx.core.content.ContextCompat;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -159,10 +160,12 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) return;
 
         //adding storage read/write permission
-        int storageGroupermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(storageGroupermission != PackageManager.PERMISSION_GRANTED && !hasFiredPermission){
+        int storageReadGroupermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int storageWriteGroupermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if((storageReadGroupermission != PackageManager.PERMISSION_GRANTED
+                || storageWriteGroupermission != PackageManager.PERMISSION_GRANTED) && !hasFiredPermission){
             hasFiredPermission = true;
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION);
         }
     }
 
@@ -171,37 +174,38 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         switch(requestCode){
             case REQUEST_PERMISSION:
                 hasFiredPermission = false;
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if(grantResults.length > 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED){
                     //do nothing
-                }else finish();
+                } else finish();
                 break;
         }
     }
 
     @Override
-    public void imageClick(ImageType imageType, int imagePosition, String imageLink) {
+    public void imageClick(ImageType imageType, int imagePosition, String imageLink, ViewFrame actionableViewFrame) {
         showMessage("Clickable");
     }
 
     @Override
-    public void frameResult(List<BeanBitFrame> beanBitFrameList) {
+    public void frameResult(List<BeanBitFrame> beanBitFrameList, ViewFrame actionableViewFrame) {
         this.beanBitFrameList.clear();
         this.beanBitFrameList.addAll(beanBitFrameList);
     }
 
     @Override
-    public void addMoreClick() {
+    public void addMoreClick(ViewFrame actionableViewFrame) {
 
     }
 
     @Override
-    public void containerAdded(int containerWidth, int containerHeight, boolean isAddInLayout) {
+    public void containerAdded(int containerWidth, int containerHeight, boolean isAddInLayout, ViewFrame actionableViewFrame) {
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
     }
 
     @Override
-    public void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor) {
+    public void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor, ViewFrame actionableViewFrame) {
         floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(mixedLoadedColor));
         bindingAddText.setTextColor(inverseMixedLoadedColor);
     }
@@ -484,9 +488,12 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
     }
 
     void saveFrame() throws IOException {
-        File parent = new File(Environment.getExternalStorageDirectory().getPath().toString(), "frames/");
-        if(!parent.exists()) parent.mkdir();
-        File imgFile = new File(Environment.getExternalStorageDirectory().getPath().toString()+"/frames","Frame_"+System.currentTimeMillis()+"_m.png");
+        File parent = new File(Environment.getExternalStorageDirectory().toString() + "/frames");
+        parent.mkdir();
+
+        File imgFile = new File(parent,"Frame_"+System.currentTimeMillis()+"_m.png");
+        imgFile.createNewFile();
+
         viewFrame.setDrawingCacheEnabled(true);
         viewFrame.buildDrawingCache();
         Bitmap bitmap1 = viewFrame.getDrawingCache();
@@ -494,8 +501,9 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
             imgFile.delete();
             return;
         }
-        Bitmap bitmap = Bitmap.createBitmap(bitmap1, (int)Math.ceil((screenWidth - containerWidth) / 2.0), 0,
-                bitmap1.getWidth() - (screenWidth - containerWidth), bitmap1.getHeight());
+        int diff = Math.max(screenWidth - containerWidth, 0);
+        Bitmap bitmap = Bitmap.createBitmap(bitmap1, (int)Math.ceil(diff / 2.0), 0,
+                bitmap1.getWidth() - diff, bitmap1.getHeight());
         if(bitmap1 != bitmap) bitmap1.recycle();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);

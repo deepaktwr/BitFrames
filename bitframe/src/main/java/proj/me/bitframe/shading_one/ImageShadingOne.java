@@ -1,11 +1,10 @@
 package proj.me.bitframe.shading_one;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.support.v7.graphics.Palette;
+import androidx.palette.graphics.Palette;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,7 +22,6 @@ import proj.me.bitframe.FrameModel;
 import proj.me.bitframe.ImageShades;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.R;
-import proj.me.bitframe.databinding.ViewSingleBinding;
 import proj.me.bitframe.dimentions.BeanShade1;
 import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
@@ -32,7 +30,7 @@ import proj.me.bitframe.helper.Utils;
 /**
  * Created by Deepak.Tiwari on 28-09-2015.
  */
-public final class ImageShadingOne extends ImageShades{
+public final class ImageShadingOne extends ImageShades {
     Context context;
     LayoutInflater inflater;
     int totalImages;
@@ -49,7 +47,7 @@ public final class ImageShadingOne extends ImageShades{
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.totalImages = totalImages;
-
+        shadingOneBinding = new BindingShadeOne();
         beanBitFrame1 = new BeanBitFrame();
         beanBitFrame1.setLoaded(true);
 
@@ -74,13 +72,7 @@ public final class ImageShadingOne extends ImageShades{
         beanBitFrame1.setPrimaryCount(beanImages.get(0).getPrimaryCount());
         beanBitFrame1.setSecondaryCount(beanImages.get(0).getSecondaryCount());
 
-        shadingOneBinding = new BindingShadeOne();
-
-        ViewSingleBinding viewSingleBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_single, null));
-
-        viewSingleBinding.setClickHandler(this);
-        viewSingleBinding.setShadeOne(shadingOneBinding);
-
+        View root = shadingOneBinding.bind(inflater.inflate(R.layout.view_single, null), this);
 
         //image counter
         shadingOneBinding.setImageCounterVisibility(false);
@@ -93,7 +85,7 @@ public final class ImageShadingOne extends ImageShades{
         if(!result){
             width =0;height=0;
             shadingOneBinding.setImageCounterVisibility(true);
-            shadingOneBinding.setImageCounterText("+"+totalImages);
+            shadingOneBinding.setImageCounterText((totalImages > frameModel.getMaxExtraCount() ? (frameModel.getMaxExtraCount() + "+") : ("+" + (totalImages))));
         }else {
             width = hasImageProperties ? (int)beanBitFrame.getWidth() : bitmap.getWidth();
             height = hasImageProperties ? (int)beanBitFrame.getHeight() : bitmap.getHeight();
@@ -101,13 +93,13 @@ public final class ImageShadingOne extends ImageShades{
             shadingOneBinding.setComment(beanImages.get(0).getImageComment());
             if(totalImages>1) {
                 shadingOneBinding.setImageCounterVisibility(true);
-                shadingOneBinding.setImageCounterText("+" + (totalImages - 1));
+                shadingOneBinding.setImageCounterText((totalImages - 1 > frameModel.getMaxExtraCount() ? (frameModel.getMaxExtraCount() + "+") : ("+" + (totalImages - 1))));
             }
         }
 
         BeanShade1 beanShade1 = ShadeOne.calculateDimentions(frameModel, width, height);
 
-        final ImageView singleImage = (ImageView) viewSingleBinding.getRoot().findViewById(R.id.view_single_image);
+        final ImageView singleImage = root.findViewById(R.id.view_single_image);
 
 
         BindingShadeOne.setLayoutWidth(singleImage, beanShade1.getWidth1());
@@ -121,7 +113,7 @@ public final class ImageShadingOne extends ImageShades{
         if(!hasImageProperties) BindingShadeOne.setBitmap(singleImage, bitmap);
         shadingOneBinding.setImageScaleType(frameModel.getScaleType());
 
-        addImageView(viewSingleBinding.getRoot(), beanShade1.getWidth1(), beanShade1.getHeight1(), false);
+        addImageView(root, beanShade1.getWidth1(), beanShade1.getHeight1(), false);
 
 
         beanBitFrame1.setHeight(/*beanShade1.getHeight1()*/hasImageProperties ? beanBitFrame.getHeight() : bitmap.getHeight());
@@ -166,20 +158,20 @@ public final class ImageShadingOne extends ImageShades{
             Utils.logVerbose("IMAGE_LOADING : "+" going to load one image");
             final Picasso picasso = getCurrentFramePicasso();
             if(frameModel.isShouldStoreImages()){
-                picasso.load(imageLink1).fit().centerInside().noPlaceholder().
-                into(singleImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        //do nothing
-                        Utils.logMessage("IMAGE_LOADING success");
-                    }
+                Utils.getPicassoRequestCreator(picasso, imageLink1).fit().centerInside().noPlaceholder().
+                        into(singleImage, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                //do nothing
+                                Utils.logMessage("IMAGE_LOADING success");
+                            }
 
-                    @Override
-                    public void onError() {
-                        Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink1+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(singleImage);
-                    }
-                });
+                            @Override
+                            public void onError() {
+                                Utils.logVerbose("IMAGE_LOADING error");
+                                Utils.getPicassoRequestCreator(picasso, imageLink1+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(singleImage);
+                            }
+                        });
                 /*Picasso.Builder builder = new Picasso.Builder(context.getApplicationContext());
                 builder.listener(new Picasso.Listener() {
                     @Override
@@ -203,22 +195,22 @@ public final class ImageShadingOne extends ImageShades{
                 at java.lang.Thread.run(Thread.java:841)
                 at com.squareup.picasso.Utils$PicassoThread.run(Utils.java:411)*/
             }else {
-                picasso.load(imageLink1).memoryPolicy(MemoryPolicy.NO_STORE)
+                Utils.getPicassoRequestCreator(picasso, imageLink1).memoryPolicy(MemoryPolicy.NO_STORE)
                         .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().
-                into(singleImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        //do nothing
-                        Utils.logMessage("IMAGE_LOADING success");
-                    }
+                        into(singleImage, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                //do nothing
+                                Utils.logMessage("IMAGE_LOADING success");
+                            }
 
-                    @Override
-                    public void onError() {
-                        Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink1+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
-                                .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(singleImage);
-                    }
-                });
+                            @Override
+                            public void onError() {
+                                Utils.logVerbose("IMAGE_LOADING error");
+                                Utils.getPicassoRequestCreator(picasso, imageLink1+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                                        .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(singleImage);
+                            }
+                        });
             }
         }
         //if(!result) bitmap.recycle();
@@ -226,7 +218,7 @@ public final class ImageShadingOne extends ImageShades{
 
     @Override
     public void onImageShadeClick(View view) {
-        imageClicked(result? ImageType.VIEW_SINGLE : null, 1, imageLink1);
+        imageClicked(result ? ImageType.VIEW_SINGLE : null, 1, imageLink1);
     }
 
     @Override
@@ -245,12 +237,12 @@ public final class ImageShadingOne extends ImageShades{
 
         switch(frameModel.getColorCombination()){
             case VIBRANT_TO_MUTED:
-                if(beanBitFrame1.isHasGreaterVibrantPopulation())
+                if(beanBitFrame1.isHasGreaterVibrantPopulation() && vibrantColor > 0)
                     resultColor = vibrantColor;
                 else resultColor = mutedColor;
                 break;
             case MUTED_TO_VIBRANT:
-                if(beanBitFrame1.isHasGreaterVibrantPopulation())
+                if(beanBitFrame1.isHasGreaterVibrantPopulation() && mutedColor > 0)
                     resultColor = mutedColor;
                 else resultColor = vibrantColor;
                 break;
@@ -260,6 +252,9 @@ public final class ImageShadingOne extends ImageShades{
 
         beanBitFrame1.setMutedColor(mutedColor);
         beanBitFrame1.setVibrantColor(vibrantColor);
+
+        beanBitFrame1.setMutedColor(beanBitFrame1.getMutedColor() <= 0 ? resultColor : beanBitFrame1.getMutedColor());
+        beanBitFrame1.setVibrantColor(beanBitFrame1.getVibrantColor() <= 0 ? resultColor : beanBitFrame1.getVibrantColor());
 
         Utils.logMessage("vibrant pop = "+vibrantPopulation+"  muted pop"+mutedPopulation);
 

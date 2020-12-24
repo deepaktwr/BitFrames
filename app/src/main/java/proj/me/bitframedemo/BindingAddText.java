@@ -1,8 +1,7 @@
 package proj.me.bitframedemo;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import proj.me.bitframedemo.BR;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
 /**
  * Created by root on 23/4/16.

@@ -5,18 +5,25 @@
     <item name="bool_false" type="bool">false</item>
 
     <item name="trans_percent" type="integer">70</item>
+    <item name="diff_threshold" type="integer">0</item>
     <item name="max_frame" type="integer">4</item>
+    <item name="max_extra" type="integer">99</item>
     <item name="min_add_rato" type="fraction">25%</item>
 
     <item name="comment_transparency_percent" format="reference" type="integer">@integer/trans_percent</item>
+    <item name="sort_difference_threshold" format="reference" type="integer">@integer/diff_threshold</item>
     <item name="max_frame_count" format="reference" type="integer">@integer/max_frame</item>
+    <item name="max_extra_count" format="reference" type="integer">@integer/max_extra</item>
     <item name="min_add_ratio" format="reference" type="fraction">@fraction/min_add_rato</item>
     <item name="error_drawable" format="reference" type="drawable">@drawable/ic_launcher</item>
+    <item name="loading_drawable" format="reference" type="drawable">@drawable/ic_launcher</item>
     <item name="min_frame_width" format="reference" type="dimen">@dimen/d_64</item>
     <item name="min_frame_height" format="reference" type="dimen">@dimen/d_64</item>
     <item name="max_container_width" format="reference" type="dimen">@dimen/d_192</item>
     <item name="max_container_height" format="reference" type="dimen">@dimen/d_192</item>
     <item name="is_add_in_layout" format="reference" type="bool">@bool/bool_false</item>
+    <item name="has_loader" format="reference" type="bool">@bool/bool_false</item>
+    <item name="has_loading_drawable" format="reference" type="bool">@bool/bool_true</item>
     <item name="should_show_comment" format="reference" type="bool">@bool/bool_true</item>
     <item name="has_scroll" format="reference" type="bool">@bool/bool_false</item>
     <item name="has_fixed_dimensions" format="reference" type="bool">@bool/bool_false</item>
@@ -26,13 +33,17 @@
 
     <declare-styleable name="ViewFrame">
         <attr name="commentTransparencyPercent" format="integer|reference"/>
+        <attr name="sortDifferenceThreshold" format="integer|reference"/>
         <attr name="minFrameWidth" format="dimension|reference"/>
         <attr name="minFrameHeight" format="dimension|reference"/>
         <attr name="maxContainerWidth" format="dimension|reference"/>
         <attr name="maxContainerHeight" format="dimension|reference"/>
         <attr name="maxFrameCount" format="integer|reference"/>
+        <attr name="maxExtraCount" format="integer|reference"/>
         <attr name="minAddRatio" format="float|reference"/>
         <attr name="isAddInLayout" format="boolean|reference"/>
+        <attr name="hasLoader" format="boolean|reference"/>
+        <attr name="hasLoadingDrawable" format="boolean|reference"/>
         <attr name="shouldShowComment" format="boolean|reference"/>
         <attr name="hasScroll" format="boolean|reference"/>
         <attr name="hasFixedDimensions" format="boolean|reference"/>
@@ -44,6 +55,7 @@
             <enum name="MUTED_TO_VIBRANT" value="1"/>
         </attr>
         <attr name="errorDrawable" format="integer"/>
+        <attr name="loadingDrawable" format="integer"/>
         <attr name="imageScaleType" format="enum">
             <enum name="centerInside" value="7"/>
             <enum name="centerCrop" value="6"/>

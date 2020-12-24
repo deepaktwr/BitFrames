@@ -13,17 +13,17 @@ public interface FrameCallback {
      * @param imagePosition defined in horizontal way.
      * @param imageLink the link of the clicked image
      * */
-    void imageClick(ImageType imageType, int imagePosition, String imageLink);
+    void imageClick(ImageType imageType, int imagePosition, String imageLink, ViewFrame actionableViewFrame);
     /**
      * the result after all image links loaded
      * */
-    void frameResult(List<BeanBitFrame> beanBitFrameList);
+    void frameResult(List<BeanBitFrame> beanBitFrameList, ViewFrame actionableViewFrame);
     /**
      * when add overflow clicked, if it's been added the the container
      * */
-    void addMoreClick();
+    void addMoreClick(ViewFrame actionableViewFrame);
 
-    void containerAdded(int containerWidth, int containerHeight, boolean isAddInLayout);
+    void containerAdded(int containerWidth, int containerHeight, boolean isAddInLayout, ViewFrame actionableViewFrame);
 
-    void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor);
+    void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor, ViewFrame actionableViewFrame);
 }

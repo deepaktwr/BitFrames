@@ -1,32 +1,32 @@
 package proj.me.bitframe;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import proj.me.bitframe.BR;
+import android.content.res.ColorStateList;
+import android.os.Build;
+import android.view.View;
+import android.widget.ProgressBar;
 
 /**
  * Created by root on 13/3/16.
  */
- public class BinadingBitFrame extends BaseObservable{
-    int progressBarColor;
-    boolean progressBarVisibility;
+ public class BinadingBitFrame {
 
-    @Bindable public boolean isProgressBarVisibility() {
-        return progressBarVisibility;
-    }
+     private View root;
+
+     View bind(View root) {
+         this.root = root;
+         return root;
+     }
 
     public void setProgressBarVisibility(boolean progressBarVisibility) {
-        this.progressBarVisibility = progressBarVisibility;
-		notifyPropertyChanged(BR.progressBarVisibility);
-    }
-    @Bindable
-    public int getProgressBarColor() {
-        return progressBarColor;
+        ProgressBar progressBar = root.findViewById(R.id.progress_loader);
+        progressBar.setVisibility(progressBarVisibility ? View.VISIBLE : View.GONE);
     }
 
     public void setProgressBarColor(int progressBarColor) {
-        this.progressBarColor = progressBarColor;
-		notifyPropertyChanged(BR.progressBarColor);
+        ProgressBar progressBar = root.findViewById(R.id.progress_loader);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            progressBar.setBackgroundTintList(ColorStateList.valueOf(progressBarColor));
+        }
     }
 
 }

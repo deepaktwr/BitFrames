@@ -1,210 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <import type="android.view.View" />
-        <variable
-            name="shadeFour"
-            type="proj.me.bitframe.shading_four.BindingShadeFour" />
 
-        <variable
-            name="clickHandler"
-            type="proj.me.bitframe.ImageClickHandler" />
-    </data>
+<!-- has varying height according to the image-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/multiple_shade_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <!-- has varying height according to the image-->
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:id="@+id/top_first_rl_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@{shadeFour.dividerColor}">
+        android:layout_marginBottom="@dimen/p_1_5"
+        android:tag="multiple_img1_container">
 
-        <RelativeLayout
-            android:id="@+id/top_first_rl_view"
+        <ImageView
+            android:id="@+id/view_multiple_image1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/p_1_5"
-            android:background="@{shadeFour.firstImageBgColor}">
+            android:layout_centerInParent="true"
+            android:scaleType="center"
+            android:tag="img1" />
 
-            <ImageView
-                android:id="@+id/view_multiple_image1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:tag="img1"
-                android:onClick="@{clickHandler::onImageShadeClick}"
-                android:scaleType="@{shadeFour.firstImageScaleType, default = center}" />
-
-            <TextView
-                android:id="@+id/view_multiple_text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/view_multiple_image1"
-                android:layout_alignLeft="@id/view_multiple_image1"
-			android:layout_alignStart="@id/view_multiple_image1"
-                android:layout_alignRight="@id/view_multiple_image1"
-			android:layout_alignEnd="@id/view_multiple_image1"
-                android:background="@{shadeFour.firstCommentBgColor}"
-                android:paddingBottom="@dimen/d_10"
-                android:paddingLeft="@dimen/d_10"
-                android:paddingRight="@dimen/d_10"
-                android:paddingTop="@dimen/d_10"
-                android:singleLine="true"
-                android:text="@{shadeFour.firstComment}"
-                android:visibility="@{shadeFour.firstCommentVisibility ? View.VISIBLE : View.GONE}"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/background_light" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/top_second_rl_view"
+        <TextView
+            android:id="@+id/view_multiple_text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/top_first_rl_view"
-			android:layout_alignStart="@id/top_first_rl_view"
-            android:layout_alignRight="@id/top_first_rl_view"
-			android:layout_alignEnd="@id/top_first_rl_view"
-            android:layout_below="@id/top_first_rl_view"
-            android:layout_marginBottom="@dimen/p_1_5"
-            android:layout_marginTop="@dimen/p_1_5"
-            android:background="@{shadeFour.secondImageBgColor}">
+            android:layout_alignStart="@id/view_multiple_image1"
+            android:layout_alignLeft="@id/view_multiple_image1"
+            android:layout_alignEnd="@id/view_multiple_image1"
+            android:layout_alignRight="@id/view_multiple_image1"
+            android:layout_alignBottom="@id/view_multiple_image1"
+            android:paddingLeft="@dimen/d_10"
+            android:paddingTop="@dimen/d_10"
+            android:paddingRight="@dimen/d_10"
+            android:paddingBottom="@dimen/d_10"
+            android:singleLine="true"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/background_light" />
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/view_multiple_image2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:tag="img2"
-                android:onClick="@{clickHandler::onImageShadeClick}"
-                android:scaleType="@{shadeFour.secondImageScaleType, default = center}"/>
+    <RelativeLayout
+        android:id="@+id/top_second_rl_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_first_rl_view"
+        android:layout_alignStart="@id/top_first_rl_view"
+        android:layout_alignLeft="@id/top_first_rl_view"
+        android:layout_alignEnd="@id/top_first_rl_view"
+        android:layout_alignRight="@id/top_first_rl_view"
+        android:layout_marginTop="@dimen/p_1_5"
+        android:layout_marginBottom="@dimen/p_1_5"
+        android:tag="multiple_img2_container">
 
-            <TextView
-                android:id="@+id/view_multiple_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/view_multiple_image2"
-                android:layout_alignLeft="@id/view_multiple_image2"
-			android:layout_alignStart="@id/view_multiple_image2"
-                android:layout_alignRight="@id/view_multiple_image2"
-			android:layout_alignEnd="@id/view_multiple_image2"
-                android:background="@{shadeFour.secondCommentBgColor}"
-                android:paddingBottom="@dimen/d_10"
-                android:paddingLeft="@dimen/d_10"
-                android:paddingRight="@dimen/d_10"
-                android:paddingTop="@dimen/d_10"
-                android:singleLine="true"
-                android:text="@{shadeFour.secondComment}"
-                android:visibility="@{shadeFour.secondCommentVisibility ? View.VISIBLE : View.GONE}"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/background_light" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/bottom_left_rl_view"
+        <ImageView
+            android:id="@+id/view_multiple_image2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/top_second_rl_view"
-            android:layout_marginRight="@dimen/p_1_5"
-			android:layout_marginEnd="@dimen/p_1_5"
-            android:layout_marginTop="@dimen/p_1_5"
-            android:layout_alignLeft="@id/top_second_rl_view"
-			android:layout_alignStart="@id/top_second_rl_view"
-            android:background="@{shadeFour.thirdCommentBgColor}">
+            android:layout_centerInParent="true"
+            android:scaleType="center"
+            android:tag="img2" />
 
-            <ImageView
-                android:id="@+id/view_multiple_image3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:tag="img3"
-                android:onClick="@{clickHandler::onImageShadeClick}"
-                android:scaleType="@{shadeFour.thirdImageScaleType, default = center}" />
-
-            <TextView
-                android:id="@+id/view_multiple_text3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/view_multiple_image3"
-                android:layout_alignLeft="@id/view_multiple_image3"
-			android:layout_alignStart="@id/view_multiple_image3"
-                android:layout_alignRight="@id/view_multiple_image3"
-			android:layout_alignEnd="@id/view_multiple_image3"
-                android:background="@{shadeFour.thirdCommentBgColor}"
-                android:paddingBottom="@dimen/d_10"
-                android:paddingLeft="@dimen/d_10"
-                android:paddingRight="@dimen/d_10"
-                android:paddingTop="@dimen/d_10"
-                android:singleLine="true"
-                android:text="@{shadeFour.thirdComment}"
-                android:visibility="@{shadeFour.thirdCommentVisibility ? View.VISIBLE : View.GONE}"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/background_light" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/bottom_right_rl_view"
+        <TextView
+            android:id="@+id/view_multiple_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@id/top_second_rl_view"
-			android:layout_alignEnd="@id/top_second_rl_view"
-            android:layout_below="@id/top_second_rl_view"
-            android:layout_marginLeft="@dimen/p_1_5"
-			android:layout_marginStart="@dimen/p_1_5"
-            android:layout_marginTop="@dimen/p_1_5"
-            android:layout_toRightOf="@id/bottom_left_rl_view"
-			android:layout_toEndOf="@id/bottom_left_rl_view"
-            android:background="@{shadeFour.fourthImageBgColor}">
+            android:layout_alignStart="@id/view_multiple_image2"
+            android:layout_alignLeft="@id/view_multiple_image2"
+            android:layout_alignEnd="@id/view_multiple_image2"
+            android:layout_alignRight="@id/view_multiple_image2"
+            android:layout_alignBottom="@id/view_multiple_image2"
+            android:paddingLeft="@dimen/d_10"
+            android:paddingTop="@dimen/d_10"
+            android:paddingRight="@dimen/d_10"
+            android:paddingBottom="@dimen/d_10"
+            android:singleLine="true"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/background_light" />
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/view_multiple_image4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:tag="img4"
-                android:onClick="@{clickHandler::onImageShadeClick}"
-                android:scaleType="@{shadeFour.fourthImageScaleType, default = center}"/>
+    <RelativeLayout
+        android:id="@+id/bottom_left_rl_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_second_rl_view"
+        android:layout_alignStart="@id/top_second_rl_view"
+        android:layout_alignLeft="@id/top_second_rl_view"
+        android:layout_marginTop="@dimen/p_1_5"
+        android:layout_marginEnd="@dimen/p_1_5"
+        android:layout_marginRight="@dimen/p_1_5"
+        android:tag="multiple_img3_container">
 
-            <TextView
-                android:id="@+id/view_multiple_text4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/view_multiple_image4"
-                android:layout_alignLeft="@id/view_multiple_image4"
-			android:layout_alignStart="@id/view_multiple_image4"
-                android:layout_alignRight="@id/view_multiple_image4"
-			android:layout_alignEnd="@id/view_multiple_image4"
-                android:background="@{shadeFour.fourthCommentBgColor}"
-                android:paddingBottom="@dimen/d_10"
-                android:paddingLeft="@dimen/d_10"
-                android:paddingRight="@dimen/d_10"
-                android:paddingTop="@dimen/d_10"
-                android:singleLine="true"
-                android:text="@{shadeFour.fourthComment}"
-                android:visibility="@{shadeFour.fourthCommentVisibility ? View.VISIBLE : View.GONE}"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/background_light" />
-        </RelativeLayout>
-        
-        <LinearLayout
+        <ImageView
+            android:id="@+id/view_multiple_image3"
             android:layout_width="wrap_content"
-            android:layout_alignBottom="@id/bottom_right_rl_view"
-            android:layout_alignLeft="@id/bottom_right_rl_view"
-			android:layout_alignStart="@id/bottom_right_rl_view"
-            android:layout_alignRight="@id/bottom_right_rl_view"
-			android:layout_alignEnd="@id/bottom_right_rl_view"
-            android:layout_alignTop="@id/bottom_right_rl_view"
-            android:background="@color/counter_bg"
-            android:visibility="@{shadeFour.counterVisibility ? View.VISIBLE : View.GONE}"
-            android:gravity="center"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="center"
+            android:tag="img3" />
+
+        <TextView
+            android:id="@+id/view_multiple_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/view_multiple_image3"
+            android:layout_alignLeft="@id/view_multiple_image3"
+            android:layout_alignEnd="@id/view_multiple_image3"
+            android:layout_alignRight="@id/view_multiple_image3"
+            android:layout_alignBottom="@id/view_multiple_image3"
+            android:paddingLeft="@dimen/d_10"
+            android:paddingTop="@dimen/d_10"
+            android:paddingRight="@dimen/d_10"
+            android:paddingBottom="@dimen/d_10"
+            android:singleLine="true"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/background_light" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_right_rl_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_second_rl_view"
+        android:layout_alignEnd="@id/top_second_rl_view"
+        android:layout_alignRight="@id/top_second_rl_view"
+        android:layout_marginStart="@dimen/p_1_5"
+        android:layout_marginLeft="@dimen/p_1_5"
+        android:layout_marginTop="@dimen/p_1_5"
+        android:layout_toEndOf="@id/bottom_left_rl_view"
+        android:layout_toRightOf="@id/bottom_left_rl_view"
+        android:tag="multiple_img4_container">
+
+        <ImageView
+            android:id="@+id/view_multiple_image4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="center"
+            android:tag="img4" />
+
+        <TextView
+            android:id="@+id/view_multiple_text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/view_multiple_image4"
+            android:layout_alignLeft="@id/view_multiple_image4"
+            android:layout_alignEnd="@id/view_multiple_image4"
+            android:layout_alignRight="@id/view_multiple_image4"
+            android:layout_alignBottom="@id/view_multiple_image4"
+            android:paddingLeft="@dimen/d_10"
+            android:paddingTop="@dimen/d_10"
+            android:paddingRight="@dimen/d_10"
+            android:paddingBottom="@dimen/d_10"
+            android:singleLine="true"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/background_light" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/image_four_counter_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/bottom_right_rl_view"
+        android:layout_alignLeft="@id/bottom_right_rl_view"
+        android:layout_alignTop="@id/bottom_right_rl_view"
+        android:layout_alignEnd="@id/bottom_right_rl_view"
+        android:layout_alignRight="@id/bottom_right_rl_view"
+        android:layout_alignBottom="@id/bottom_right_rl_view"
+        android:background="@color/counter_bg"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/image_four_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/s_30"
-            android:layout_gravity="center"
-            android:text="@{shadeFour.counterText}"/>
-        </LinearLayout>
-    </RelativeLayout>
-</layout>
+            android:textSize="@dimen/s_30" />
+    </LinearLayout>
+</RelativeLayout>

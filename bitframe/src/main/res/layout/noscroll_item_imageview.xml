@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-        <import type="android.view.View" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
-        <variable
-            name="bitFrame"
-            type="proj.me.bitframe.BinadingBitFrame" />
-    </data>
-
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/loading_background"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher" />
 
-            <RelativeLayout
-                android:id="@+id/parent_relative"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center" />
+        <ProgressBar
+            android:id="@+id/progress_loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTintMode="src_in"
+            android:visibility="gone" />
+    </RelativeLayout>
 
-            <ProgressBar
-                android:id="@+id/progress_loader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:backgroundTint="@{bitFrame.progressBarColor, default = @color/colorPrimary}"
-                android:backgroundTintMode="src_in"
-                android:visibility="@{bitFrame.progressBarVisibility ? View.VISIBLE : View.GONE, default = gone}" />
-        </RelativeLayout>
-</layout>
+    <RelativeLayout
+        android:id="@+id/parent_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+</RelativeLayout>

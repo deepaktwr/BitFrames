@@ -1,10 +1,9 @@
 package proj.me.bitframe.shading_two;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.support.v7.graphics.Palette;
+import androidx.palette.graphics.Palette;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,8 +21,6 @@ import proj.me.bitframe.FrameModel;
 import proj.me.bitframe.ImageShades;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.R;
-import proj.me.bitframe.databinding.ViewDoubleHorzBinding;
-import proj.me.bitframe.databinding.ViewDoubleVertBinding;
 import proj.me.bitframe.dimentions.BeanShade2;
 import proj.me.bitframe.dimentions.ImageOrder;
 import proj.me.bitframe.dimentions.LayoutType;
@@ -101,15 +98,9 @@ public final class ImageShadingTwo extends ImageShades {
         View root = null;
 
         if (isVertLayout) {
-            ViewDoubleVertBinding viewDoubleVertBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_double_vert, null));
-            viewDoubleVertBinding.setShadeTwo(bindingShadeTwo);
-            viewDoubleVertBinding.setClickHandler(this);
-            root = viewDoubleVertBinding.getRoot();
+            root = bindingShadeTwo.bind(inflater.inflate(R.layout.view_double_vert, null), this);
         } else {
-            ViewDoubleHorzBinding viewDoubleHorzBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_double_horz, null));
-            viewDoubleHorzBinding.setShadeTwo(bindingShadeTwo);
-            viewDoubleHorzBinding.setClickHandler(this);
-            root = viewDoubleHorzBinding.getRoot();
+            root = bindingShadeTwo.bind(inflater.inflate(R.layout.view_double_horz, null), this);
         }
 
         Bitmap bitmap1 = hasImageProperties ? null : images.get(0);
@@ -203,7 +194,7 @@ public final class ImageShadingTwo extends ImageShades {
         } else {
             if (totalImages > 2) {
                 bindingShadeTwo.setCounterVisibility(true);
-                bindingShadeTwo.setCounterText("+" + (totalImages - 2));
+                bindingShadeTwo.setCounterText((totalImages - 2 > frameModel.getMaxExtraCount() ? (frameModel.getMaxExtraCount() + "+") : ("+" + (totalImages - 2))));
             }
         }
 
@@ -292,7 +283,7 @@ public final class ImageShadingTwo extends ImageShades {
             //need to notify ImageShading too, to load image via picasso
             Utils.logVerbose("IMAGE_LOADING : " + " going to load two image");
             if (frameModel.isShouldStoreImages()) {
-                picasso.load(imageLink1).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
+                Utils.getPicassoRequestCreator(picasso, imageLink1).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
@@ -302,10 +293,10 @@ public final class ImageShadingTwo extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink1 + "?" + System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView1);
+                        Utils.getPicassoRequestCreator(picasso, imageLink1 + "?" + System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView1);
                     }
                 });
-                picasso.load(imageLink2).fit().centerInside().noPlaceholder().into(imageView2, new Callback() {
+                Utils.getPicassoRequestCreator(picasso, imageLink2).fit().centerInside().noPlaceholder().into(imageView2, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
@@ -315,11 +306,11 @@ public final class ImageShadingTwo extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink2 + "?" + System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView2);
+                        Utils.getPicassoRequestCreator(picasso, imageLink2 + "?" + System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView2);
                     }
                 });
             } else {
-                picasso.load(imageLink1).memoryPolicy(MemoryPolicy.NO_STORE)
+                Utils.getPicassoRequestCreator(picasso, imageLink1).memoryPolicy(MemoryPolicy.NO_STORE)
                         .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -330,11 +321,11 @@ public final class ImageShadingTwo extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink1 + "?" + System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                        Utils.getPicassoRequestCreator(picasso, imageLink1 + "?" + System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView1);
                     }
                 });
-                picasso.load(imageLink2).memoryPolicy(MemoryPolicy.NO_STORE)
+                Utils.getPicassoRequestCreator(picasso, imageLink2).memoryPolicy(MemoryPolicy.NO_STORE)
                         .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView2, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -345,7 +336,7 @@ public final class ImageShadingTwo extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink2 + "?" + System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                        Utils.getPicassoRequestCreator(picasso, imageLink2 + "?" + System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView2);
                     }
                 });
@@ -385,12 +376,12 @@ public final class ImageShadingTwo extends ImageShades {
 
         switch (frameModel.getColorCombination()) {
             case VIBRANT_TO_MUTED:
-                if (hasGreaterVibrantPopulation)
+                if (hasGreaterVibrantPopulation && vibrantColor > 0)
                     resultColor = vibrantColor;
                 else resultColor = mutedColor;
                 break;
             case MUTED_TO_VIBRANT:
-                if (hasGreaterVibrantPopulation)
+                if (hasGreaterVibrantPopulation && mutedColor > 0)
                     resultColor = mutedColor;
                 else resultColor = vibrantColor;
                 break;
@@ -420,6 +411,13 @@ public final class ImageShadingTwo extends ImageShades {
         if (ImageShadingTwo.this.resultColor == 0) ImageShadingTwo.this.resultColor = resultColor;
         else {
             int mixedColor = Utils.getMixedArgbColor(ImageShadingTwo.this.resultColor, resultColor);
+
+            beanBitFrame1.setMutedColor(beanBitFrame1.getMutedColor() <= 0 ? mixedColor : beanBitFrame1.getMutedColor());
+            beanBitFrame1.setVibrantColor(beanBitFrame1.getVibrantColor() <= 0 ? mixedColor : beanBitFrame1.getVibrantColor());
+
+            beanBitFrame2.setMutedColor(beanBitFrame2.getMutedColor() <= 0 ? mixedColor : beanBitFrame2.getMutedColor());
+            beanBitFrame2.setVibrantColor(beanBitFrame2.getVibrantColor() <= 0 ? mixedColor : beanBitFrame2.getVibrantColor());
+
             int inverseColor = Utils.getInverseColor(mixedColor);
             setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
             frameResult(beanBitFrame1, beanBitFrame2);

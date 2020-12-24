@@ -1,281 +1,240 @@
 package proj.me.bitframe.shading_four;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import proj.me.bitframe.BR;
+import proj.me.bitframe.ImageClickHandler;
+import proj.me.bitframe.R;
 
 
 /**
  * Created by root on 16/3/16.
  */
-public class BindingShadeFour extends BaseObservable{
-    private int dividerColor;
-    private boolean dividerVisible;
+public class BindingShadeFour {
+    private static final String MULTIPLE_IMG1_CONTAINER = "multiple_img1_container";
+    private static final String MULTIPLE_IMG2_CONTAINER = "multiple_img2_container";
+    private static final String MULTIPLE_IMG3_CONTAINER = "multiple_img3_container";
+    private static final String MULTIPLE_IMG4_CONTAINER = "multiple_img4_container";
 
+    private View root;
     private int firstImageBgColor;
-    private int firstCommentBgColor;
     private String firstComment;
-    private boolean firstCommentVisibility;
-    private ImageView.ScaleType firstImageScaleType;
 
     private int secondImageBgColor;
-    private int secondCommentBgColor;
     private String secondComment;
-    private boolean secondCommentVisibility;
-    private ImageView.ScaleType secondImageScaleType;
 
     private int thirdImageBgColor;
-    private int thirdCommentBgColor;
     private String thirdComment;
-    private boolean thirdCommentVisibility;
-    private ImageView.ScaleType thirdImageScaleType;
 
     private int fourthImageBgColor;
-    private int fourthCommentBgColor;
     private String fourthComment;
-    private boolean fourthCommentVisibility;
-    private ImageView.ScaleType fourthImageScaleType;
 
-    private String counterText;
-    private boolean counterVisibility;
+    View bind(View root, final ImageClickHandler clickHandler) {
+        this.root = root;
+        root.findViewById(R.id.view_multiple_image1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickHandler.onImageShadeClick(view);
+            }
+        });
 
-    @Bindable public boolean isDividerVisible() {
-        return dividerVisible;
+        root.findViewById(R.id.view_multiple_image2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickHandler.onImageShadeClick(view);
+            }
+        });
+
+        root.findViewById(R.id.view_multiple_image3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickHandler.onImageShadeClick(view);
+            }
+        });
+
+        root.findViewById(R.id.view_multiple_image4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickHandler.onImageShadeClick(view);
+            }
+        });
+
+        return root;
     }
 
-    public void setDividerVisible(boolean dividerVisible) {
-        this.dividerVisible = dividerVisible;
-        notifyPropertyChanged(BR.dividerVisible);
-    }
-
-    @Bindable public int getDividerColor() {
-        return dividerColor;
-    }
 
     public void setDividerColor(int dividerColor) {
-        this.dividerColor = dividerColor;
-        notifyPropertyChanged(BR.dividerColor);
+        RelativeLayout relativeLayout = root.findViewById(R.id.multiple_shade_parent);
+        relativeLayout.setBackgroundColor(dividerColor);
     }
 
-    @Bindable public int getFirstImageBgColor() {
+    public int getFirstImageBgColor() {
         return firstImageBgColor;
     }
 
     public void setFirstImageBgColor(int firstImageBgColor) {
         this.firstImageBgColor = firstImageBgColor;
-        notifyPropertyChanged(BR.firstImageBgColor);
-    }
-
-    @Bindable public int getFirstCommentBgColor() {
-        return firstCommentBgColor;
+        RelativeLayout relativeLayout = root.findViewWithTag(MULTIPLE_IMG1_CONTAINER);
+        relativeLayout.setBackgroundColor(firstImageBgColor);
     }
 
     public void setFirstCommentBgColor(int firstCommentBgColor) {
-        this.firstCommentBgColor = firstCommentBgColor;
-        notifyPropertyChanged(BR.firstCommentBgColor);
+        TextView textView = root.findViewById(R.id.view_multiple_text1);
+        textView.setBackgroundColor(firstCommentBgColor);
     }
 
-    @Bindable public String getFirstComment() {
+    public String getFirstComment() {
         return firstComment;
     }
 
     public void setFirstComment(String firstComment) {
         this.firstComment = firstComment;
-        notifyPropertyChanged(BR.firstComment);
-    }
-
-    @Bindable public boolean isFirstCommentVisibility() {
-        return firstCommentVisibility;
+        TextView textView = root.findViewById(R.id.view_multiple_text1);
+        textView.setText(firstComment);
     }
 
     public void setFirstCommentVisibility(boolean firstCommentVisibility) {
-        this.firstCommentVisibility = firstCommentVisibility;
-        notifyPropertyChanged(BR.firstCommentVisibility);
-    }
-
-    @Bindable public ImageView.ScaleType getFirstImageScaleType() {
-        return firstImageScaleType;
+        TextView textView = root.findViewById(R.id.view_multiple_text1);
+        textView.setVisibility(firstCommentVisibility ? View.VISIBLE : View.GONE);
     }
 
     public void setFirstImageScaleType(ImageView.ScaleType firstImageScaleType) {
-        this.firstImageScaleType = firstImageScaleType;
-        notifyPropertyChanged(BR.firstImageScaleType);
+        ImageView imageView = root.findViewById(R.id.view_multiple_image1);
+        imageView.setScaleType(firstImageScaleType);
     }
 
-    @Bindable public int getSecondImageBgColor() {
+    public int getSecondImageBgColor() {
         return secondImageBgColor;
     }
 
     public void setSecondImageBgColor(int secondImageBgColor) {
         this.secondImageBgColor = secondImageBgColor;
-        notifyPropertyChanged(BR.secondImageBgColor);
-    }
-
-    @Bindable public int getSecondCommentBgColor() {
-        return secondCommentBgColor;
+        RelativeLayout relativeLayout = root.findViewWithTag(MULTIPLE_IMG2_CONTAINER);
+        relativeLayout.setBackgroundColor(secondImageBgColor);
     }
 
     public void setSecondCommentBgColor(int secondCommentBgColor) {
-        this.secondCommentBgColor = secondCommentBgColor;
-        notifyPropertyChanged(BR.secondCommentBgColor);
+        TextView textView = root.findViewById(R.id.view_multiple_text2);
+        textView.setBackgroundColor(secondCommentBgColor);
     }
 
-    @Bindable public String getSecondComment() {
+    public String getSecondComment() {
         return secondComment;
     }
 
     public void setSecondComment(String secondComment) {
         this.secondComment = secondComment;
-        notifyPropertyChanged(BR.secondComment);
-    }
-
-    @Bindable public boolean isSecondCommentVisibility() {
-        return secondCommentVisibility;
+        TextView textView = root.findViewById(R.id.view_multiple_text2);
+        textView.setText(secondComment);
     }
 
     public void setSecondCommentVisibility(boolean secondCommentVisibility) {
-        this.secondCommentVisibility = secondCommentVisibility;
-        notifyPropertyChanged(BR.secondCommentVisibility);
-    }
-
-    @Bindable public ImageView.ScaleType getSecondImageScaleType() {
-        return secondImageScaleType;
+        TextView textView = root.findViewById(R.id.view_multiple_text2);
+        textView.setVisibility(secondCommentVisibility ? View.VISIBLE : View.GONE);
     }
 
     public void setSecondImageScaleType(ImageView.ScaleType secondImageScaleType) {
-        this.secondImageScaleType = secondImageScaleType;
-        notifyPropertyChanged(BR.secondImageScaleType);
+        ImageView imageView = root.findViewById(R.id.view_multiple_image2);
+        imageView.setScaleType(secondImageScaleType);
     }
 
-    @Bindable public int getThirdImageBgColor() {
+    public int getThirdImageBgColor() {
         return thirdImageBgColor;
     }
 
     public void setThirdImageBgColor(int thirdImageBgColor) {
         this.thirdImageBgColor = thirdImageBgColor;
-        notifyPropertyChanged(BR.thirdImageBgColor);
-    }
-
-    @Bindable public int getThirdCommentBgColor() {
-        return thirdCommentBgColor;
+        RelativeLayout relativeLayout = root.findViewWithTag(MULTIPLE_IMG3_CONTAINER);
+        relativeLayout.setBackgroundColor(thirdImageBgColor);
     }
 
     public void setThirdCommentBgColor(int thirdCommentBgColor) {
-        this.thirdCommentBgColor = thirdCommentBgColor;
-        notifyPropertyChanged(BR.thirdCommentBgColor);
+        TextView textView = root.findViewById(R.id.view_multiple_text3);
+        textView.setBackgroundColor(thirdCommentBgColor);
     }
 
-    @Bindable public String getThirdComment() {
+    public String getThirdComment() {
         return thirdComment;
     }
 
     public void setThirdComment(String thirdComment) {
         this.thirdComment = thirdComment;
-        notifyPropertyChanged(BR.thirdComment);
-    }
-
-    @Bindable public boolean isThirdCommentVisibility() {
-        return thirdCommentVisibility;
+        TextView textView = root.findViewById(R.id.view_multiple_text3);
+        textView.setText(thirdComment);
     }
 
     public void setThirdCommentVisibility(boolean thirdCommentVisibility) {
-        this.thirdCommentVisibility = thirdCommentVisibility;
-        notifyPropertyChanged(BR.thirdCommentVisibility);
-    }
-
-    @Bindable public ImageView.ScaleType getThirdImageScaleType() {
-        return thirdImageScaleType;
+        TextView textView = root.findViewById(R.id.view_multiple_text3);
+        textView.setVisibility(thirdCommentVisibility ? View.VISIBLE : View.GONE);
     }
 
     public void setThirdImageScaleType(ImageView.ScaleType thirdImageScaleType) {
-        this.thirdImageScaleType = thirdImageScaleType;
-        notifyPropertyChanged(BR.thirdImageScaleType);
-    }
-
-    @Bindable public String getCounterText() {
-        return counterText;
+        ImageView imageView = root.findViewById(R.id.view_multiple_image3);
+        imageView.setScaleType(thirdImageScaleType);
     }
 
     public void setCounterText(String counterText) {
-        this.counterText = counterText;
-        notifyPropertyChanged(BR.counterText);
-    }
-
-    @Bindable public boolean isCounterVisibility() {
-        return counterVisibility;
+        TextView textView = root.findViewById(R.id.image_four_counter);
+        textView.setText(counterText);
     }
 
     public void setCounterVisibility(boolean counterVisibility) {
-        this.counterVisibility = counterVisibility;
-        notifyPropertyChanged(BR.counterVisibility);
+        LinearLayout linearLayout = root.findViewById(R.id.image_four_counter_container);
+        linearLayout.setVisibility(counterVisibility ? View.VISIBLE : View.GONE);
     }
 
-    @Bindable public int getFourthImageBgColor() {
+    public int getFourthImageBgColor() {
         return fourthImageBgColor;
     }
 
     public void setFourthImageBgColor(int fourthImageBgColor) {
         this.fourthImageBgColor = fourthImageBgColor;
-		notifyPropertyChanged(BR.fourthImageBgColor);
-    }
-
-    @Bindable public int getFourthCommentBgColor() {
-        return fourthCommentBgColor;
+        RelativeLayout relativeLayout = root.findViewWithTag(MULTIPLE_IMG4_CONTAINER);
+        relativeLayout.setBackgroundColor(fourthImageBgColor);
     }
 
     public void setFourthCommentBgColor(int fourthCommentBgColor) {
-        this.fourthCommentBgColor = fourthCommentBgColor;
-		notifyPropertyChanged(BR.fourthCommentBgColor);
+        TextView textView = root.findViewById(R.id.view_multiple_text4);
+        textView.setBackgroundColor(fourthCommentBgColor);
     }
 
-    @Bindable public String getFourthComment() {
+    public String getFourthComment() {
         return fourthComment;
     }
 
     public void setFourthComment(String fourthComment) {
         this.fourthComment = fourthComment;
-		notifyPropertyChanged(BR.fourthComment);
-    }
-
-    @Bindable public boolean isFourthCommentVisibility() {
-        return fourthCommentVisibility;
+        TextView textView = root.findViewById(R.id.view_multiple_text4);
+        textView.setText(fourthComment);
     }
 
     public void setFourthCommentVisibility(boolean fourthCommentVisibility) {
-        this.fourthCommentVisibility = fourthCommentVisibility;
-		notifyPropertyChanged(BR.fourthCommentVisibility);
-    }
-
-    @Bindable public ImageView.ScaleType getFourthImageScaleType() {
-        return fourthImageScaleType;
+        TextView textView = root.findViewById(R.id.view_multiple_text4);
+        textView.setVisibility(fourthCommentVisibility ? View.VISIBLE : View.GONE);
     }
 
     public void setFourthImageScaleType(ImageView.ScaleType fourthImageScaleType) {
-        this.fourthImageScaleType = fourthImageScaleType;
-		notifyPropertyChanged(BR.fourthImageScaleType);
+        ImageView imageView = root.findViewById(R.id.view_multiple_image4);
+        imageView.setScaleType(fourthImageScaleType);
     }
 
-    @BindingAdapter("android:layout_width")
     public static void setLayoutWidth(View view, int width){
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.width = width;
         view.setLayoutParams(params);
     }
 
-    @BindingAdapter("android:layout_height")
     public static void setLayoutHeight(View view, int height){
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = height;
         view.setLayoutParams(params);
     }
 
-    @BindingAdapter("android:src")
     public static void setBitmap(ImageView view, Bitmap bitmap){
         view.setImageBitmap(bitmap);
     }

@@ -3,7 +3,6 @@ package proj.me.bitframe;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -18,9 +17,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import proj.me.bitframe.databinding.ItemImageviewBinding;
-import proj.me.bitframe.databinding.NoscrollItemImageviewBinding;
 import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.ColorCombination;
 import proj.me.bitframe.helper.FrameType;
@@ -32,45 +28,61 @@ import static java.lang.Math.round;
  * Created by Deepak.Tiwari on 10-08-2015.
  */
 public class ViewFrame extends LinearLayout{
-    LayoutInflater layoutInflater;
-    RelativeLayout imageContainer;
-
-    BinadingBitFrame binadingBitFrame;
-
-    List<BeanBitFrame> beanBitFramesResult;
+    //can't be a problem in recycle view as it'll be different for different view types by RecycleView
     FrameModel frameModel;
 
-    int linkCount;
+    LayoutInflater layoutInflater;
+    RelativeLayout imageContainer;
+    ImageView loadingBackground;
 
-    FrameCallback frameCallback;
+    BinadingBitFrame binadingBitFrame;
 
     List<UnframedPicassoTargetNew> targets;
     Picasso currentFramePicasso;
 
-    ImageCallback imageCallback;
+    ImageShading imageShading;
 
     static class MyImageCallback implements ImageCallback{
-        WeakReference<ViewFrame> viewFrameWeakReference;
-        MyImageCallback(ViewFrame viewFrame){
-            viewFrameWeakReference = new WeakReference<>(viewFrame);
+        WeakReference<ViewFrame> viewFrameSoftReference;
+        WeakReference<FrameCallback> frameCallbackSoftReference;
+        List<BeanBitFrame> beanBitFramesResult;
+        int linkCount;
+        MyImageCallback(ViewFrame viewFrame, FrameCallback frameCallback, int linkCount){
+            viewFrameSoftReference = new WeakReference<>(viewFrame);
+            frameCallbackSoftReference = new WeakReference<>(frameCallback);
+            beanBitFramesResult = new ArrayList<>();
+            this.linkCount = linkCount;
         }
         @Override
         public void addImageView(View view, int viewWidth, int viewHeight, boolean isAddInLayout) {
-            ViewFrame viewFrame = viewFrameWeakReference.get();
+            ViewFrame viewFrame = viewFrameSoftReference.get();
             if(viewFrame == null) return;
-            Utils.logVerbose("going to add view");
+
+            FrameCallback frameCallback = frameCallbackSoftReference.get();
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
+
             viewFrame.binadingBitFrame.setProgressBarVisibility(false);
 
             viewFrame.imageContainer.addView(view);
             viewFrame.imageContainer.requestLayout();
 
-            if(viewFrame.frameCallback != null) viewFrame.frameCallback.containerAdded(viewWidth, viewHeight, isAddInLayout);
+            frameCallback.containerAdded(viewWidth, viewHeight, isAddInLayout, viewFrame);
         }
 
         @Override
         public void imageClicked(ImageType imageType, int imagePosition, String imageLink) {
-            ViewFrame viewFrame = viewFrameWeakReference.get();
+            ViewFrame viewFrame = viewFrameSoftReference.get();
             if(viewFrame == null) return;
+
+            FrameCallback frameCallback = frameCallbackSoftReference.get();
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
+
             Bundle imageBundle = new Bundle();
 
             ImageScrollParcelable imageScrollParcelable = new ImageScrollParcelable();
@@ -79,59 +91,74 @@ public class ViewFrame extends LinearLayout{
             imageScrollParcelable.setImageLink(imageLink);
             imageBundle.putParcelable("image_data", imageScrollParcelable);
 
-            Utils.showToast(viewFrame.getContext().getApplicationContext(), "image clicked");
-
-            if(viewFrame.frameCallback != null) viewFrame.frameCallback.imageClick(imageType, imagePosition, imageLink);
+            frameCallback.imageClick(imageType, imagePosition, imageLink, viewFrame);
         }
 
         @Override
         public void setColorsToAddMoreView(int resultColor, int mixedColor, int invertedColor) {
-            ViewFrame viewFrame = viewFrameWeakReference.get();
+            ViewFrame viewFrame = viewFrameSoftReference.get();
             if(viewFrame == null) return;
+
+            FrameCallback frameCallback = frameCallbackSoftReference.get();
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
+
             Utils.logVerbose("colors came");
             viewFrame.binadingBitFrame.setProgressBarColor(mixedColor);
 
-            if(viewFrame.frameCallback != null) viewFrame.frameCallback.loadedFrameColors(resultColor, mixedColor, invertedColor);
+            frameCallback.loadedFrameColors(resultColor, mixedColor, invertedColor, viewFrame);
         }
 
         @Override
         public void frameResult(BeanBitFrame... beanBitFrames) {
-            ViewFrame viewFrame = viewFrameWeakReference.get();
+            ViewFrame viewFrame = viewFrameSoftReference.get();
             if(viewFrame == null) return;
+
+            FrameCallback frameCallback = frameCallbackSoftReference.get();
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
+
             Utils.logVerbose("frame result came");
             //might be called multiple times
-            viewFrame.beanBitFramesResult.addAll(Arrays.asList(beanBitFrames));
-            if(viewFrame.linkCount == viewFrame.beanBitFramesResult.size() && viewFrame.frameCallback != null)
-                viewFrame.frameCallback.frameResult(viewFrame.beanBitFramesResult);
+            beanBitFramesResult.addAll(Arrays.asList(beanBitFrames));
+            if(linkCount == beanBitFramesResult.size()) frameCallback.frameResult(beanBitFramesResult, viewFrame);
         }
 
         @Override
         public void addMore() {
-            ViewFrame viewFrame = viewFrameWeakReference.get();
+            ViewFrame viewFrame = viewFrameSoftReference.get();
             if(viewFrame == null) return;
+
+            FrameCallback frameCallback = frameCallbackSoftReference.get();
+            if(frameCallback == null) return;
+
+            int hashCode = (int) viewFrame.getTag(R.id.frame_tag);
+            if(this.hashCode() != hashCode) return;
+
             //when add in layout enabled, then it's click will come in this method
-            if(viewFrame.frameCallback != null) viewFrame.frameCallback.addMoreClick();
+            frameCallback.addMoreClick(viewFrame);
         }
     }
 
 
     public ViewFrame(Context context) {
         super(context);
-        Utils.logVerbose("cons");
         setOrientation(VERTICAL);
         init((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE), null, 0);
     }
 
     public ViewFrame(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Utils.logVerbose("cons");
         setOrientation(VERTICAL);
         init((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE), attrs, 0);
     }
 
     public ViewFrame(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Utils.logVerbose("cons");
         setOrientation(VERTICAL);
         init((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE), attrs, defStyleAttr);
     }
@@ -147,7 +174,6 @@ public class ViewFrame extends LinearLayout{
         this.layoutInflater = layoutInflater;
         frameModel = new FrameModel();
         setImageContainer(attrs, defStyleAttr);
-        imageCallback = new MyImageCallback(this);
         currentFramePicasso = new Picasso.Builder(this.getContext()).build();
     }
 
@@ -173,18 +199,15 @@ public class ViewFrame extends LinearLayout{
 
         View view = null;
         if(hasScroll) {
-            ItemImageviewBinding itemImageviewBinding = DataBindingUtil.bind(layoutInflater.inflate(
-                    R.layout.item_imageview, null));
-            itemImageviewBinding.setBitFrame(binadingBitFrame);
-            addView(view = itemImageviewBinding.getRoot());
+            addView(view = binadingBitFrame.bind(layoutInflater.inflate(
+                    R.layout.item_imageview, null)));
         }else{
-            NoscrollItemImageviewBinding noscrollItemImageviewBinding = DataBindingUtil.bind(layoutInflater.inflate(
-                    R.layout.noscroll_item_imageview, null));
-            noscrollItemImageviewBinding.setBitFrame(binadingBitFrame);
-            addView(view = noscrollItemImageviewBinding.getRoot());
+            addView(view = binadingBitFrame.bind(layoutInflater.inflate(
+                    R.layout.noscroll_item_imageview, null)));
         }
 
         imageContainer = (RelativeLayout)view.findViewById(R.id.parent_relative);
+        loadingBackground = (ImageView) view.findViewById(R.id.loading_background);
 
         if(attrs == null) return;
 
@@ -197,6 +220,15 @@ public class ViewFrame extends LinearLayout{
         if(commentTransparencyPercent <= 0)
             commentTransparencyPercent = resources.getInteger(R.integer.comment_transparency_percent);
 
+        //getting sort difference threshold
+        int sortDifferenceThreshold = typedArray.getResourceId(R.styleable.ViewFrame_sortDifferenceThreshold, -1);
+        if(sortDifferenceThreshold == -1)
+            sortDifferenceThreshold = typedArray.getInteger(R.styleable.ViewFrame_sortDifferenceThreshold, -1);
+        else
+            sortDifferenceThreshold = resources.getInteger(sortDifferenceThreshold);
+        if(sortDifferenceThreshold <= 0)
+            sortDifferenceThreshold = resources.getInteger(R.integer.sort_difference_threshold);
+
         //getting max frame count
         int maxFrameCount = typedArray.getResourceId(R.styleable.ViewFrame_maxFrameCount, -1);
         if(maxFrameCount == -1)
@@ -205,6 +237,15 @@ public class ViewFrame extends LinearLayout{
             maxFrameCount = resources.getInteger(maxFrameCount);
         if(maxFrameCount <= 0)
             maxFrameCount = resources.getInteger(R.integer.max_frame_count);
+
+        //getting max extra count
+        int maxExtraCount = typedArray.getResourceId(R.styleable.ViewFrame_maxExtraCount, -1);
+        if(maxExtraCount == -1)
+            maxExtraCount = typedArray.getInteger(R.styleable.ViewFrame_maxExtraCount, -1);
+        else
+            maxExtraCount = resources.getInteger(maxExtraCount);
+        if(maxExtraCount <= 0)
+            maxExtraCount = resources.getInteger(R.integer.max_extra_count);
 
         //min add ratio
         float minAddRatio = typedArray.getResourceId(R.styleable.ViewFrame_minAddRatio, -1);
@@ -217,6 +258,8 @@ public class ViewFrame extends LinearLayout{
 
         //error drawable
         int errorDrawable = typedArray.getResourceId(R.styleable.ViewFrame_errorDrawable, R.drawable.ic_launcher);
+        //loading drawable
+        int loadingDrawable = typedArray.getResourceId(R.styleable.ViewFrame_loadingDrawable, R.drawable.ic_launcher);
 
         //min frame width
         float minFrameWidth = typedArray.getResourceId(R.styleable.ViewFrame_minFrameWidth, -1);
@@ -261,6 +304,22 @@ public class ViewFrame extends LinearLayout{
             hasAddinLayout = typedArray.getBoolean(R.styleable.ViewFrame_isAddInLayout, resources.getBoolean(R.bool.is_add_in_layout));
             isAddInLayout = 1;
         }else hasAddinLayout = resources.getBoolean(isAddInLayout);
+
+        //has loader
+        boolean hasLoader = false;
+        int hasLoaderId = typedArray.getResourceId(R.styleable.ViewFrame_hasLoader, -1);
+        if(hasLoaderId == -1) {
+            hasLoader = typedArray.getBoolean(R.styleable.ViewFrame_hasLoader, resources.getBoolean(R.bool.has_loader));
+            hasLoaderId = 1;
+        }else hasLoader = resources.getBoolean(hasLoaderId);
+
+        //has loading drawable
+        boolean hasLoadingDrawable = false;
+        int hasLoadingDrawableId = typedArray.getResourceId(R.styleable.ViewFrame_hasLoadingDrawable, -1);
+        if(hasLoadingDrawableId == -1) {
+            hasLoadingDrawable = typedArray.getBoolean(R.styleable.ViewFrame_hasLoadingDrawable, resources.getBoolean(R.bool.has_loading_drawable));
+            hasLoadingDrawableId = 1;
+        }else hasLoadingDrawable = resources.getBoolean(hasLoadingDrawableId);
 
         //should show comment
         boolean shouldShowComment = false;
@@ -341,6 +400,7 @@ public class ViewFrame extends LinearLayout{
 
         //setting values to frame model
         frameModel.setCommentTransparencyPercent(commentTransparencyPercent);
+        frameModel.setSortDifferenceThreshold(sortDifferenceThreshold);
 
 
         //first convert width and height to pixel
@@ -352,13 +412,17 @@ public class ViewFrame extends LinearLayout{
 
         frameModel.setHasScroll(hasScroll);
         frameModel.setMaxFrameCount(maxFrameCount);
+        frameModel.setMaxExtraCount(maxExtraCount);
         frameModel.setMinAddRatio(minAddRatio);
         frameModel.setAddInLayout(hasAddinLayout);
+        frameModel.setHasLoader(hasLoader);
+        frameModel.setHasLoadingDrawable(hasLoadingDrawable);
         frameModel.setShouldShowComment(shouldShowComment);
         frameModel.setHasFixedDimensions(hasFixedDimensions);
         frameModel.setShouldSortImages(shouldSortImages);
         frameModel.setColorCombination(colorCombination);
         frameModel.setErrorDrawable(errorDrawable);
+        frameModel.setLoadingDrawable(loadingDrawable);
         frameModel.setScaleType(imageScaleType);
         frameModel.setShouldRecycleBitmaps(shouldRecycleBitmaps);
         frameModel.setShouldStoreImages(shouldStoreImages);
@@ -386,6 +450,15 @@ public class ViewFrame extends LinearLayout{
         frameModel.setHasFixedDimensions(hasFixedDimensions);
     }
 
+    public void setHasLoadingDrawable(boolean hasLoadingDrawable, int loadingDrawableResourceId){
+        frameModel.setHasLoadingDrawable(hasLoadingDrawable);
+        frameModel.setLoadingDrawable(loadingDrawableResourceId);
+    }
+
+    public void setHasLoader(boolean hasLoader){
+        frameModel.setHasLoader(hasLoader);
+    }
+
     /**
      * to generate the bit frame based on a list of images.
      * @param beanImageList the list of image uri's and the notes on that image by user, it can be a list of @BeanImages
@@ -395,8 +468,7 @@ public class ViewFrame extends LinearLayout{
      *                  or if all the images are local.
      * */
     public void showBitFrame(List<BeanImage> beanImageList, FrameCallback frameCallback, FrameType frameType){
-        //precondition minWidth or minHeight should be less than half of max width or max height respectivally
-
+        //precondition minWidth or minHeight should be less than half of max width or max height respectively
         if(frameCallback == null || beanImageList == null || beanImageList.size() == 0){
             Utils.logVerbose("list and callback both are required and must not have size 0");
             return;
@@ -406,7 +478,7 @@ public class ViewFrame extends LinearLayout{
 
         if(frameModel.getMaxContainerHeight() <= 0 || frameModel.getMaxContainerWidth() <= 0 || frameModel.getMaxContainerHeight() > heightPixels || frameModel.getMaxContainerWidth() > widthPixels){
             Utils.logVerbose("container max height or width should not greater than the device dimensions "+
-            Utils.formatMessage("device width pixels %d and device height pixels %d", widthPixels, heightPixels));
+                    Utils.formatMessage("device width pixels %d and device height pixels %d", widthPixels, heightPixels));
             int maxW = round(widthPixels - widthPixels * 0.04f);
             int maxH = round(maxW + maxW * 0.15f > heightPixels ? maxW : maxW + maxW * 0.15f);
 
@@ -437,7 +509,7 @@ public class ViewFrame extends LinearLayout{
 
 
             Utils.logMessage(Utils.formatMessage("device width pixels are %d and height pixels are %d," +
-                    " setting min frame width to %d and min frame height to %d",
+                            " setting min frame width to %d and min frame height to %d",
                     widthPixels, heightPixels, minW, minH));
         }
         if(frameModel.getMaxFrameCount() > 4){
@@ -460,17 +532,25 @@ public class ViewFrame extends LinearLayout{
         }
 
 
-        if(beanBitFramesResult == null) beanBitFramesResult = new ArrayList<>();
-        else beanBitFramesResult.clear();
+        //based on max container width and height
+        //set loader and background loading drawable
+        loadingBackground.getLayoutParams().height = (int) frameModel.getMaxContainerHeight();
+        loadingBackground.getLayoutParams().width = (int) frameModel.getMaxContainerWidth();
 
-        this.frameCallback = frameCallback;
+        if(frameModel.isHasLoadingDrawable()) loadingBackground.setImageResource(frameModel.getLoadingDrawable());
+        else loadingBackground.setImageResource(0);
 
-        linkCount = beanImageList.size();
+        loadingBackground.invalidate();
 
 
-        ImageShading imageShading = new ImageShading(this.getContext(), imageCallback, frameModel, currentFramePicasso);
+        MyImageCallback imageCallback = new MyImageCallback(this, frameCallback, beanImageList.size());
+        setTag(R.id.frame_tag, imageCallback.hashCode());
 
-        binadingBitFrame.setProgressBarVisibility(true);
+        imageShading = new ImageShading(this.getContext(), imageCallback, frameModel, currentFramePicasso);
+
+        if(frameModel.isHasLoader()) binadingBitFrame.setProgressBarVisibility(true);
+        else binadingBitFrame.setProgressBarVisibility(false);
+
         imageContainer.removeAllViews();
 
         switch(frameType){
@@ -491,7 +571,7 @@ public class ViewFrame extends LinearLayout{
                     e.printStackTrace();
                 }
                 break;
-            default: Utils.logVerbose("invalid frame type");
+            default: Utils.logError("invalid frame type");
         }
 
     }
@@ -499,6 +579,7 @@ public class ViewFrame extends LinearLayout{
     public void clearContainerChilds(){
         Utils.logVerbose("clearing views");
         Utils.unbindDrawables(imageContainer, false, frameModel.isShouldRecycleBitmaps());
+        Utils.unbindDrawables(loadingBackground, false, frameModel.isShouldRecycleBitmaps());
 
     }
 
@@ -518,14 +599,9 @@ public class ViewFrame extends LinearLayout{
 
         layoutInflater = null;
         imageContainer = null;
+        loadingBackground = null;
         binadingBitFrame = null;
-        if(beanBitFramesResult != null){
-            for(BeanBitFrame beanBitFrame : beanBitFramesResult) beanBitFrame = null;
-            beanBitFramesResult.clear();
-        }
-        beanBitFramesResult = null;
         frameModel = null;
-        frameCallback = null;
         if(targets != null) {
             for (UnframedPicassoTargetNew target : targets) {
                 currentFramePicasso.cancelRequest(target);
@@ -536,7 +612,6 @@ public class ViewFrame extends LinearLayout{
         currentFramePicasso.shutdown();
         currentFramePicasso = null;
         targets = null;
-        imageCallback = null;
     }
 
 }

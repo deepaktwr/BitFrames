@@ -6,14 +6,137 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="020d76a2-172b-448b-8366-2ad3e6bfcf97" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/keystores&amp;apk/BitFrames/bitframe.keystore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/keystores&amp;apk/BitFrames/info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_0_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_0_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_0_3_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_adapters_4_0_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_baseLibrary_4_0_2_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_library_4_0_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_viewbinding_4_0_2_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_palette_v7_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_26_1_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_26_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_26_1_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_23_2_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_3_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_8_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_retrofit_2_1_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_all_1_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_core_1_10_19_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ST4_4_0_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/adapters_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/antlr4_4_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/antlr4_annotations_4_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/antlr4_runtime_4_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/antlr_runtime_3_5_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/baseLibrary_2_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/cardview_v7_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/commons_codec_1_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/commons_io_2_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/compilerCommon_2_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/compiler_2_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/converter_jackson_2_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/design_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/guava_17_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_all_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_annotations_2_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_core_2_7_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jackson_databind_2_7_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_4_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/juniversalchardet_1_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/kotlin_runtime_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/kotlin_stdlib_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/library_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mockito_core_1_10_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/objenesis_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/okhttp_3_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/okio_1_8_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_abego_treelayout_core_1_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/palette_v7_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/picasso_2_5_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/retrofit_2_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_23_2_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/BaseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/BindingAddText.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/BindingAddText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/adapter/FrameAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/CardBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/CardBinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/FrameBinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/binders/FrameBinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/network/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/network/RetrofitClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/services/UploadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/services/UploadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_frame.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_frame.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/card_container.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/card_container.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frame_recycler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frame_recycler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/bitframe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/bitframe.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BeanImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BinadingBitFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/BinadingBitFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/FrameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ImageShading.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ScaleTransformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedLocalTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTarget.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTarget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/BindingShadeFour.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/BindingShadeFour.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/ImageShadingFour.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_four/ImageShadingFour.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/BindingShadeOne.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/BindingShadeOne.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/ImageShadingOne.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_one/ImageShadingOne.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_three/BindingShadeThree.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_three/BindingShadeThree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_three/ImageShadingThree.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_three/ImageShadingThree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_two/BindingShadeTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_two/BindingShadeTwo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_two/ImageShadingTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/java/proj/me/bitframe/shading_two/ImageShadingTwo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/item_imageview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/item_imageview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/noscroll_item_imageview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/noscroll_item_imageview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_double_horz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_double_horz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_double_vert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_double_vert.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_horz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_horz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_horz_double.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_horz_double.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_horz_vert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_horz_vert.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vary_height.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vary_height.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vary_width.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vary_width.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vert.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vert_double.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vert_double.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vert_horz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_multiple_vert_horz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_single.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_single.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_horz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_horz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_parr_horz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_parr_horz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_parr_vert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_parr_vert.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_vert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/layout/view_tripple_vert.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitframe/src/main/res/values/attributes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bitframe/src/main/res/values/attributes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,9 +181,13 @@
   <component name="PropertiesComponent">
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5X_API_22" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="57c5cc9c" />
+    <property name="DEBUGGABLE_DEVICE" value="Pixel_2_API_29-Android_10 [emulator-5554]" />
+    <property name="DEBUGGABLE_PROCESS" value="proj.me.bitframedemo" />
+    <property name="DEBUGGER_ID" value="Auto" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="SearchEverywhereHistoryKey" value="FrameRe&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/app/src/main/java/proj/me/bitframedemo/FrameRecyclerActivity.java&#10;utils&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java&#10;Unframe&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java&#10;ImageSha&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/shading_two/ImageShadingTwo.java&#10;ImageSh&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/shading_three/ImageShadingThree.java&#10;Viewfra&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/ViewFrame.java&#10;Image&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/ImageShading.java&#10;Ut&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/helper/Utils.java&#10;Unfra&#9;FILE&#9;file:///media/deepak_t/mydrive/StudioProjects/BitFrames/bitframe/src/main/java/proj/me/bitframe/UnframedPicassoTargetNew.java" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -187,7 +314,16 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="bitframe in bitframe" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bitframe" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <dir value="$PROJECT_DIR$/bitframe/src/test/java/proj/me/bitframe" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -286,7 +422,13 @@
     </configuration>
     <list>
       <item itemvalue="Android App.app" />
+      <item itemvalue="Android JUnit.bitframe in bitframe" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android JUnit.bitframe in bitframe" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -318,13 +460,100 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="568" y="346" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.900@0.0.1440.900" timestamp="1608402375647" />
-    <state x="372" y="207" width="695" height="486" key="find.popup" timestamp="1608404965401">
+    <state x="483" y="160" key="#xdebugger.evaluate" timestamp="1608796669982">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="372" y="207" width="695" height="486" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1608404965401" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1608793013344">
+    <state x="483" y="160" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1608796669982" />
+    <state x="576" y="222" key="AndroidProcessChooserDialog" timestamp="1608796636422">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1608793013344" />
+    <state x="576" y="222" key="AndroidProcessChooserDialog/0.0.1440.900@0.0.1440.900" timestamp="1608796636422" />
+    <state width="454" height="466" key="DebuggerActiveHint" timestamp="1608795662955">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="454" height="466" key="DebuggerActiveHint/0.0.1440.900@0.0.1440.900" timestamp="1608795662955" />
+    <state width="1398" height="2" key="GridCell.Tab.0.bottom" timestamp="1608798818654">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="2" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608798818654" />
+    <state width="1398" height="2" key="GridCell.Tab.0.center" timestamp="1608798818653">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="2" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1608798818653" />
+    <state width="1398" height="2" key="GridCell.Tab.0.left" timestamp="1608798818652">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="2" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1608798818652" />
+    <state width="1398" height="2" key="GridCell.Tab.0.right" timestamp="1608798818653">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="2" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1608798818653" />
+    <state width="1398" height="139" key="GridCell.Tab.1.bottom" timestamp="1608798195232">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="139" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608798195232" />
+    <state width="1398" height="139" key="GridCell.Tab.1.bottom/0.23.1440.821@0.23.1440.821" timestamp="1608796640227" />
+    <state width="1398" height="139" key="GridCell.Tab.1.center" timestamp="1608798195231">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="139" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1608798195231" />
+    <state width="1398" height="139" key="GridCell.Tab.1.center/0.23.1440.821@0.23.1440.821" timestamp="1608796640226" />
+    <state width="1398" height="139" key="GridCell.Tab.1.left" timestamp="1608798195230">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="139" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1608798195230" />
+    <state width="1398" height="139" key="GridCell.Tab.1.left/0.23.1440.821@0.23.1440.821" timestamp="1608796640226" />
+    <state width="1398" height="139" key="GridCell.Tab.1.right" timestamp="1608798195231">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="139" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1608798195231" />
+    <state width="1398" height="139" key="GridCell.Tab.1.right/0.23.1440.821@0.23.1440.821" timestamp="1608796640227" />
+    <state x="100" y="84" width="1240" height="768" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1608798713574">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state x="100" y="84" width="1240" height="768" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.821@0.23.1440.821" timestamp="1608798713574" />
+    <state x="390" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1608794374223">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="390" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1608794374223" />
+    <state x="372" y="207" width="695" height="486" key="find.popup" timestamp="1608795821396">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="372" y="207" width="695" height="486" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1608795821396" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1608798814153">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1608798814153" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java</url>
+          <line>504</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java</url>
+          <line>490</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java</url>
+          <line>307</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java</url>
+          <line>310</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/proj/me/bitframedemo/FrameActivity.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

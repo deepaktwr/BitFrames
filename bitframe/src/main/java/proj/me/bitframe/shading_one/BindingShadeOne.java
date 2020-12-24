@@ -1,108 +1,87 @@
 package proj.me.bitframe.shading_one;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import proj.me.bitframe.BR;
+import proj.me.bitframe.ImageClickHandler;
+import proj.me.bitframe.R;
 
 
 /**
  * Created by root on 11/3/16.
  */
-public class BindingShadeOne extends BaseObservable{
-    //for comment
-    private boolean shouldCommentVisible;
-    private int commentTextBackgroundColor;
-    private String comment;
-    //for counter
-    private String imageCounterText;
-    private boolean imageCounterVisibility;
-    //for image
-    private int imageBackgroundColor;
-    private ImageView.ScaleType imageScaleType;
+public class BindingShadeOne {
 
-    @Bindable public ImageView.ScaleType getImageScaleType() {
-        return imageScaleType;
+    private View root;
+    private String comment;
+
+    View bind(View root, final ImageClickHandler clickHandler) {
+        this.root = root;
+        root.findViewById(R.id.view_single_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickHandler.onImageShadeClick(view);
+            }
+        });
+        return root;
     }
 
     public void setImageScaleType(ImageView.ScaleType imageScaleType) {
-        this.imageScaleType = imageScaleType;
-        notifyPropertyChanged(BR.imageScaleType);
-    }
-
-    @Bindable public int getImageBackgroundColor() {
-        return imageBackgroundColor;
+        ImageView imageView = root.findViewById(R.id.view_single_image);
+        imageView.setScaleType(imageScaleType);
     }
 
     public void setImageBackgroundColor(int imageBackgroundColor) {
-        this.imageBackgroundColor = imageBackgroundColor;
-		notifyPropertyChanged(BR.imageBackgroundColor);
-    }
-
-    @Bindable public String getImageCounterText() {
-        return imageCounterText;
+        ImageView imageView = root.findViewById(R.id.view_single_image);
+        imageView.setBackgroundColor(imageBackgroundColor);
     }
 
     public void setImageCounterText(String imageCounterText) {
-        this.imageCounterText = imageCounterText;
-		notifyPropertyChanged(BR.imageCounterText);
-    }
-
-    @Bindable
-    public boolean isImageCounterVisibility() {
-        return imageCounterVisibility;
+        TextView textView = root.findViewById(R.id.counter_text);
+        textView.setText(imageCounterText);
     }
 
     public void setImageCounterVisibility(boolean imageCounterVisibility) {
-        this.imageCounterVisibility = imageCounterVisibility;
-		notifyPropertyChanged(BR.imageCounterVisibility);
-    }
-    @Bindable public boolean isShouldCommentVisible() {
-        return shouldCommentVisible;
+        LinearLayout linearLayout = root.findViewById(R.id.image_one_counter_container);
+        linearLayout.setVisibility(imageCounterVisibility ? View.VISIBLE : View.GONE);
     }
 
     public void setShouldCommentVisible(boolean shouldCommentVisible) {
-        this.shouldCommentVisible = shouldCommentVisible;
-		notifyPropertyChanged(BR.shouldCommentVisible);
-    }
-   @Bindable public int getCommentTextBackgroundColor() {
-        return commentTextBackgroundColor;
+        TextView textView = root.findViewById(R.id.comment_text);
+        textView.setVisibility(shouldCommentVisible ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void setCommentTextBackgroundColor(int commentTextBackgroundColor) {
-        this.commentTextBackgroundColor = commentTextBackgroundColor;
-		notifyPropertyChanged(BR.commentTextBackgroundColor);
+        TextView textView = root.findViewById(R.id.comment_text);
+        textView.setBackgroundColor(commentTextBackgroundColor);
     }
-   @Bindable public String getComment() {
+
+    public String getComment() {
         return comment;
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
-		notifyPropertyChanged(BR.comment);
+       this.comment = comment;
+        TextView textView = root.findViewById(R.id.comment_text);
+        textView.setText(comment);
     }
 
-
-    @BindingAdapter("android:layout_width")
     public static void setLayoutWidth(View view, int width){
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.width = width;
         view.setLayoutParams(params);
     }
 
-    @BindingAdapter("android:layout_height")
     public static void setLayoutHeight(View view, int height){
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = height;
         view.setLayoutParams(params);
     }
 
-    @BindingAdapter("android:src")
     public static void setBitmap(ImageView view, Bitmap bitmap){
         view.setImageBitmap(bitmap);
     }

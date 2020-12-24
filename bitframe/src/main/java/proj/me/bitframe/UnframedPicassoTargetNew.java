@@ -2,10 +2,13 @@ package proj.me.bitframe;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import proj.me.bitframe.exceptions.FrameException;
@@ -16,19 +19,18 @@ import proj.me.bitframe.helper.Utils;
  */
 
 class UnframedPicassoTargetNew implements Target {
+    WeakReference<ImageResult> imageResultSoftReference;
     BeanImage beanImage;
-    ImageResult imageResult;
-    List<UnframedPicassoTargetNew> targets;
 
-    UnframedPicassoTargetNew(BeanImage beanImage, List<UnframedPicassoTargetNew> targets, ImageResult imageResult) {
+    UnframedPicassoTargetNew(ImageResult imageResult, BeanImage beanImage) {
+        imageResultSoftReference = new WeakReference<>(imageResult);
         this.beanImage = beanImage;
-        this.imageResult = imageResult;
-        this.targets = targets;
     }
 
     @Override
     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-        targets.remove(this);
+        ImageResult imageResult = imageResultSoftReference.get();
+        if(imageResult == null) return;
         Utils.logMessage("Came image loaded -> "+imageResult.getCounter() + " bit width = "+bitmap.getWidth()+" height "+bitmap.getHeight());
         imageResult.callNextCycle(beanImage.getImageLink());
         imageResult.handleTransformedResult(bitmap, bitmap.getWidth() > 1 ? beanImage : null);
@@ -36,7 +38,8 @@ class UnframedPicassoTargetNew implements Target {
 
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
-        targets.remove(this);
+        ImageResult imageResult = imageResultSoftReference.get();
+        if(imageResult == null) return;
         boolean doneLoading = imageResult.getCounter() == (imageResult.getFrameModel().getMaxFrameCount()
                 >= imageResult.getTotalImages() ? imageResult.getTotalImages()
                 : imageResult.getFrameModel().getMaxFrameCount()) - 1;
@@ -58,16 +61,31 @@ class UnframedPicassoTargetNew implements Target {
 
     @Override
     public void onPrepareLoad(Drawable placeHolderDrawable) {
+        //for placeholder
     }
 
-    //should not be used for similar images, need to handle the case of similar images at the time of frame creation
-    /*@Override
+    @Override
     public boolean equals(Object o) {
-        return this.beanImage.getImageLink().equals(((UnframedPicassoTargetNew)o).beanImage.getImageLink());
+        if(o == this) return true;
+        if(!(o instanceof UnframedPicassoTargetNew)) return false;
+        BeanImage beanImageTarget = ((UnframedPicassoTargetNew)o).beanImage;
+        return beanImage.getImageLink().equals(beanImageTarget.getImageLink())
+                && (beanImage.getImageComment() == null || beanImage.getImageComment().equals(beanImageTarget.getImageComment()))
+                && beanImage.getPrimaryCount() == beanImageTarget.getPrimaryCount()
+                && beanImage.getSecondaryCount() == beanImageTarget.getSecondaryCount();
     }
 
     @Override
     public int hashCode() {
-        return targets.size() + 1;
-    }*/
+        int result = beanImage.getPrimaryCount() + beanImage.getSecondaryCount();
+        result = result <= 0 ? 17 : result;
+
+        //result = 31 * result + beanImage.hashCode(); -- because bean image properties needs to to checked not bean image itself
+        result = 31 * result + beanImage.getImageLink().hashCode();
+        if(beanImage.getImageComment() != null) result = 31 * result + beanImage.getImageComment().hashCode();
+        result = 31 * result + beanImage.getPrimaryCount();
+        result = 31 * result + beanImage.getSecondaryCount();
+
+        return result;
+    }
 }

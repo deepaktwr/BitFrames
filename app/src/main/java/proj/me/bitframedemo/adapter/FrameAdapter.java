@@ -1,8 +1,8 @@
 package proj.me.bitframedemo.adapter;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import java.util.List;
 import proj.me.bitframe.BeanBitFrame;
 import proj.me.bitframe.FrameCallback;
 import proj.me.bitframe.ImageType;
+import proj.me.bitframe.ViewFrame;
 import proj.me.bitframe.helper.FrameType;
 import proj.me.bitframe.helper.Utils;
 import proj.me.bitframedemo.R;
@@ -73,27 +74,27 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
         }
 
         @Override
-        public void imageClick(ImageType imageType, int imagePosition, String imageLink) {
+        public void imageClick(ImageType imageType, int imagePosition, String imageLink, ViewFrame actionableViewFrame) {
 
         }
 
         @Override
-        public void frameResult(List<BeanBitFrame> beanBitFrameList) {
+        public void frameResult(List<BeanBitFrame> beanBitFrameList, ViewFrame actionableViewFrame) {
 
         }
 
         @Override
-        public void addMoreClick() {
+        public void addMoreClick(ViewFrame actionableViewFrame) {
 
         }
 
         @Override
-        public void containerAdded(int containerWidth, int containerHeight, boolean isAddInLayout) {
+        public void containerAdded(int containerWidth, int containerHeight, boolean isAddInLayout, ViewFrame actionableViewFrame) {
 
         }
 
         @Override
-        public void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor) {
+        public void loadedFrameColors(int lastLoadedFrameColor, int mixedLoadedColor, int inverseMixedLoadedColor, ViewFrame actionableViewFrame) {
             cardBinder.setTitleColor(mixedLoadedColor);
             cardBinder.setDescriptionColor(mixedLoadedColor);
         }

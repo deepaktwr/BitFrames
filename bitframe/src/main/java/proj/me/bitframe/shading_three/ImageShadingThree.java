@@ -1,11 +1,9 @@
 package proj.me.bitframe.shading_three;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.support.v7.graphics.Palette;
-import android.util.Log;
+import androidx.palette.graphics.Palette;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,10 +22,6 @@ import proj.me.bitframe.FrameModel;
 import proj.me.bitframe.ImageShades;
 import proj.me.bitframe.ImageType;
 import proj.me.bitframe.R;
-import proj.me.bitframe.databinding.ViewTrippleHorzBinding;
-import proj.me.bitframe.databinding.ViewTrippleParrHorzBinding;
-import proj.me.bitframe.databinding.ViewTrippleParrVertBinding;
-import proj.me.bitframe.databinding.ViewTrippleVertBinding;
 import proj.me.bitframe.dimentions.BeanShade3;
 import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.Utils;
@@ -83,31 +77,31 @@ public final class ImageShadingThree extends ImageShades {
         int width3 = hasImageProperties ? (int)beanBitFrameThird.getWidth() : images.get(2).getWidth();
         int height3 = hasImageProperties ? (int)beanBitFrameThird.getHeight() : images.get(2).getHeight();
 
-        Utils.logMessage("MAX_WIDTH"+" "+ frameModel.getMaxContainerWidth());
-        Utils.logMessage("MAX_HEIGHT"+" "+frameModel.getMaxContainerHeight());
-        Utils.logMessage("MIN_WIDTH"+" "+frameModel.getMinFrameWidth());
-        Utils.logMessage("MIN_HIGHT"+" "+frameModel.getMinFrameHeight());
+        Utils.logMessage("MAX_WIDTH" + " " + frameModel.getMaxContainerWidth());
+        Utils.logMessage("MAX_HEIGHT" + " " + frameModel.getMaxContainerHeight());
+        Utils.logMessage("MIN_WIDTH" + " " + frameModel.getMinFrameWidth());
+        Utils.logMessage("MIN_HIGHT" + " " + frameModel.getMinFrameHeight());
 
-        Utils.logMessage("getWidth1 : "+" "+width1);
-        Utils.logMessage("getHeight1 : "+" "+height1);
-        Utils.logMessage("getWidth2 : "+" "+width2);
-        Utils.logMessage("getHeight2 : "+" "+height2);
-        Utils.logMessage("getWidth3 : "+" "+width3);
-        Utils.logMessage("getHeight3 : "+" "+height3+"\n\n");
+        Utils.logMessage("getWidth1 : " + " " + width1);
+        Utils.logMessage("getHeight1 : " + " " + height1);
+        Utils.logMessage("getWidth2 : " + " " + width2);
+        Utils.logMessage("getHeight2 : " + " " + height2);
+        Utils.logMessage("getWidth3 : " + " " + width3);
+        Utils.logMessage("getHeight3 : " + " " + height3 + "\n\n");
 
         BeanShade3 beanShade3 = ShadeThree.calculateDimentions(frameModel, width1, height1, width2, height2, width3, height3);
 
-        Utils.logMessage("Start"+" ++++++++++++++++++++++++++++++++++++Start");
-        Utils.logMessage("getWidth1 : "+" "+beanShade3.getWidth1());
-        Utils.logMessage("getHeight1 : "+" "+beanShade3.getHeight1());
-        Utils.logMessage("getWidth2 : "+" "+beanShade3.getWidth2());
-        Utils.logMessage("getHeight2 : "+" "+beanShade3.getHeight2());
-        Utils.logMessage("getWidth3 : "+" "+beanShade3.getWidth3());
-        Utils.logMessage("getHeight3 : "+" "+beanShade3.getHeight3());
-        for(int i=0;i<3;i++) Utils.logMessage("image order : "+" "+beanShade3.getImageOrderList().get(i));
+        Utils.logMessage("Start" + " ++++++++++++++++++++++++++++++++++++Start");
+        Utils.logMessage("getWidth1 : " + " " + beanShade3.getWidth1());
+        Utils.logMessage("getHeight1 : " + " " + beanShade3.getHeight1());
+        Utils.logMessage("getWidth2 : " + " " + beanShade3.getWidth2());
+        Utils.logMessage("getHeight2 : " + " " + beanShade3.getHeight2());
+        Utils.logMessage("getWidth3 : " + " " + beanShade3.getWidth3());
+        Utils.logMessage("getHeight3 : " + " " + beanShade3.getHeight3());
+        for(int i=0;i<3;i++) Utils.logMessage("image order : " + " " + beanShade3.getImageOrderList().get(i));
 
-        Utils.logMessage("layoutType : "+" "+beanShade3.getLayoutType());
-        Utils.logMessage("End"+" ++++++++++++++++++++++++++++++++++++End");
+        Utils.logMessage("layoutType : " + " " + beanShade3.getLayoutType());
+        Utils.logMessage("End" + " ++++++++++++++++++++++++++++++++++++End");
 
         imageLink1  = beanImages.get(0).getImageLink();
         imageLink2  = beanImages.get(1).getImageLink();
@@ -128,28 +122,16 @@ public final class ImageShadingThree extends ImageShades {
 
         switch(beanShade3.getLayoutType()){
             case PARALLEL_VERT:
-                ViewTrippleParrVertBinding viewTrippleParrVertBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_tripple_parr_vert, null));
-                viewTrippleParrVertBinding.setClickHandler(this);
-                viewTrippleParrVertBinding.setShadeThree(bindingShadeThree);
-                root = viewTrippleParrVertBinding.getRoot();
+                root = bindingShadeThree.bind(inflater.inflate(R.layout.view_tripple_parr_vert, null), this);
                 break;
             case PARALLEL_HORZ:
-                ViewTrippleParrHorzBinding viewTrippleParrHorzBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_tripple_parr_horz, null));
-                viewTrippleParrHorzBinding.setClickHandler(this);
-                viewTrippleParrHorzBinding.setShadeThree(bindingShadeThree);
-                root = viewTrippleParrHorzBinding.getRoot();
+                root = bindingShadeThree.bind(inflater.inflate(R.layout.view_tripple_parr_horz, null), this);
                 break;
             case VERT:
-                ViewTrippleVertBinding viewTrippleVertBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_tripple_vert, null));
-                viewTrippleVertBinding.setClickHandler(this);
-                viewTrippleVertBinding.setShadeThree(bindingShadeThree);
-                root = viewTrippleVertBinding.getRoot();
+                root = bindingShadeThree.bind(inflater.inflate(R.layout.view_tripple_vert, null), this);
                 break;
             case HORZ:
-                ViewTrippleHorzBinding viewTrippleHorzBinding = DataBindingUtil.bind(inflater.inflate(R.layout.view_tripple_horz, null));
-                viewTrippleHorzBinding.setClickHandler(this);
-                viewTrippleHorzBinding.setShadeThree(bindingShadeThree);
-                root = viewTrippleHorzBinding.getRoot();
+                root = bindingShadeThree.bind(inflater.inflate(R.layout.view_tripple_horz, null), this);
                 break;
             default: throw new FrameException("invalid layout type");
         }
@@ -516,7 +498,7 @@ public final class ImageShadingThree extends ImageShades {
 
         if(totalImages > 3) {
             bindingShadeThree.setCounterVisibility(true);
-            bindingShadeThree.setCounterText("+" + (totalImages - 3));
+            bindingShadeThree.setCounterText((totalImages - 3 > frameModel.getMaxExtraCount() ? (frameModel.getMaxExtraCount() + "+") : ("+" + (totalImages - 3))));
         }
 
         BindingShadeThree.setLayoutWidth(imageView1, beanShade3.getWidth1());
@@ -601,7 +583,7 @@ public final class ImageShadingThree extends ImageShades {
             //need to notify ImageShading too, to load image via picasso
             Utils.logVerbose("IMAGE_LOADING : "+" going to load three image");
             if(frameModel.isShouldStoreImages()){
-                picasso.load(imageLink1).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
+                Utils.getPicassoRequestCreator(picasso, imageLink1).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
@@ -611,10 +593,10 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink1+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView1);
+                        Utils.getPicassoRequestCreator(picasso, imageLink1+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView1);
                     }
                 });
-                picasso.load(imageLink2).fit().centerInside().noPlaceholder().into(imageView2, new Callback() {
+                Utils.getPicassoRequestCreator(picasso, imageLink2).fit().centerInside().noPlaceholder().into(imageView2, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
@@ -624,10 +606,10 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink2+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView2);
+                        Utils.getPicassoRequestCreator(picasso, imageLink2+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView2);
                     }
                 });
-                picasso.load(imageLink3).fit().centerInside().noPlaceholder().into(imageView3, new Callback() {
+                Utils.getPicassoRequestCreator(picasso, imageLink3).fit().centerInside().noPlaceholder().into(imageView3, new Callback() {
                     @Override
                     public void onSuccess() {
                         //do nothing
@@ -637,11 +619,11 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink3+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView3);
+                        Utils.getPicassoRequestCreator(picasso, imageLink3+"?"+System.currentTimeMillis()).fit().centerInside().noPlaceholder().into(imageView3);
                     }
                 });
             }else {
-                picasso.load(imageLink1).memoryPolicy(MemoryPolicy.NO_STORE)
+                Utils.getPicassoRequestCreator(picasso, imageLink1).memoryPolicy(MemoryPolicy.NO_STORE)
                         .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView1, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -652,11 +634,11 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink1+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                        Utils.getPicassoRequestCreator(picasso, imageLink1+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView1);
                     }
                 });
-                picasso.load(imageLink2).memoryPolicy(MemoryPolicy.NO_STORE)
+                Utils.getPicassoRequestCreator(picasso, imageLink2).memoryPolicy(MemoryPolicy.NO_STORE)
                         .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView2, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -667,11 +649,11 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink2+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                        Utils.getPicassoRequestCreator(picasso, imageLink2+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView2);
                     }
                 });
-                picasso.load(imageLink3).memoryPolicy(MemoryPolicy.NO_STORE)
+                Utils.getPicassoRequestCreator(picasso, imageLink3).memoryPolicy(MemoryPolicy.NO_STORE)
                         .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView3, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -682,7 +664,7 @@ public final class ImageShadingThree extends ImageShades {
                     @Override
                     public void onError() {
                         Utils.logVerbose("IMAGE_LOADING error");
-                        picasso.load(imageLink3+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
+                        Utils.getPicassoRequestCreator(picasso, imageLink3+"?"+System.currentTimeMillis()).memoryPolicy(MemoryPolicy.NO_STORE)
                                 .networkPolicy(NetworkPolicy.NO_STORE).fit().centerInside().noPlaceholder().into(imageView3);
                     }
                 });
@@ -705,12 +687,12 @@ public final class ImageShadingThree extends ImageShades {
         boolean hasGreaterVibrantPopulation = vibrantPopulation > mutedPopulation;
         switch(frameModel.getColorCombination()){
             case VIBRANT_TO_MUTED:
-                if(hasGreaterVibrantPopulation)
+                if(hasGreaterVibrantPopulation && vibrantColor > 0)
                     resultColor = vibrantColor;
                 else resultColor = mutedColor;
                 break;
             case MUTED_TO_VIBRANT:
-                if(hasGreaterVibrantPopulation)
+                if(hasGreaterVibrantPopulation && mutedColor > 0)
                     resultColor = mutedColor;
                 else resultColor = vibrantColor;
                 break;
@@ -748,6 +730,16 @@ public final class ImageShadingThree extends ImageShades {
         if(ImageShadingThree.this.resultColor[0] == 0 || ImageShadingThree.this.resultColor[1] == 0 ||ImageShadingThree.this.resultColor[2] == 0) return;
 
         int mixedColor = Utils.getMixedArgbColor(ImageShadingThree.this.resultColor);
+
+        beanBitFrame1.setMutedColor(beanBitFrame1.getMutedColor() <= 0 ? mixedColor : beanBitFrame1.getMutedColor());
+        beanBitFrame1.setVibrantColor(beanBitFrame1.getVibrantColor() <= 0 ? mixedColor : beanBitFrame1.getVibrantColor());
+
+        beanBitFrame2.setMutedColor(beanBitFrame2.getMutedColor() <= 0 ? mixedColor : beanBitFrame2.getMutedColor());
+        beanBitFrame2.setVibrantColor(beanBitFrame2.getVibrantColor() <= 0 ? mixedColor : beanBitFrame2.getVibrantColor());
+
+        beanBitFrame3.setMutedColor(beanBitFrame3.getMutedColor() <= 0 ? mixedColor : beanBitFrame3.getMutedColor());
+        beanBitFrame3.setVibrantColor(beanBitFrame3.getVibrantColor() <= 0 ? mixedColor : beanBitFrame3.getVibrantColor());
+
         int inverseColor = Utils.getInverseColor(mixedColor);
         setColorsToAddMoreView(resultColor, mixedColor, inverseColor);
         frameResult(beanBitFrame1, beanBitFrame2, beanBitFrame3);

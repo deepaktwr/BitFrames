@@ -2,6 +2,7 @@ package proj.me.bitframe.helper;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -14,13 +15,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +58,10 @@ public class Utils {
     public static void logVerbose(String message){
         Log.v(TAG, message);
     }
+    public static void logError(String message){
+        Log.e(TAG, message);
+    }
+
     public static void showToast(Context context,String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
@@ -203,20 +214,15 @@ public class Utils {
     }
 
    /* public static final int COMMENT_TRANSPARENCY_PERCENT = 70;
-
     public static float MIN_WIDTH = 300;
     public static float MIN_HIGHT = 300;
     public static float MAX_WIDTH = 700;
     public static float MAX_HEIGHT = 900;
-
     //show be less than or equal to 4 for now
     public static int MAX_IMAGES_TO_SHOW = 4;
-
     *//*public static final float MIN_RATIO = 0.3f;
     public static final float MAX_RATIO = 0.7f;*//*
-
     public static final float MIN_ADD_RATIO = 0.25f;
-
     //for add in layout
     public static boolean shouldShowAddInLayout(){
         return false;
@@ -225,15 +231,12 @@ public class Utils {
     public static boolean shouldShowComments(){
         return false;
     }
-
     public static boolean showShowDivider(){
         return true;
     }
-
     public static ColorCombination getColorCombo(){
         return ColorCombination.VIBRANT_TO_MUTED;
     }
-
     //for image
     public static int getErrorDrawableId(){
         return 0;
@@ -304,9 +307,15 @@ public class Utils {
     public static BeanResult decodeBitmapFromPath(int reqWidth, int reqHeight, String imagePath, Context context) throws FrameException{
         if(reqWidth == 0 || reqHeight == 0 || TextUtils.isEmpty(imagePath) || context == null)
             throw new IllegalArgumentException("Failed to decode bitmap from path, invalid arguments");
-        boolean hasExtension = !TextUtils.isEmpty(MimeTypeMap.getFileExtensionFromUrl(imagePath));
-        if(hasExtension && imagePath.contains(".")) imagePath=imagePath.substring(0,imagePath.lastIndexOf('.'));
-        Uri fileUri = Uri.parse(imagePath);
+        /*String ext = MimeTypeMap.getFileExtensionFromUrl(imagePath);
+        boolean hasExtension = !TextUtils.isEmpty(ext) && ext.length() > 2;
+        String pth = imagePath.contains(".") ? imagePath.substring(imagePath.indexOf(".") + 1) : "";
+        if(hasExtension && imagePath.contains(".") && pth.length() > 2 && pth.length() < 4)
+            imagePath=imagePath.substring(0,imagePath.lastIndexOf('.'));*/
+
+
+        File file = new File(imagePath);
+        Uri fileUri = file.exists() ? Uri.fromFile(file) : Uri.parse(imagePath);
 
         BitmapFactory.Options options=new BitmapFactory.Options();
         options.inJustDecodeBounds=true;
@@ -355,6 +364,14 @@ public class Utils {
         }
     }
 
+    public static RequestCreator getPicassoRequestCreator(Picasso picasso, String imagePath){
+        if(isLocalPath(imagePath)) {
+            File file = new File(imagePath);
+            Uri fileUri = file.exists() ? Uri.fromFile(file) : Uri.parse(imagePath);
+            return picasso.load(fileUri);
+        }else return picasso.load(imagePath);
+    }
+
     private static BeanResult calculateInSmapleSize(BitmapFactory.Options options, int reqWidth, int reqHeight){
         BeanResult beanResult = new BeanResult();
 
@@ -369,7 +386,6 @@ public class Utils {
         if(height > reqHeight || width > reqWidth){
             /*final int halfHeight = height / 2;
             final int halfWidth = width / 2;
-
             while((halfHeight / inSampleSize > reqHeight) && (halfWidth / inSampleSize) > reqWidth){
                 inSampleSize *= 2;
             }*/
@@ -420,9 +436,11 @@ public class Utils {
     }
 
     public static boolean isLocalPath(String imagePath){
-        if(TextUtils.isEmpty(imagePath)) return false;
+        /*if(TextUtils.isEmpty(imagePath)) return false;
         Uri uri = Uri.parse(imagePath);
-        return (uri != null && uri.getScheme() != null) && (uri.getScheme().equals("content") || uri.getScheme().equals("file"));
+        return (uri != null && uri.getScheme() != null) && (uri.getScheme().equals("content") || uri.getScheme().equals("file"));*/
+        boolean isWeb = Patterns.WEB_URL.matcher(imagePath).matches();
+        return URLUtil.isContentUrl(imagePath) || URLUtil.isDataUrl(imagePath) || URLUtil.isFileUrl(imagePath) || !isWeb;
     }
 
     public static int getVersionColor(Context context, int colorId){

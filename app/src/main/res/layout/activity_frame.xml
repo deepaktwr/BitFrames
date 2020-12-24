@@ -49,7 +49,7 @@
             android:textColor="@{bindingAddText.textColor}"
             android:textSize="@dimen/s_48"
             android:visibility="@{bindingAddText.textVisibility ? View.VISIBLE : View.GONE, default = visible}" />-->
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/extra_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

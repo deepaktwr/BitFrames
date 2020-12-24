@@ -16,6 +16,12 @@ gen/
 .gradle/
 build/
 
+#idea files
+.idea/
+
+#iml files
+*.iml
+
 # Local configuration file (sdk path, etc)
 local.properties
 
@@ -33,7 +39,3 @@ captures/
 
 # Android Studio project backups
 projectFilesBackup/
-
-**/.idea/workspace.xml
-**/.idea/tasks.xml
-.idea/

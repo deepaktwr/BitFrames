@@ -3,7 +3,7 @@ package proj.me.bitframe;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.v7.graphics.Palette;
+import androidx.palette.graphics.Palette;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;

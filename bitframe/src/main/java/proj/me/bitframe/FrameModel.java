@@ -9,13 +9,17 @@ import proj.me.bitframe.helper.ColorCombination;
  */
 public class FrameModel {
     int commentTransparencyPercent;
+    int sortDifferenceThreshold;
     float minFrameWidth;
     float minFrameHeight;
     float maxContainerWidth;
     float maxContainerHeight;
     int maxFrameCount;
+    int maxExtraCount;
     float minAddRatio;
     boolean isAddInLayout;
+    boolean hasLoader;
+    boolean hasLoadingDrawable;
     boolean hasScroll;
     boolean shouldShowComment;
     boolean hasFixedDimensions;
@@ -23,6 +27,7 @@ public class FrameModel {
     ColorCombination colorCombination;
     ImageView.ScaleType scaleType;
     int errorDrawable;
+    int loadingDrawable;
     boolean shouldRecycleBitmaps;
     boolean shouldStoreImages;
 
@@ -64,6 +69,14 @@ public class FrameModel {
 
     public void setCommentTransparencyPercent(int commentTransparencyPercent) {
         this.commentTransparencyPercent = commentTransparencyPercent;
+    }
+
+    public int getSortDifferenceThreshold() {
+        return sortDifferenceThreshold;
+    }
+
+    public void setSortDifferenceThreshold(int sortDifferenceThreshold) {
+        this.sortDifferenceThreshold = sortDifferenceThreshold;
     }
 
     public boolean isHasFixedDimensions() {
@@ -114,6 +127,14 @@ public class FrameModel {
         this.maxFrameCount = maxFrameCount;
     }
 
+    public int getMaxExtraCount() {
+        return maxExtraCount;
+    }
+
+    public void setMaxExtraCount(int maxExtraCount) {
+        this.maxExtraCount = maxExtraCount;
+    }
+
     public float getMinAddRatio() {
         return minAddRatio;
     }
@@ -160,5 +181,29 @@ public class FrameModel {
 
     public void setErrorDrawable(int errorDrawable) {
         this.errorDrawable = errorDrawable;
+    }
+
+    public boolean isHasLoader() {
+        return hasLoader;
+    }
+
+    public void setHasLoader(boolean hasLoader) {
+        this.hasLoader = hasLoader;
+    }
+
+    public boolean isHasLoadingDrawable() {
+        return hasLoadingDrawable;
+    }
+
+    public void setHasLoadingDrawable(boolean hasLoadingDrawable) {
+        this.hasLoadingDrawable = hasLoadingDrawable;
+    }
+
+    public int getLoadingDrawable() {
+        return loadingDrawable;
+    }
+
+    public void setLoadingDrawable(int loadingDrawable) {
+        this.loadingDrawable = loadingDrawable;
     }
 }

@@ -1,7 +1,7 @@
 package proj.me.bitframe;
 
 import android.graphics.Bitmap;
-import android.support.v7.graphics.Palette;
+import androidx.palette.graphics.Palette;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
@@ -65,14 +65,14 @@ public abstract class ImageShades implements ImageClickHandler{
 
     public static class PaletteListener implements Palette.PaletteAsyncListener{
         int viewId;
-        WeakReference<ImageShades> imageShadesWeakReference;
+        WeakReference<ImageShades> imageShadesSoftReference;
         public PaletteListener(int viewId, ImageShades imageShades){
             this.viewId = viewId;
-            imageShadesWeakReference = new WeakReference<>(imageShades);
+            imageShadesSoftReference = new WeakReference<>(imageShades);
         }
         @Override
         public void onGenerated(Palette palette) {
-            ImageShades imageShades = imageShadesWeakReference.get();
+            ImageShades imageShades = imageShadesSoftReference.get();
             if(imageShades == null) return;
             try {
                 imageShades.onPaletteGenerated(palette, viewId);
