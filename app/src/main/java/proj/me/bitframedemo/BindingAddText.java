@@ -1,50 +1,45 @@
 package proj.me.bitframedemo;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
+import android.content.res.ColorStateList;
+import android.os.Build;
+import android.view.View;
+import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * Created by root on 23/4/16.
  */
-public class BindingAddText extends BaseObservable{
-    private String addText;
-    private boolean textVisibility;
-    private boolean errorVisibility;
-    private int textColor;
+public class BindingAddText {
+    private View root;
 
-    @Bindable public String getAddText() {
-        return addText;
-    }
+    View bind(View root, final IntentAction clickHandler) {
+        this.root = root;
 
-    public void setAddText(String addText) {
-        this.addText = addText;
-        notifyPropertyChanged(BR.addText);
-    }
+        root.findViewById(R.id.extra_text).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickHandler.addMoreImages(view);
+            }
+        });
 
-    @Bindable public boolean isTextVisibility() {
-        return textVisibility;
+        return root;
     }
 
     public void setTextVisibility(boolean textVisibility) {
-        this.textVisibility = textVisibility;
-        notifyPropertyChanged(BR.textVisibility);
-    }
-
-    @Bindable public int getTextColor() {
-        return textColor;
+        FloatingActionButton floatingActionButton = root.findViewById(R.id.extra_text);
+        floatingActionButton.setVisibility(textVisibility ? View.VISIBLE : View.GONE);
     }
 
     public void setTextColor(int textColor) {
-        this.textColor = textColor;
-        notifyPropertyChanged(BR.textColor);
-    }
-
-    @Bindable public boolean isErrorVisibility() {
-        return errorVisibility;
+        FloatingActionButton floatingActionButton = root.findViewById(R.id.extra_text);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            floatingActionButton.setImageTintList(ColorStateList.valueOf(textColor));
+        } else floatingActionButton.setSupportImageTintList(ColorStateList.valueOf(textColor));
     }
 
     public void setErrorVisibility(boolean errorVisibility) {
-        this.errorVisibility = errorVisibility;
-        notifyPropertyChanged(BR.errorVisibility);
+        TextView textView = root.findViewById(R.id.error_text);
+        textView.setVisibility(errorVisibility ? View.VISIBLE : View.GONE);
     }
 }

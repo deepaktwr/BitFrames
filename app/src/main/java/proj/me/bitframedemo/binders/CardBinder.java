@@ -1,54 +1,46 @@
 package proj.me.bitframedemo.binders;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
 
-import proj.me.bitframedemo.BR;
+import android.view.View;
+import android.widget.TextView;
+
+import proj.me.bitframe.ViewFrame;
+import proj.me.bitframedemo.R;
 
 /**
  * Created by root on 20/9/16.
  */
 
-public class CardBinder extends BaseObservable{
-    private String title;
-    private String description;
-    private int titleColor;
-    private int descriptionColor;
+public class CardBinder {
 
+    private View root;
 
-    @Bindable public String getTitle() {
-        return title;
+    public View bind(View root) {
+        this.root = root;
+        return root;
+    }
+
+    public ViewFrame viewFrame() {
+        return root.findViewById(R.id.view_frame);
     }
 
     public void setTitle(String title) {
-        this.title = title;
-        notifyPropertyChanged(BR.title);
-    }
-
-    @Bindable public String getDescription() {
-        return description;
+        TextView textView = root.findViewById(R.id.title_text);
+        textView.setText(title);
     }
 
     public void setDescription(String description) {
-        this.description = description;
-        notifyPropertyChanged(BR.description);
-    }
-
-    @Bindable public int getTitleColor() {
-        return titleColor;
+        TextView textView = root.findViewById(R.id.description_text);
+        textView.setText(description);
     }
 
     public void setTitleColor(int titleColor) {
-        this.titleColor = titleColor;
-        notifyPropertyChanged(BR.titleColor);
-    }
-
-    @Bindable public int getDescriptionColor() {
-        return descriptionColor;
+        TextView textView = root.findViewById(R.id.title_text);
+        textView.setTextColor(titleColor);
     }
 
     public void setDescriptionColor(int descriptionColor) {
-        this.descriptionColor = descriptionColor;
-        notifyPropertyChanged(BR.descriptionColor);
+        TextView textView = root.findViewById(R.id.description_text);
+        textView.setTextColor(descriptionColor);
     }
 }

@@ -1,7 +1,6 @@
 package proj.me.bitframedemo.adapter;
 
 import android.content.Context;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import proj.me.bitframe.helper.Utils;
 import proj.me.bitframedemo.R;
 import proj.me.bitframedemo.beans.FrameBean;
 import proj.me.bitframedemo.binders.CardBinder;
-import proj.me.bitframedemo.databinding.CardContainerBinding;
 
 /**
  * Created by root on 20/9/16.
@@ -45,10 +43,10 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         FrameBean frameBean = frameBeanList.get(position);
         Utils.logVerbose("IMAGE_LOADING : "+" came to load view frame at "+position);
-        holder.cardContainerBinding.viewFrame.clearContainerChilds();
+        holder.cardBinder.viewFrame().clearContainerChilds();
         holder.cardBinder.setTitle(frameBean.getTitle());
         holder.cardBinder.setDescription(frameBean.getDescription());
-        holder.cardContainerBinding.viewFrame.showBitFrame(frameBean.getBeanBitFrameList(), holder, FrameType.FRAMED);
+        holder.cardBinder.viewFrame().showBitFrame(frameBean.getBeanBitFrameList(), holder, FrameType.FRAMED);
     }
 
     @Override
@@ -57,20 +55,17 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements FrameCallback {
-        CardContainerBinding cardContainerBinding;
         CardBinder cardBinder = new CardBinder();
         public ViewHolder(View itemView, int containerWidth, int containerHeight) {
             super(itemView);
-            cardContainerBinding = DataBindingUtil.bind(itemView);
-            cardContainerBinding.setCardBinder(cardBinder);
+            cardBinder.bind(itemView);
+            cardBinder.viewFrame().setFrameDimensions(0, 0, containerWidth, containerHeight);
 
-            cardContainerBinding.viewFrame.setFrameDimensions(0, 0, containerWidth, containerHeight);
-
-            ViewGroup.LayoutParams layoutParams = cardContainerBinding.viewFrame.getLayoutParams();
+            ViewGroup.LayoutParams layoutParams = cardBinder.viewFrame().getLayoutParams();
             layoutParams.width = containerWidth;
             layoutParams.height = containerHeight;
-            cardContainerBinding.viewFrame.setLayoutParams(layoutParams);
-            cardContainerBinding.viewFrame.invalidate();
+            cardBinder.viewFrame().setLayoutParams(layoutParams);
+            cardBinder.viewFrame().invalidate();
         }
 
         @Override

@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 
 import androidx.core.app.NotificationCompat;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Environment;
@@ -43,7 +42,6 @@ import proj.me.bitframe.helper.Utils;
 
 import proj.me.bitframedemo.beans.BaseResponse;
 import proj.me.bitframedemo.beans.NextBundle;
-import proj.me.bitframedemo.databinding.ActivityFrameBinding;
 import proj.me.bitframedemo.helper.Constants;
 import proj.me.bitframedemo.network.RetrofitClient;
 import proj.me.bitframedemo.network.RetrofitImpl;
@@ -84,10 +82,10 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityFrameBinding activityFrameBinding = DataBindingUtil.setContentView(this, R.layout.activity_frame);
-        activityFrameBinding.setClickHandler(this);
+        setContentView(R.layout.activity_frame);
+
         bindingAddText = new BindingAddText();
-        activityFrameBinding.setBindingAddText(bindingAddText);
+        bindingAddText.bind(findViewById(R.id.activity_frame_container), this);
 
         screenWidth = getResources().getDisplayMetrics().widthPixels;
 
@@ -108,7 +106,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         floatingActionButton = (FloatingActionButton)findViewById(R.id.extra_text);
         floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(Utils.getVersionColor(this, R.color.colorPrimary)));
 
-        bindingAddText.setAddText("+");
+        //bindingAddText.setAddText("+");
         bindingAddText.setTextColor(Utils.getVersionColor(this, R.color.white));
         bindingAddText.setTextVisibility(true);
 
@@ -527,7 +525,7 @@ public class FrameActivity extends BaseActivity implements FrameCallback, Intent
         viewFrame.clearContainerChilds();
         viewFrame.invalidate();
         floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(Utils.getVersionColor(this, R.color.colorPrimary)));
-        bindingAddText.setAddText("+");
+        //bindingAddText.setAddText("+");
         bindingAddText.setTextColor(Utils.getVersionColor(this, R.color.white));
         bindingAddText.setTextVisibility(true);
         bindingAddText.setErrorVisibility(true);

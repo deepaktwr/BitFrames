@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -26,7 +25,6 @@ import proj.me.bitframedemo.beans.FrameBean;
 import proj.me.bitframedemo.beans.FrameResponse;
 import proj.me.bitframedemo.binders.FrameBinder;
 import proj.me.bitframedemo.broadcasts.UploadReceiver;
-import proj.me.bitframedemo.databinding.FrameRecyclerBinding;
 import proj.me.bitframedemo.helper.Constants;
 import proj.me.bitframedemo.network.DownloadImpl;
 import proj.me.bitframedemo.network.RetrofitClient;
@@ -50,9 +48,8 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         frameBinder = new FrameBinder();
-        final FrameRecyclerBinding frameRecyclerBinding = DataBindingUtil.setContentView(this, R.layout.frame_recycler);
-        frameRecyclerBinding.setOnClickHandler(this);
-        frameRecyclerBinding.setFrameBinder(frameBinder);
+        setContentView(R.layout.frame_recycler);
+        frameBinder.bind(findViewById(R.id.root_layout), this);
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
 
@@ -65,23 +62,23 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
         Utils.logMessage("DISPLAY : "+maxW+" "+maxH);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        frameRecyclerBinding.recyclerFrame.setLayoutManager(linearLayoutManager);
+        frameBinder.recyclerFrame().setLayoutManager(linearLayoutManager);
         frameBeanList = new ArrayList<>();
         frameAdapter = new FrameAdapter(maxW, maxH, frameBeanList);
-        frameRecyclerBinding.recyclerFrame.setAdapter(frameAdapter);
+        frameBinder.recyclerFrame().setAdapter(frameAdapter);
 
 
-        frameRecyclerBinding.recyclerFrame.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        frameBinder.recyclerFrame().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if(newState == RecyclerView.SCROLL_STATE_IDLE) frameRecyclerBinding.fab.show();
+                if(newState == RecyclerView.SCROLL_STATE_IDLE) frameBinder.fab().show();
                 super.onScrollStateChanged(recyclerView, newState);
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if(dy > 0 || dy<0 && frameRecyclerBinding.fab.isShown()) frameRecyclerBinding.fab.hide();
+                if(dy > 0 || dy<0 && frameBinder.fab().isShown()) frameBinder.fab().hide();
             }
         });
 

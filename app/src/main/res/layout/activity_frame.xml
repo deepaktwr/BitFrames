@@ -1,67 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    android:id="@+id/activity_frame_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:frame="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="proj.me.bitframedemo.FrameActivity">
 
-    <data>
+    <proj.me.bitframe.ViewFrame
+        android:id="@+id/view_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_10"
+        frame:hasFixedDimensions="@bool/bool_true"
+        frame:shouldShowComment="@bool/bool_false" />
 
-        <import type="android.view.View" />
-
-        <variable
-            name="bindingAddText"
-            type="proj.me.bitframedemo.BindingAddText" />
-
-        <variable
-            name="clickHandler"
-            type="proj.me.bitframedemo.IntentAction" />
-    </data>
-
-    <RelativeLayout
-        xmlns:frame="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="proj.me.bitframedemo.FrameActivity">
-
-        <proj.me.bitframe.ViewFrame
-            android:id="@+id/view_frame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            frame:hasFixedDimensions="@bool/bool_true"
-            frame:shouldShowComment="@bool/bool_false"
-            android:layout_marginTop="@dimen/d_10"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="No Attchments"
-            android:visibility="@{bindingAddText.errorVisibility ? View.VISIBLE : View.GONE}"/>
-        <!--<TextView
-            android:id="@+id/extra_text"
-            android:layout_width="@dimen/d_64"
-            android:layout_height="@dimen/d_64"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/d_7"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/d_10"
-            android:background="@drawable/round_bg"
-            android:gravity="center"
-            android:onClick="@{clickHandler::addMoreImages}"
-            android:text="@{bindingAddText.addText}"
-            android:textColor="@{bindingAddText.textColor}"
-            android:textSize="@dimen/s_48"
-            android:visibility="@{bindingAddText.textVisibility ? View.VISIBLE : View.GONE, default = visible}" />-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/extra_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/d_7"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/d_10"
-            android:onClick="@{clickHandler::addMoreImages}"
-            android:tag="add"
-            android:src="@android:drawable/ic_input_add"
-            android:tint="@{bindingAddText.textColor, default = @android:color/background_light}"
-            android:visibility="@{bindingAddText.textVisibility ? View.VISIBLE : View.GONE, default = visible}"/>
-    </RelativeLayout>
-</layout>
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No Attchments" />
+    <!--<TextView
+        android:id="@+id/extra_text"
+        android:layout_width="@dimen/d_64"
+        android:layout_height="@dimen/d_64"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/d_7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/d_10"
+        android:background="@drawable/round_bg"
+        android:gravity="center"
+        android:onClick="@{clickHandler::addMoreImages}"
+        android:text="@{bindingAddText.addText}"
+        android:textColor="@{bindingAddText.textColor}"
+        android:textSize="@dimen/s_48"
+        android:visibility="@{bindingAddText.textVisibility ? View.VISIBLE : View.GONE, default = visible}" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/extra_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="@dimen/d_10"
+        android:layout_marginBottom="@dimen/d_7"
+        android:src="@android:drawable/ic_input_add"
+        android:tag="add"
+        android:tint="@android:color/background_light"
+        android:visibility="visible" />
+</RelativeLayout>

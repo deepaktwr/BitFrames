@@ -1,59 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="frameBinder"
-            type="proj.me.bitframedemo.binders.FrameBinder" />
-
-        <variable
-            name="onClickHandler"
-            type="android.view.View.OnClickListener" />
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/root_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{frameBinder.hasData?View.VISIBLE:View.GONE}" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:onClick="@{onClickHandler::onClick}"
-                android:text="@{frameBinder.errorText}"
-                android:tag="reload"
-                android:textColor="@color/forgot"
-                android:visibility="@{frameBinder.hasData?View.GONE:View.VISIBLE}" />
-
-        </RelativeLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+        <TextView
+            android:id="@+id/error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/d_20"
-            android:onClick="@{onClickHandler::onClick}"
-            android:tag="add"
-            android:src="@android:drawable/ic_input_add"
-            android:tint="@android:color/background_light"/>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:tag="reload"
+            android:textColor="@color/forgot" />
 
-</layout>
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/d_20"
+        android:src="@android:drawable/ic_input_add"
+        android:tag="add"
+        android:tint="@android:color/background_light" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
