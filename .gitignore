@@ -33,3 +33,6 @@ captures/
 
 # Android Studio project backups
 projectFilesBackup/
+
+**/.idea/workspace.xml
+**/.idea/tasks.xml
