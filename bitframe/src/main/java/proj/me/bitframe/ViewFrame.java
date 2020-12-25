@@ -34,7 +34,6 @@ public class ViewFrame extends LinearLayout{
 
     LayoutInflater layoutInflater;
     RelativeLayout imageContainer;
-    ImageView loadingBackground;
 
     BinadingBitFrame binadingBitFrame;
 
@@ -126,7 +125,6 @@ public class ViewFrame extends LinearLayout{
             Utils.logVerbose("frame result came");
             //might be called multiple times
             beanBitFramesResult.addAll(Arrays.asList(beanBitFrames));
-
             if(linkCount == beanBitFramesResult.size()) frameCallback.frameResult(beanBitFramesResult, viewFrame);
         }
 
@@ -209,7 +207,6 @@ public class ViewFrame extends LinearLayout{
         }
 
         imageContainer = (RelativeLayout)view.findViewById(R.id.parent_relative);
-        loadingBackground = (ImageView) view.findViewById(R.id.loading_background);
 
         if(attrs == null) return;
 
@@ -533,24 +530,9 @@ public class ViewFrame extends LinearLayout{
             Utils.logMessage("setting min ad ratio to 25 percent (0.25)");
         }
 
-        //based on max container width and height
-        //set loader and background loading drawable
-        loadingBackground.getLayoutParams().height = (int) frameModel.getMaxContainerHeight();
-        loadingBackground.getLayoutParams().width = (int) frameModel.getMaxContainerWidth();
-
-        if(frameModel.isHasLoadingDrawable()) loadingBackground.setImageResource(frameModel.getLoadingDrawable());
-        else loadingBackground.setImageResource(0);
-
-        loadingBackground.invalidate();
-
-
         MyImageCallback imageCallback = new MyImageCallback(this, frameCallback, beanImageList.size());
         setTag(R.id.frame_tag, imageCallback.hashCode());
-
         imageShading = new ImageShading(this.getContext(), imageCallback, frameModel, currentFramePicasso);
-
-        if(frameModel.isHasLoader()) binadingBitFrame.setProgressBarVisibility(true);
-        else binadingBitFrame.setProgressBarVisibility(false);
 
         imageContainer.removeAllViews();
 
@@ -580,7 +562,6 @@ public class ViewFrame extends LinearLayout{
     public void clearContainerChilds(){
         Utils.logVerbose("clearing views");
         Utils.unbindDrawables(imageContainer, false, frameModel.isShouldRecycleBitmaps());
-        Utils.unbindDrawables(loadingBackground, false, frameModel.isShouldRecycleBitmaps());
 
     }
 
@@ -600,7 +581,6 @@ public class ViewFrame extends LinearLayout{
 
         layoutInflater = null;
         imageContainer = null;
-        loadingBackground = null;
         binadingBitFrame = null;
         frameModel = null;
         if(targets != null) {
