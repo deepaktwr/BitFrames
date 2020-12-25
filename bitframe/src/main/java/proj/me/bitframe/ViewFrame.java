@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -125,6 +126,7 @@ public class ViewFrame extends LinearLayout{
             Utils.logVerbose("frame result came");
             //might be called multiple times
             beanBitFramesResult.addAll(Arrays.asList(beanBitFrames));
+
             if(linkCount == beanBitFramesResult.size()) frameCallback.frameResult(beanBitFramesResult, viewFrame);
         }
 
@@ -530,7 +532,6 @@ public class ViewFrame extends LinearLayout{
 
             Utils.logMessage("setting min ad ratio to 25 percent (0.25)");
         }
-
 
         //based on max container width and height
         //set loader and background loading drawable

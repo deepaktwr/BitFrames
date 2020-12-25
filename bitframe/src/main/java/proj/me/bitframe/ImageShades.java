@@ -6,10 +6,12 @@ import android.view.View;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 import proj.me.bitframe.exceptions.FrameException;
+import proj.me.bitframe.helper.Utils;
 
 /**
  * Created by root on 23/9/16.

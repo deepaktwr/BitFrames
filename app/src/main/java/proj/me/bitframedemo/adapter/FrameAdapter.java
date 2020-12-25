@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.List;
 import proj.me.bitframe.BeanBitFrame;
 import proj.me.bitframe.FrameCallback;
@@ -31,7 +30,6 @@ public class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.ViewHolder>{
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

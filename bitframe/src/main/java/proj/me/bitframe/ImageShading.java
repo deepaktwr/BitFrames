@@ -10,6 +10,7 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +60,6 @@ final class ImageShading implements ImageResult{
         frameHandler = new FrameHandler(this);
         recycleHandler = new RecycleHandler(this);
         this.picasso = picasso;
-
         SORT_DIFFERENCE_THRESHOLD = frameModel.getSortDifferenceThreshold();
     }
 

@@ -30,8 +30,8 @@ class UnframedPicassoTargetNew implements Target {
     @Override
     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
         ImageResult imageResult = imageResultSoftReference.get();
-        if(imageResult == null) return;
-        Utils.logMessage("Came image loaded -> "+imageResult.getCounter() + " bit width = "+bitmap.getWidth()+" height "+bitmap.getHeight());
+        if (imageResult == null) return;
+        Utils.logMessage("Came image loaded -> " + imageResult.getCounter() + " bit width = " + bitmap.getWidth() + " height " + bitmap.getHeight());
         imageResult.callNextCycle(beanImage.getImageLink());
         imageResult.handleTransformedResult(bitmap, bitmap.getWidth() > 1 ? beanImage : null);
     }
@@ -39,11 +39,11 @@ class UnframedPicassoTargetNew implements Target {
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
         ImageResult imageResult = imageResultSoftReference.get();
-        if(imageResult == null) return;
+        if (imageResult == null) return;
         boolean doneLoading = imageResult.getCounter() == (imageResult.getFrameModel().getMaxFrameCount()
                 >= imageResult.getTotalImages() ? imageResult.getTotalImages()
                 : imageResult.getFrameModel().getMaxFrameCount()) - 1;
-        if(doneLoading) imageResult.updateCounter();
+        if (doneLoading) imageResult.updateCounter();
         imageResult.setDoneLoading(doneLoading);
         try {
             imageResult.onImageLoaded(false, null, beanImage);
@@ -55,7 +55,7 @@ class UnframedPicassoTargetNew implements Target {
         BeanBitFrame beanBitFrame = new BeanBitFrame();
         imageResult.getImageCallback().frameResult(beanBitFrame);
 
-        Utils.logVerbose("Came image failed -> "+imageResult.getCounter());
+        Utils.logVerbose("Came image failed -> " + imageResult.getCounter());
         imageResult.callNextCycle(null);
     }
 
@@ -66,9 +66,9 @@ class UnframedPicassoTargetNew implements Target {
 
     @Override
     public boolean equals(Object o) {
-        if(o == this) return true;
-        if(!(o instanceof UnframedPicassoTargetNew)) return false;
-        BeanImage beanImageTarget = ((UnframedPicassoTargetNew)o).beanImage;
+        if (o == this) return true;
+        if (!(o instanceof UnframedPicassoTargetNew)) return false;
+        BeanImage beanImageTarget = ((UnframedPicassoTargetNew) o).beanImage;
         return beanImage.getImageLink().equals(beanImageTarget.getImageLink())
                 && (beanImage.getImageComment() == null || beanImage.getImageComment().equals(beanImageTarget.getImageComment()))
                 && beanImage.getPrimaryCount() == beanImageTarget.getPrimaryCount()
@@ -82,7 +82,8 @@ class UnframedPicassoTargetNew implements Target {
 
         //result = 31 * result + beanImage.hashCode(); -- because bean image properties needs to to checked not bean image itself
         result = 31 * result + beanImage.getImageLink().hashCode();
-        if(beanImage.getImageComment() != null) result = 31 * result + beanImage.getImageComment().hashCode();
+        if (beanImage.getImageComment() != null)
+            result = 31 * result + beanImage.getImageComment().hashCode();
         result = 31 * result + beanImage.getPrimaryCount();
         result = 31 * result + beanImage.getSecondaryCount();
 

@@ -5,6 +5,9 @@ import androidx.palette.graphics.Palette;
 
 import java.lang.ref.WeakReference;
 
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
+
 import proj.me.bitframe.exceptions.FrameException;
 import proj.me.bitframe.helper.BeanResult;
 import proj.me.bitframe.helper.Utils;

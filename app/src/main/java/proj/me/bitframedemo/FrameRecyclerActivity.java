@@ -172,7 +172,7 @@ public class FrameRecyclerActivity extends BaseActivity implements View.OnClickL
                         //because picasso is not loading IMG_currentTimeInMillis_1
                         //while it's loading imgcurrentTimeInMillis1m.png
                         //if(!bundle.getImgName().contains(".png")) continue;
-                        //so for picasso i thing the extension is required
+                        //so for picasso i think the extension is required
                         BeanBitFrame beanBitFrame = new BeanBitFrame();
                         beanBitFrame.setHasGreaterVibrantPopulation(bundle.isHasGreaterVibrant());
                         beanBitFrame.setPrimaryCount(bundle.getPrimaryCount());
