@@ -173,7 +173,7 @@ repositories {
     jcenter()
 }
 dependencies{
-    compile 'com.github.deepaktwr:bitframe:0.1.3'
+    api 'com.github.deepaktwr:bitframe:0.1.8'
 }
 ```
 
@@ -185,24 +185,11 @@ dependencies{
 this library usage two gradle dependencies:
 ```code
 dependencies {
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:palette-v7:23.2.1'
+    api 'com.squareup.picasso:picasso:2.5.2'
+    api 'androidx.palette:palette:1.0.0'
 }
 ```
 
 which has been included in the library.
-
-
-
-
-### Note :
-include
-```code
-dataBinding{
-        enabled = true;
-   }
-```
-
-into your gradle as library uses databinding.
 
 **_*_** *_the library have dependencies of picasso and palette to load images and fetch palette.please don't include these depedencies into your own build.gradle, you may use them directly from the library._*
