@@ -25,7 +25,8 @@
         android:paddingBottom="@dimen/d_10"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/s_20" />
+        android:textSize="@dimen/s_20"
+        android:visibility="invisible"/>
 
     <LinearLayout
         android:id="@+id/image_one_counter_container"
@@ -38,7 +39,8 @@
         android:layout_alignRight="@id/view_single_image"
         android:layout_alignBottom="@id/view_single_image"
         android:background="@color/counter_bg"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/counter_text"

@@ -35,7 +35,8 @@
             android:paddingBottom="@dimen/d_10"
             android:singleLine="true"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -72,7 +73,8 @@
             android:paddingBottom="@dimen/d_10"
             android:singleLine="true"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -90,7 +92,9 @@
         android:layout_toRightOf="@id/left_rl_view"
         android:background="@color/add_counter_bg"
         android:gravity="center"
-        android:tag="add">
+        android:tag="add"
+        android:visibility="gone"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/add_text"
@@ -98,7 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/d_50"/>
     </LinearLayout>
 
     <LinearLayout
@@ -112,7 +117,8 @@
         android:layout_alignRight="@id/right_rl_view"
         android:layout_alignBottom="@id/right_rl_view"
         android:background="@color/counter_bg"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/counter_text"
