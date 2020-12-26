@@ -36,7 +36,8 @@
             android:paddingBottom="@dimen/d_10"
             android:singleLine="true"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -75,7 +76,8 @@
             android:paddingBottom="@dimen/d_10"
             android:singleLine="true"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -113,7 +115,8 @@
             android:paddingBottom="@dimen/d_10"
             android:singleLine="true"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -153,7 +156,8 @@
             android:paddingBottom="@dimen/d_10"
             android:singleLine="true"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -167,7 +171,8 @@
         android:layout_alignRight="@id/bottom_right_rl_view"
         android:layout_alignBottom="@id/bottom_right_rl_view"
         android:background="@color/counter_bg"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/image_four_counter"
